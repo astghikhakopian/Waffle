@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3845207E97F5000CB9DF /* AppDelegate.swift */; };
-		EF9E3848207E97F5000CB9DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3847207E97F5000CB9DF /* ViewController.swift */; };
+		EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3847207E97F5000CB9DF /* LoginViewController.swift */; };
 		EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3849207E97F5000CB9DF /* Main.storyboard */; };
 		EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF9E384C207E97F5000CB9DF /* Waffle.xcdatamodeld */; };
 		EF9E3850207E97F6000CB9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF9E384F207E97F6000CB9DF /* Assets.xcassets */; };
 		EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */; };
 		EF9E385E207E97F6000CB9DF /* WaffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E385D207E97F6000CB9DF /* WaffleTests.swift */; };
 		EF9E3869207E97F6000CB9DF /* WaffleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */; };
+		F6AFFEEF7EB3D365AA397402 /* Pods_Waffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
+		DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.debug.xcconfig"; sourceTree = "<group>"; };
 		EF9E3842207E97F4000CB9DF /* Waffle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waffle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9E3845207E97F5000CB9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EF9E3847207E97F5000CB9DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EF9E3847207E97F5000CB9DF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EF9E384A207E97F5000CB9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF9E384D207E97F5000CB9DF /* Waffle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Waffle.xcdatamodel; sourceTree = "<group>"; };
 		EF9E384F207E97F6000CB9DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6AFFEEF7EB3D365AA397402 /* Pods_Waffle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +81,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D813C121AEEADDC8832AF38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */,
+				4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B24DDEB016F3D437C2DFBAB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EF9E3839207E97F4000CB9DF = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +105,8 @@
 				EF9E385C207E97F6000CB9DF /* WaffleTests */,
 				EF9E3867207E97F6000CB9DF /* WaffleUITests */,
 				EF9E3843207E97F4000CB9DF /* Products */,
+				2D813C121AEEADDC8832AF38 /* Pods */,
+				B24DDEB016F3D437C2DFBAB2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				EF9E3845207E97F5000CB9DF /* AppDelegate.swift */,
-				EF9E3847207E97F5000CB9DF /* ViewController.swift */,
+				EF9E3847207E97F5000CB9DF /* LoginViewController.swift */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
 				EF9E384F207E97F6000CB9DF /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
@@ -135,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF9E386D207E97F6000CB9DF /* Build configuration list for PBXNativeTarget "Waffle" */;
 			buildPhases = (
+				5B0382AF051AA9207A45CA15 /* [CP] Check Pods Manifest.lock */,
 				EF9E383E207E97F4000CB9DF /* Sources */,
 				EF9E383F207E97F4000CB9DF /* Frameworks */,
 				EF9E3840207E97F4000CB9DF /* Resources */,
+				88A450A17555BF422E0CD9C7 /* [CP] Embed Pods Frameworks */,
+				A90C2F4336BC7B28795A8568 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,12 +280,82 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5B0382AF051AA9207A45CA15 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Waffle-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88A450A17555BF422E0CD9C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Waffle/Pods-Waffle-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Waffle/Pods-Waffle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A90C2F4336BC7B28795A8568 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Waffle/Pods-Waffle-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EF9E383E207E97F4000CB9DF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF9E3848207E97F5000CB9DF /* ViewController.swift in Sources */,
+				EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,
 			);
@@ -431,6 +528,7 @@
 		};
 		EF9E386E207E97F6000CB9DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -448,6 +546,7 @@
 		};
 		EF9E386F207E97F6000CB9DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
