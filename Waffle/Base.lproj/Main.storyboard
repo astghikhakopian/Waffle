@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,6 +42,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="141.59999999999999" y="133.5832083958021"/>
+        </scene>
+        <!--Logged In View Controller-->
+        <scene sceneID="t8F-Ew-pqe">
+            <objects>
+                <viewController storyboardIdentifier="loggedInVC" id="tVV-DH-eKZ" customClass="LoggedInViewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iIf-xY-DE6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOe-WU-Mq3">
+                                <rect key="frame" x="150" y="323" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYw-7o-jfK">
+                                <rect key="frame" x="163" y="561" width="48" height="30"/>
+                                <state key="normal" title="log out"/>
+                                <connections>
+                                    <action selector="logOut" destination="tVV-DH-eKZ" eventType="touchUpInside" id="XgV-xU-H2L"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.83137254900000002" green="0.86274509799999999" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="3Kk-f0-wZx"/>
+                            <constraint firstItem="sLA-NB-JSL" firstAttribute="bottom" secondItem="gYw-7o-jfK" secondAttribute="bottom" constant="76" id="Abs-vd-Fp7"/>
+                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerY" secondItem="iIf-xY-DE6" secondAttribute="centerY" id="R6M-81-cTT"/>
+                            <constraint firstItem="gYw-7o-jfK" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="aRB-zl-waN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sLA-NB-JSL"/>
+                    </view>
+                    <connections>
+                        <outlet property="usernameLabel" destination="TOe-WU-Mq3" id="J13-ON-ktn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mRu-Xg-dJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1033" y="134"/>
         </scene>
     </scenes>
     <resources>

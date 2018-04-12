@@ -15,6 +15,9 @@
 		EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */; };
 		EF9E385E207E97F6000CB9DF /* WaffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E385D207E97F6000CB9DF /* WaffleTests.swift */; };
 		EF9E3869207E97F6000CB9DF /* WaffleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */; };
+		EFED2D76207FE711009897F5 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D75207FE711009897F5 /* LoggedInViewController.swift */; };
+		EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */; };
+		EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */; };
 		F6AFFEEF7EB3D365AA397402 /* Pods_Waffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +56,9 @@
 		EF9E3864207E97F6000CB9DF /* WaffleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaffleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaffleUITests.swift; sourceTree = "<group>"; };
 		EF9E386A207E97F6000CB9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFED2D75207FE711009897F5 /* LoggedInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
+		EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIConstants.swift; sourceTree = "<group>"; };
+		EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,12 +129,15 @@
 		EF9E3844207E97F4000CB9DF /* Waffle */ = {
 			isa = PBXGroup;
 			children = (
+				EFED2D77207FE732009897F5 /* Rest */,
 				EF9E3845207E97F5000CB9DF /* AppDelegate.swift */,
 				EF9E3847207E97F5000CB9DF /* LoginViewController.swift */,
+				EFED2D75207FE711009897F5 /* LoggedInViewController.swift */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
 				EF9E384F207E97F6000CB9DF /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
 				EF9E3854207E97F6000CB9DF /* Info.plist */,
+				EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */,
 				EF9E384C207E97F5000CB9DF /* Waffle.xcdatamodeld */,
 			);
 			path = Waffle;
@@ -150,6 +159,14 @@
 				EF9E386A207E97F6000CB9DF /* Info.plist */,
 			);
 			path = WaffleUITests;
+			sourceTree = "<group>";
+		};
+		EFED2D77207FE732009897F5 /* Rest */ = {
+			isa = PBXGroup;
+			children = (
+				EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */,
+			);
+			path = Rest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */,
+				EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */,
 				EF9E3850207E97F6000CB9DF /* Assets.xcassets in Resources */,
 				EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */,
 			);
@@ -358,6 +376,8 @@
 				EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,
+				EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */,
+				EFED2D76207FE711009897F5 /* LoggedInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
