@@ -18,9 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyy-ev-Vj8">
-                                <rect key="frame" x="138" y="318" width="98" height="30"/>
-                                <state key="normal" title="fbLoginButton"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyy-ev-Vj8">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="yjc-aj-wc9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" backgroundImage="fb"/>
                                 <connections>
                                     <action selector="fbLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Rs-M0-ZBt"/>
                                 </connections>
@@ -28,14 +32,19 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Gyy-ev-Vj8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="K2G-WZ-mFy"/>
-                            <constraint firstItem="Gyy-ev-Vj8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="b0k-HB-xqy"/>
+                            <constraint firstItem="Gyy-ev-Vj8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Z8u-oc-rJW"/>
+                            <constraint firstItem="Gyy-ev-Vj8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dKj-HY-kRx"/>
+                            <constraint firstItem="Gyy-ev-Vj8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nmC-rh-BOc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="141.59999999999999" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="fb" width="494" height="80"/>
+    </resources>
 </document>
