@@ -10,34 +10,9 @@ import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: - Outlets
     
-    @IBAction func fbLoginButton(_ sender: Any) {
-        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
-            if error == nil {
-                let fbloginresult: FBSDKLoginManagerLoginResult = result!
-                if (result?.isCancelled)! {
-                    return
-                }
-                if(fbloginresult.grantedPermissions.contains("email")) {
-                    let parameters = ["fields": "first_name, last_name, email, picture.type(large), birthday, gender, hometown"]
-                    
-                    FBSDKGraphRequest(graphPath: "me", parameters: parameters).start { (connection, result, error) in
-                        if let error = error {
-                            print(error)
-                            return
-                        }
-                        let userInfoJSON = result as! [String: Any]
-                        self.fetchProfile(userInfoJSON: userInfoJSON)
-                    }
-                }
-            }
-        }
-    }
-
-    
-    // MARK: - Lifecicle Methods
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,5 +36,30 @@ class LoginViewController: UIViewController {
         print("--- email: \(userEmail)")
         print("--- picture url: \(userPictureURL)")
         print("--- access token: \(token)")
+    }
+    
+    //MARK: - Actions
+    @IBAction func fbLoginButton(_ sender: Any) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if error == nil {
+                let fbloginresult: FBSDKLoginManagerLoginResult = result!
+                if (result?.isCancelled)! {
+                    return
+                }
+                if(fbloginresult.grantedPermissions.contains("email")) {
+                    let parameters = ["fields": "first_name, last_name, email, picture.type(large), birthday, gender, hometown"]
+                    
+                    FBSDKGraphRequest(graphPath: "me", parameters: parameters).start { (connection, result, error) in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+                        let userInfoJSON = result as! [String: Any]
+                        self.fetchProfile(userInfoJSON: userInfoJSON)
+                    }
+                }
+            }
+        }
     }
 }
