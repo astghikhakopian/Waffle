@@ -10,5 +10,6 @@ target 'Waffle' do
     pod 'Firebase/Database'
     pod 'JSQMessagesViewController'
     pod 'FBSDKLoginKit'
+    pod 'GoogleSignIn'
     
 end
