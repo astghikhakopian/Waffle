@@ -23,7 +23,6 @@ class LoggedInViewController: UIViewController {
         if let currentUser = Auth.auth().currentUser {
             usernameLabel.text = currentUser.displayName
         }
-        
     }
     
     

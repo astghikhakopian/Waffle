@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         super.viewDidLoad()
     }
     
+    
     // MARK: - Outlets
     
     @IBAction func fbLoginButton(_ sender: Any) {
@@ -41,6 +42,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
         performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
     }
+    
     
     // MARK: - Private Methods
     
