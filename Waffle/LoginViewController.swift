@@ -67,6 +67,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
+    @IBAction func moveToSignUp() {
+        moveToVC(withIdentifier: "SignUpVC")
+    }
     
     // MARK: - GIDSignInDelegate
     

@@ -15,6 +15,7 @@
 		EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */; };
 		EF9E385E207E97F6000CB9DF /* WaffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E385D207E97F6000CB9DF /* WaffleTests.swift */; };
 		EF9E3869207E97F6000CB9DF /* WaffleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */; };
+		EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */; };
 		EFED2D76207FE711009897F5 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D75207FE711009897F5 /* LoggedInViewController.swift */; };
 		EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */; };
 		EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */; };
@@ -56,6 +57,7 @@
 		EF9E3864207E97F6000CB9DF /* WaffleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaffleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaffleUITests.swift; sourceTree = "<group>"; };
 		EF9E386A207E97F6000CB9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EFED2D75207FE711009897F5 /* LoggedInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
 		EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIConstants.swift; sourceTree = "<group>"; };
 		EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				EFED2D77207FE732009897F5 /* Rest */,
 				EF9E3845207E97F5000CB9DF /* AppDelegate.swift */,
 				EF9E3847207E97F5000CB9DF /* LoginViewController.swift */,
+				EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */,
 				EFED2D75207FE711009897F5 /* LoggedInViewController.swift */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
 				EF9E384F207E97F6000CB9DF /* Assets.xcassets */,
@@ -378,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */,
 				EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,
