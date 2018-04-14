@@ -12,6 +12,9 @@ import Firebase
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
     
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -35,6 +38,35 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         GIDSignIn.sharedInstance().signIn()
     }
     
+    @IBAction func signIn() {
+        if let email = emailField.text, let password = passwordField.text {
+            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                if let error = error {
+                    self.showAlert(title: "Login Error", message: error.localizedDescription)
+                } else {
+                    // TODO: - Userin petk a sarkenk curent user
+                    self.moveToVC(withIdentifier: "loggedInVC")
+                }
+            }
+        }
+    }
+    
+    @IBAction func forgotPassword() {
+        if let email = emailField.text {
+            let actionCodeSettings = ActionCodeSettings()
+            actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+            
+            Auth.auth().sendPasswordReset(withEmail: email, actionCodeSettings: actionCodeSettings) { (error) in
+                if let error = error {
+                    self.showAlert(title: "Reset Error", message: error.localizedDescription)
+                } else {
+                    self.showAlert(title: "Success", message: "Please, check your email for reset your password.")
+                    self.emailField.text = nil
+                }
+            }
+        }
+    }
+    
     
     // MARK: - GIDSignInDelegate
     
@@ -42,7 +74,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
         performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
     }
-    
+
     
     // MARK: - Private Methods
     
@@ -58,18 +90,24 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
-                print("Login error: \(error.localizedDescription)")
-                let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                alertController.addAction(okayAction)
-                self.present(alertController, animated: true, completion: nil)
+                self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
-                // sagh normal a
-                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loggedInVC") {
-                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                    self.dismiss(animated: true, completion: nil)
-                }
+                self.moveToVC(withIdentifier: "loggedInVC")
             }
+        }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(okayAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func moveToVC(withIdentifier identifier: String) {
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
+            UIApplication.shared.keyWindow?.rootViewController = viewController
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }
