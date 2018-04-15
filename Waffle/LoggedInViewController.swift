@@ -33,6 +33,7 @@ class LoggedInViewController: UIViewController {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
                 UIApplication.shared.keyWindow?.rootViewController = viewController
                 self.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
             }
         }
     }

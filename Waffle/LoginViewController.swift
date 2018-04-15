@@ -45,6 +45,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                 } else {
                     // TODO: - Userin petk a sarkenk curent user
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     self.moveToVC(withIdentifier: "loggedInVC")
                 }
             }
@@ -95,6 +96,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             if let error = error {
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 self.moveToVC(withIdentifier: "loggedInVC")
             }
         }
