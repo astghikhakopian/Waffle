@@ -300,13 +300,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOe-WU-Mq3">
-                                <rect key="frame" x="150" y="323" width="76" height="21"/>
+                                <rect key="frame" x="149.5" y="323" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYw-7o-jfK">
-                                <rect key="frame" x="163" y="561" width="48" height="30"/>
+                                <rect key="frame" x="163.5" y="561" width="48" height="30"/>
                                 <state key="normal" title="log out"/>
                                 <connections>
                                     <action selector="logOut" destination="tVV-DH-eKZ" eventType="touchUpInside" id="XgV-xU-H2L"/>

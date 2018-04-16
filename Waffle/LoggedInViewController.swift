@@ -15,11 +15,11 @@ class LoggedInViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     
     
-    // MARK: - Lifecicle Methods
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+     
         if let currentUser = Auth.auth().currentUser {
             usernameLabel.text = currentUser.displayName
         }
