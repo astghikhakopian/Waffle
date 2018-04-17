@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = "178572659063-b87i1pj6le882g74c88l328h09sl3irs.apps.googleusercontent.com"
-        
+                
         return true
     }
     
