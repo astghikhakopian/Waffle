@@ -37,8 +37,11 @@ class LoggedInViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func goToChat() {
-     let chatVC = storyboard?.instantiateViewController(withIdentifier: "chat") as! ChatVIewController
+        if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") {
         present(chatVC, animated: true)
+        } else { return }
     }
 }
+
