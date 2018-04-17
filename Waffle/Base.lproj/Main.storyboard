@@ -300,35 +300,60 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOe-WU-Mq3">
-                                <rect key="frame" x="150" y="323" width="76" height="21"/>
+                                <rect key="frame" x="149.5" y="323" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYw-7o-jfK">
-                                <rect key="frame" x="163" y="561" width="48" height="30"/>
+                                <rect key="frame" x="163.5" y="561" width="48" height="30"/>
                                 <state key="normal" title="log out"/>
                                 <connections>
                                     <action selector="logOut" destination="tVV-DH-eKZ" eventType="touchUpInside" id="XgV-xU-H2L"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9le-Gx-XOm">
+                                <rect key="frame" x="320" y="52" width="33" height="30"/>
+                                <state key="normal" title="Chat"/>
+                                <connections>
+                                    <action selector="goToChat" destination="tVV-DH-eKZ" eventType="touchUpInside" id="kDo-I2-6kq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254900000002" green="0.86274509799999999" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="3Kk-f0-wZx"/>
-                            <constraint firstItem="sLA-NB-JSL" firstAttribute="bottom" secondItem="gYw-7o-jfK" secondAttribute="bottom" constant="76" id="Abs-vd-Fp7"/>
-                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerY" secondItem="iIf-xY-DE6" secondAttribute="centerY" id="R6M-81-cTT"/>
-                            <constraint firstItem="gYw-7o-jfK" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="aRB-zl-waN"/>
+                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="CEF-gI-wsF"/>
+                            <constraint firstItem="sLA-NB-JSL" firstAttribute="trailing" secondItem="9le-Gx-XOm" secondAttribute="trailing" constant="22" id="Gg3-SA-Ch7"/>
+                            <constraint firstItem="sLA-NB-JSL" firstAttribute="bottom" secondItem="gYw-7o-jfK" secondAttribute="bottom" constant="76" id="MOL-hF-vLF"/>
+                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerY" secondItem="iIf-xY-DE6" secondAttribute="centerY" id="SMx-Bf-cWz"/>
+                            <constraint firstItem="9le-Gx-XOm" firstAttribute="top" secondItem="sLA-NB-JSL" secondAttribute="top" constant="32" id="npI-Hx-bJG"/>
+                            <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerX" secondItem="gYw-7o-jfK" secondAttribute="centerX" id="rrq-DV-wFa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sLA-NB-JSL"/>
                     </view>
+                    <navigationItem key="navigationItem" id="8JL-Oc-pVM"/>
                     <connections>
                         <outlet property="usernameLabel" destination="TOe-WU-Mq3" id="J13-ON-ktn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRu-Xg-dJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="134"/>
+            <point key="canvasLocation" x="1940" y="133.5832083958021"/>
+        </scene>
+        <!--ChatV Iew Controller-->
+        <scene sceneID="GNq-UK-DHn">
+            <objects>
+                <viewController storyboardIdentifier="chatVC" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2jM-O4-fKi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="EWc-Ol-9i8"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qxu-i5-PPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2984.8000000000002" y="133.5832083958021"/>
         </scene>
     </scenes>
     <resources>

@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 if let error = error {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                 } else {
-                    // TODO: - Userin petk a sarkenk curent user
+                    // TODO: - Logged In user becomes current user
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     self.moveToVC(withIdentifier: "loggedInVC")
                 }
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 if let error = error {
                     self.showAlert(title: "Reset Error", message: error.localizedDescription)
                 } else {
-                    self.showAlert(title: "Success", message: "Please, check your email for reset your password.")
+                    self.showAlert(title: "Success", message: "Please, check your email for reseting your password.")
                     self.emailField.text = nil
                 }
             }
