@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
 
@@ -21,6 +21,9 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailField.delegate = self
+        passwordField.delegate = self
+        repeatPasswordField.delegate = self
     }
     
     
@@ -50,6 +53,15 @@ class SignUpViewController: UIViewController {
     
     
     // MARK: - Private Methods
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     private func showAlert(title: String, message: String ) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -10,7 +10,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import Firebase
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailField.delegate = self
+        passwordField.delegate = self
     }
     
     
@@ -81,6 +83,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
 
     
     // MARK: - Private Methods
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     private func performLogin(with credential: AuthCredential, error: Error?, accessToken: String?) {
         if let error = error {
