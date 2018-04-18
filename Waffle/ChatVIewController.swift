@@ -18,8 +18,9 @@ final class ChatVIewController: JSQMessagesViewController {
     let ref = Database.database().reference().child("message")
     
     override func viewDidLoad() {
+        let currenUser = Auth.auth().currentUser
         super.viewDidLoad()
-        self.senderId = "1"
+        self.senderId = currenUser!.uid
         self.senderDisplayName = "Ben"
         observeMessages()
     }
@@ -33,6 +34,7 @@ final class ChatVIewController: JSQMessagesViewController {
     let messageRef = ref.childByAutoId()
     let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT"]
     messageRef.setValue(messageData)
+    self.finishSendingMessage()
     }
     
     //MARK: - Private Methods
@@ -64,6 +66,11 @@ final class ChatVIewController: JSQMessagesViewController {
                         let picture = UIImage(data: data)
                         let photo = JSQPhotoMediaItem(image: picture)
                         self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                        if self.senderId == senderID {
+                            photo?.appliesMediaViewMaskAsOutgoing = true
+                        } else {
+                            photo?.appliesMediaViewMaskAsOutgoing = false
+                        }
                     }
                     break
     
@@ -72,7 +79,13 @@ final class ChatVIewController: JSQMessagesViewController {
                     let videoURL = URL(string: fileURL)
                     let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
                     self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
+                    if self.senderId == senderID {
+                        video?.appliesMediaViewMaskAsOutgoing = true
+                    } else {
+                        video?.appliesMediaViewMaskAsOutgoing = false
+                    }
                     break
+                    
                 default:
                     break
                 }
@@ -158,8 +171,14 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
+        
+        let message = self.messages[indexPath.item]
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5))
+        if message.senderId == self.senderId {
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5))
+        } else {
+            return bubbleFactory?.incomingMessagesBubbleImage(with: .gray)
+        }
     }
     
 }
@@ -169,8 +188,6 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let picture = info[UIImagePickerControllerOriginalImage] as? UIImage {
-        let image = JSQPhotoMediaItem(image: picture)
-        messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: image))
             sendMedia(picture, nil)
         } else if let videoURL = info[UIImagePickerControllerImageURL] as? URL {
             let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
