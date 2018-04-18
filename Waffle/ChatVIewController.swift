@@ -55,24 +55,24 @@ final class ChatVIewController: JSQMessagesViewController {
                 case "TEXT":
                     let text = dict["text"] as! String
                     self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
-                    break
                     
                 case "PHOTO":
                     let fileURL = dict["fileURL"] as! String
                     let url = URL(string: fileURL)
                     let data = try? Data(contentsOf: url!)
-                    let picture = UIImage(data: data!)
-                    let photo = JSQPhotoMediaItem(image: picture)
-                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                    if let data = data {
+                        let picture = UIImage(data: data)
+                        let photo = JSQPhotoMediaItem(image: picture)
+                        self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                    }
                     break
-                    
+    
                 case "VIDEO":
                     let fileURL = dict["fileURL"] as! String
                     let videoURL = URL(string: fileURL)
                     let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
                     self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
                     break
-                    
                 default:
                     break
                 }
