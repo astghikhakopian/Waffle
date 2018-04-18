@@ -51,10 +51,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         moveToVC(withIdentifier: "loginVC")
     }
     
-    
     // MARK: - Private Methods
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -77,9 +76,4 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: - TextField Delegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
 }
