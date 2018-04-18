@@ -7,11 +7,12 @@
 
 import UIKit
 import Firebase
-
+import FirebaseDatabase
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
 
+    @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
@@ -30,13 +31,23 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func signUp() {
-        if let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
+        
+        if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
             if pass == repeatpass {
-                Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
+                
+                Auth.auth().createUser (withEmail: email, password: pass) { (user, error) in
                     if let error = error {
                         self.showAlert(title: "Sign Up Error", message: error.localizedDescription)
                     } else {
-                        self.moveToVC(withIdentifier: "loginVC")
+                        self.moveToVC(withIdentifier: "loggedInVC")
+                        let ref = Database.database().reference()
+                        let usersReference = ref.child("users")
+                        //print(usersReference.description())
+                        let uid = user?.uid
+                        let newUserReference = usersReference.child(uid!)
+                        newUserReference.setValue(["Username": username, "Email": email])
+                        
+                        
                     }
                 }
             } else {
