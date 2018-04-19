@@ -108,7 +108,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
                 let newUser = Database.database().reference().child("users").child(user!.uid)
-                newUser.setValue(["displayname": "\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)"])
+                newUser.setValue(["displayname": "\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)", "email": "\(user!.email)"])
                 
                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 self.moveToVC(withIdentifier: "loggedInVC")

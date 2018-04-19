@@ -51,15 +51,15 @@ final class ChatVIewController: JSQMessagesViewController {
     
     private func setupAvatar(_ url: String, _ userID: String) {
 
-            let fileURL = URL(string: url)
-            if let URL = fileURL {
-                let data = try! Data(contentsOf: URL)
-                    let image = UIImage(data: data)
-                    let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
-                    self.avatars[userID] = userImg
-                } else {
-                    self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
-            }
+        let fileURL = URL(string: url)
+        let data = try? Data(contentsOf: fileURL!)
+        if let data = data {
+            let image = UIImage(data: data)
+            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
+            self.avatars[userID] = userImg
+        } else {
+            self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+        }
             collectionView.reloadData()
     }
     
@@ -195,11 +195,9 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
-        //TODO:
-//        let message = messages[indexPath.item]
-//        return avatars[message.senderId]
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
-
+//        TODO:
+        let message = messages[indexPath.row]
+        return avatars[message.senderId]
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
