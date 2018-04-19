@@ -15,13 +15,16 @@ import FirebaseAuth
 final class ChatVIewController: JSQMessagesViewController {
     //MARK: - Properties
     private lazy var messages = [JSQMessage]()
+    private lazy var avatars = [String: JSQMessagesAvatarImage]()
     let ref = Database.database().reference().child("message")
     
     override func viewDidLoad() {
-        let currenUser = Auth.auth().currentUser
         super.viewDidLoad()
-        self.senderId = currenUser!.uid
-        self.senderDisplayName = "Ben"
+        if let currenUser = Auth.auth().currentUser  {
+            self.senderId = currenUser.uid
+            self.senderDisplayName = "\(currenUser.displayName!)"
+        }
+//        self.setupAvatar("https://lh4.googleusercontent.com/-r1oG9eAgCJE/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWC_paQ3Cxax6aOqH_6rcDfiDUKuJg/s96-c/photo.jpg", "DVhTeIEOOQPVOCAefXueFxrCOIo1")
         observeMessages()
     }
     
@@ -30,7 +33,6 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-    
     let messageRef = ref.childByAutoId()
     let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT"]
     messageRef.setValue(messageData)
@@ -38,20 +40,37 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     //MARK: - Private Methods
-    private func getMedia(_ type: CFString) {
-        let mediaPicker = UIImagePickerController()
-        mediaPicker.delegate = self
-        mediaPicker.mediaTypes = [type as String]
-        self.present(mediaPicker, animated: true, completion: nil)
+    private func observeUsers(_ id: String) {
+    Database.database().reference().child("user").child(id).observe(DataEventType.value) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                let avatarURL = dict["photoURL"] as! String
+                self.setupAvatar(avatarURL, id)
+            }
+        }
+    }
+    
+    private func setupAvatar(_ url: String, _ userID: String) {
+
+            let fileURL = URL(string: url)
+            if let URL = fileURL {
+                let data = try! Data(contentsOf: URL)
+                    let image = UIImage(data: data)
+                    let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
+                    self.avatars[userID] = userImg
+                } else {
+                    self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+            }
+            collectionView.reloadData()
     }
     
     private func observeMessages() {
-        
         ref.observe(DataEventType.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let mediaType = dict["MediaType"] as! String
                 let senderID = dict["senderID"] as! String
                 let senderName = dict["senderName"] as! String
+                self.observeUsers(senderID)
+                
                 switch mediaType {
                     
                 case "TEXT":
@@ -94,6 +113,14 @@ final class ChatVIewController: JSQMessagesViewController {
             }
         }
     }
+    
+    private func getMedia(_ type: CFString) {
+        let mediaPicker = UIImagePickerController()
+        mediaPicker.delegate = self
+        mediaPicker.mediaTypes = [type as String]
+        self.present(mediaPicker, animated: true, completion: nil)
+    }
+    
     private func sendMedia(_ image: UIImage?, _ video: URL?) {
         
         if let image = image {
@@ -167,7 +194,12 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        return nil
+        
+        //TODO:
+//        let message = messages[indexPath.item]
+//        return avatars[message.senderId]
+        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {

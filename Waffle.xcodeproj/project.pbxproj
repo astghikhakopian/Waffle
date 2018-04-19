@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5282722208604C9001DA854 /* ChatVIewController.swift */; };
+		B55B964520880D07002940E4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B964420880D07002940E4 /* ImageCache.swift */; };
 		EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3845207E97F5000CB9DF /* AppDelegate.swift */; };
 		EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3847207E97F5000CB9DF /* LoginViewController.swift */; };
 		EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3849207E97F5000CB9DF /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
 		B5282722208604C9001DA854 /* ChatVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVIewController.swift; sourceTree = "<group>"; };
+		B55B964420880D07002940E4 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.debug.xcconfig"; sourceTree = "<group>"; };
 		EF9E3842207E97F4000CB9DF /* Waffle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waffle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9E3845207E97F5000CB9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */,
 				EFED2D75207FE711009897F5 /* LoggedInViewController.swift */,
 				B5282722208604C9001DA854 /* ChatVIewController.swift */,
+				B55B964420880D07002940E4 /* ImageCache.swift */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
 				EF9E384F207E97F6000CB9DF /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
@@ -388,6 +391,7 @@
 			files = (
 				EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */,
 				B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */,
+				B55B964520880D07002940E4 /* ImageCache.swift in Sources */,
 				EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,

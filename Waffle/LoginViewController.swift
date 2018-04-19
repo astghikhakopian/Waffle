@@ -9,6 +9,7 @@ import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
 import Firebase
+import FirebaseDatabase
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
     
@@ -106,6 +107,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             if let error = error {
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
+                let newUser = Database.database().reference().child("users").child(user!.uid)
+                newUser.setValue(["displayname": "\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)"])
+                
                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 self.moveToVC(withIdentifier: "loggedInVC")
             }
