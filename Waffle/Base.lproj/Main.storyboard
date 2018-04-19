@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -199,13 +198,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lJa-C6-Y95">
-                                <rect key="frame" x="20" y="163.5" width="335" height="360"/>
+                                <rect key="frame" x="20" y="138.5" width="335" height="410"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETg-Dc-LXQ">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="100"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="64W-V0-23u">
-                                                <rect key="frame" x="118" y="0.0" width="100" height="100"/>
+                                                <rect key="frame" x="117" y="0.0" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="Ad0-Dt-YoU"/>
                                                     <constraint firstAttribute="width" secondItem="64W-V0-23u" secondAttribute="height" id="yTe-uL-ZHu"/>
@@ -214,16 +213,25 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="64W-V0-23u" firstAttribute="centerX" secondItem="ETg-Dc-LXQ" secondAttribute="centerX" id="Qoz-ss-byJ"/>
-                                            <constraint firstAttribute="height" secondItem="64W-V0-23u" secondAttribute="height" id="RkK-aa-hGg"/>
-                                            <constraint firstItem="64W-V0-23u" firstAttribute="top" secondItem="ETg-Dc-LXQ" secondAttribute="top" id="iG9-oA-DFj"/>
+                                            <constraint firstItem="64W-V0-23u" firstAttribute="centerX" secondItem="ETg-Dc-LXQ" secondAttribute="centerX" id="QAc-if-Y68"/>
+                                            <constraint firstItem="64W-V0-23u" firstAttribute="top" secondItem="ETg-Dc-LXQ" secondAttribute="top" id="UEx-kz-4ns"/>
+                                            <constraint firstAttribute="height" secondItem="64W-V0-23u" secondAttribute="height" id="e2W-JE-gwa"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xzr-i9-urK">
-                                        <rect key="frame" x="0.0" y="120" width="335" height="240"/>
+                                        <rect key="frame" x="0.0" y="120" width="335" height="290"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DLK-Lg-8x6">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uqj-ip-NLR">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="UGe-rA-85p"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DLK-Lg-8x6">
+                                                <rect key="frame" x="0.0" y="50" width="335" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="eM9-x5-Loq"/>
                                                 </constraints>
@@ -232,19 +240,19 @@
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-R1-Nc4">
-                                                <rect key="frame" x="0.0" y="50" width="335" height="40"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Og9-Q9-t07">
                                                 <rect key="frame" x="0.0" y="100" width="335" height="40"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdV-69-cXx">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Og9-Q9-t07">
                                                 <rect key="frame" x="0.0" y="150" width="335" height="40"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdV-69-cXx">
+                                                <rect key="frame" x="0.0" y="200" width="335" height="40"/>
                                                 <color key="backgroundColor" red="0.73681392769999998" green="0.061874534590000002" blue="0.1240537778" alpha="0.56097495720000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                 <state key="normal" title="Sign Up">
@@ -255,7 +263,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bej-Q7-iUW">
-                                                <rect key="frame" x="0.0" y="200" width="335" height="40"/>
+                                                <rect key="frame" x="0.0" y="250" width="335" height="40"/>
                                                 <state key="normal" title="Already have an account?">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -285,6 +293,7 @@
                         <outlet property="emailField" destination="DLK-Lg-8x6" id="TpE-Ua-Icv"/>
                         <outlet property="passwordField" destination="aAc-R1-Nc4" id="x6J-GY-vKE"/>
                         <outlet property="repeatPasswordField" destination="Og9-Q9-t07" id="Afm-r4-Jdn"/>
+                        <outlet property="usernameField" destination="Uqj-ip-NLR" id="pPc-l7-bKd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3P-BQ-PTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
