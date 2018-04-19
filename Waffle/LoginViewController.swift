@@ -107,13 +107,28 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             if let error = error {
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
-                let newUser = Database.database().reference().child("users").child(user!.uid)
-                newUser.setValue(["displayname": "\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)", "email": "\(user!.email)"])
-                
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                self.moveToVC(withIdentifier: "loggedInVC")
+                if let user = user {
+                    self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: user.photoURL, email: user.email)
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    self.moveToVC(withIdentifier: "loggedInVC")
+                }
             }
         }
+    }
+    
+    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
+        var photo: String?
+        if let photoUrl = photoUrl {
+            photo = String(describing: photoUrl)
+        }
+        
+        let newUser = Database.database().reference().child("users").child(id)
+        
+        let friends = [
+            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
+            ["id": "jkjhhbhgb"]
+        ]
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends])
     }
     
     private func showAlert(title: String, message: String) {

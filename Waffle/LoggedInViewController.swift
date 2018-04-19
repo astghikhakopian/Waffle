@@ -40,8 +40,8 @@ class LoggedInViewController: UIViewController {
     
     @IBAction func goToChat() {
         if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") {
-        present(chatVC, animated: true)
-        } else { return }
+            present(chatVC, animated: true)
+        }
     }
 }
 

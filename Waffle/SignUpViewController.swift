@@ -31,7 +31,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func signUp() {
-        
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
             if pass == repeatpass {
                 
@@ -39,15 +38,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     if let error = error {
                         self.showAlert(title: "Sign Up Error", message: error.localizedDescription)
                     } else {
-                        self.moveToVC(withIdentifier: "loggedInVC")
-                        let ref = Database.database().reference()
-                        let usersReference = ref.child("users")
-                        //print(usersReference.description())
-                        let uid = user?.uid
-                        let newUserReference = usersReference.child(uid!)
-                        newUserReference.setValue(["Username": username, "Email": email])
-                        
-                        
+                        if let user = user {
+                            self.addUserToDatabase(id: user.uid, dispayName: username, photoUrl: nil, email: email)
+                            self.moveToVC(withIdentifier: "loggedInVC")
+                        }
                     }
                 }
             } else {
@@ -61,6 +55,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBAction func moveToLoginVC() {
         moveToVC(withIdentifier: "loginVC")
     }
+    
     
     // MARK: - Private Methods
     
@@ -87,4 +82,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
+        var photo: String?
+        if let photoUrl = photoUrl {
+            photo = String(describing: photoUrl)
+        }
+        let newUser = Database.database().reference().child("users").child(id)
+        
+        let friends = [
+            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
+            ["id": "jkjhhbhgb"]
+        ]
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends])
+    }
 }
