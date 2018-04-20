@@ -20,7 +20,8 @@ final class ChatVIewController: JSQMessagesViewController {
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
     
     let photoCache = NSCache<AnyObject, AnyObject>()
-    let ref = Database.database().reference().child("message")
+//    let ref = Database.database().reference().child("message")
+    let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
     
     
     // MARK: - Lifecicle Methods

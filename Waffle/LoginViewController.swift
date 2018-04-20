@@ -128,7 +128,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
             ["id": "jkjhhbhgb"]
         ]
-        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends])
+        let messages = "initial empty message"
+        
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends, "messages": messages])
     }
     
     private func showAlert(title: String, message: String) {
