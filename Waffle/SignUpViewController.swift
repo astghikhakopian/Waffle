@@ -22,6 +22,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameField.delegate = self
         emailField.delegate = self
         passwordField.delegate = self
         repeatPasswordField.delegate = self
@@ -32,20 +33,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func signUp() {
         
-        if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
+        if let name = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
             if pass == repeatpass {
                 
                 Auth.auth().createUser (withEmail: email, password: pass) { (user, error) in
                     if let error = error {
                         self.showAlert(title: "Sign Up Error", message: error.localizedDescription)
                     } else {
-                        self.moveToVC(withIdentifier: "loggedInVC")
+                       
+                        self.moveToVC(withIdentifier: "messagingVC")
                         let ref = Database.database().reference()
                         let usersReference = ref.child("users")
                         //print(usersReference.description())
                         let uid = user?.uid
                         let newUserReference = usersReference.child(uid!)
-                        newUserReference.setValue(["Username": username, "Email": email])
+                        newUserReference.setValue(["name": name, "email": email])
                         
                         
                     }

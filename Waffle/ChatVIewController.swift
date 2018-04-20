@@ -75,8 +75,8 @@ final class ChatVIewController: JSQMessagesViewController {
                     
                 case "TEXT":
                     let text = dict["text"] as! String
-                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
-                    
+                    //text is changed to text as! JSQMessageMediaData
+                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: text as! JSQMessageMediaData))
                 case "PHOTO":
                     let fileURL = dict["fileURL"] as! String
                     let url = URL(string: fileURL)
@@ -85,6 +85,7 @@ final class ChatVIewController: JSQMessagesViewController {
                         let picture = UIImage(data: data)
                         let photo = JSQPhotoMediaItem(image: picture)
                         self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                        
                         if self.senderId == senderID {
                             photo?.appliesMediaViewMaskAsOutgoing = true
                         } else {
@@ -98,6 +99,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     let videoURL = URL(string: fileURL)
                     let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
                     self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
+                    
                     if self.senderId == senderID {
                         video?.appliesMediaViewMaskAsOutgoing = true
                     } else {

@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         var initialVC: UIViewController!
         let isloggedIn = (UserDefaults.standard.value(forKey: "isLoggedIn") as? Bool) ?? false
         if isloggedIn {
-            initialVC = storyboard.instantiateViewController(withIdentifier: "loggedInVC")
+            initialVC = storyboard.instantiateViewController(withIdentifier: "messagingVC")
         } else {
             initialVC = storyboard.instantiateViewController(withIdentifier: "loginVC")
         }

@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8921699F2089D32100B4DBC8 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8921699E2089D32100B4DBC8 /* MessageViewController.swift */; };
+		892169A32089D98E00B4DBC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892169A22089D98E00B4DBC8 /* User.swift */; };
+		894FCF8F2089116A0038EC9C /* NewMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894FCF8E2089116A0038EC9C /* NewMessagingController.swift */; };
+		894FCF91208920AE0038EC9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 894FCF90208920AD0038EC9C /* Assets.xcassets */; };
 		B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5282722208604C9001DA854 /* ChatVIewController.swift */; };
 		B55B964520880D07002940E4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B964420880D07002940E4 /* ImageCache.swift */; };
 		EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3845207E97F5000CB9DF /* AppDelegate.swift */; };
 		EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3847207E97F5000CB9DF /* LoginViewController.swift */; };
 		EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3849207E97F5000CB9DF /* Main.storyboard */; };
 		EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF9E384C207E97F5000CB9DF /* Waffle.xcdatamodeld */; };
-		EF9E3850207E97F6000CB9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF9E384F207E97F6000CB9DF /* Assets.xcassets */; };
 		EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */; };
 		EF9E385E207E97F6000CB9DF /* WaffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E385D207E97F6000CB9DF /* WaffleTests.swift */; };
 		EF9E3869207E97F6000CB9DF /* WaffleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */; };
 		EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */; };
-		EFED2D76207FE711009897F5 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D75207FE711009897F5 /* LoggedInViewController.swift */; };
 		EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */; };
 		EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */; };
 		F6AFFEEF7EB3D365AA397402 /* Pods_Waffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */; };
@@ -44,6 +46,10 @@
 /* Begin PBXFileReference section */
 		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
+		8921699E2089D32100B4DBC8 /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		892169A22089D98E00B4DBC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		894FCF8E2089116A0038EC9C /* NewMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessagingController.swift; sourceTree = "<group>"; };
+		894FCF90208920AD0038EC9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5282722208604C9001DA854 /* ChatVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVIewController.swift; sourceTree = "<group>"; };
 		B55B964420880D07002940E4 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -52,7 +58,6 @@
 		EF9E3847207E97F5000CB9DF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EF9E384A207E97F5000CB9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF9E384D207E97F5000CB9DF /* Waffle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Waffle.xcdatamodel; sourceTree = "<group>"; };
-		EF9E384F207E97F6000CB9DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF9E3852207E97F6000CB9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF9E3854207E97F6000CB9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF9E3859207E97F6000CB9DF /* WaffleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaffleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,7 +67,6 @@
 		EF9E3868207E97F6000CB9DF /* WaffleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaffleUITests.swift; sourceTree = "<group>"; };
 		EF9E386A207E97F6000CB9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		EFED2D75207FE711009897F5 /* LoggedInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
 		EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIConstants.swift; sourceTree = "<group>"; };
 		EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,13 +141,15 @@
 			children = (
 				EFED2D77207FE732009897F5 /* Rest */,
 				EF9E3845207E97F5000CB9DF /* AppDelegate.swift */,
+				8921699E2089D32100B4DBC8 /* MessageViewController.swift */,
+				892169A22089D98E00B4DBC8 /* User.swift */,
+				894FCF8E2089116A0038EC9C /* NewMessagingController.swift */,
 				EF9E3847207E97F5000CB9DF /* LoginViewController.swift */,
 				EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */,
-				EFED2D75207FE711009897F5 /* LoggedInViewController.swift */,
 				B5282722208604C9001DA854 /* ChatVIewController.swift */,
 				B55B964420880D07002940E4 /* ImageCache.swift */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
-				EF9E384F207E97F6000CB9DF /* Assets.xcassets */,
+				894FCF90208920AD0038EC9C /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
 				EF9E3854207E97F6000CB9DF /* Info.plist */,
 				EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */,
@@ -286,7 +292,7 @@
 			files = (
 				EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */,
 				EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */,
-				EF9E3850207E97F6000CB9DF /* Assets.xcassets in Resources */,
+				894FCF91208920AE0038EC9C /* Assets.xcassets in Resources */,
 				EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,13 +396,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */,
+				8921699F2089D32100B4DBC8 /* MessageViewController.swift in Sources */,
 				B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */,
 				B55B964520880D07002940E4 /* ImageCache.swift in Sources */,
+				894FCF8F2089116A0038EC9C /* NewMessagingController.swift in Sources */,
 				EF9E3848207E97F5000CB9DF /* LoginViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,
+				892169A32089D98E00B4DBC8 /* User.swift in Sources */,
 				EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */,
-				EFED2D76207FE711009897F5 /* LoggedInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

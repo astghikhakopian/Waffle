@@ -49,7 +49,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 } else {
                     // TODO: - Logged In user becomes current user
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    self.moveToVC(withIdentifier: "loggedInVC")
+                    
+                    self.moveToVC(withIdentifier: "messagingVC")
                 }
             }
         }
@@ -108,10 +109,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
                 let newUser = Database.database().reference().child("users").child(user!.uid)
-                newUser.setValue(["displayname": "\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)", "email": "\(user!.email)"])
+                newUser.setValue(["name":"\(user!.displayName!)", "id": "\(user!.uid)", "photoURL": "\(user!.photoURL!)", "email": "\(String(describing: user!.email))"] )
+              
                 
                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                self.moveToVC(withIdentifier: "loggedInVC")
+                self.moveToVC(withIdentifier: "messagingVC")
             }
         }
     }
