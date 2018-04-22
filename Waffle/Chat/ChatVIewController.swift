@@ -25,8 +25,7 @@ final class ChatVIewController: JSQMessagesViewController {
     
     var friendId: String!
     
-    
-    // MARK: - Lifecicle Methods
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +33,7 @@ final class ChatVIewController: JSQMessagesViewController {
         if let currentUser = Auth.auth().currentUser {
             self.senderId = currentUser.uid
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
+            print("\(self.friendId)")
         }
         
         observeMessages()
@@ -181,9 +181,9 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let messageRef = ref.childByAutoId()
-        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
+        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": self.friendId]
         messageRef.setValue(messageData)
-        self.finishSendingMessage()
+        Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
     }
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
