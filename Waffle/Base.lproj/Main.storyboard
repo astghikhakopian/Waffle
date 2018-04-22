@@ -333,6 +333,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.83137254900000002" green="0.86274509799999999" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="9le-Gx-XOm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iIf-xY-DE6" secondAttribute="leading" constant="20" symbolic="YES" id="B57-Ip-c4J"/>
                             <constraint firstItem="TOe-WU-Mq3" firstAttribute="centerX" secondItem="iIf-xY-DE6" secondAttribute="centerX" id="CEF-gI-wsF"/>
                             <constraint firstItem="sLA-NB-JSL" firstAttribute="trailing" secondItem="9le-Gx-XOm" secondAttribute="trailing" constant="22" id="Gg3-SA-Ch7"/>
                             <constraint firstItem="sLA-NB-JSL" firstAttribute="bottom" secondItem="gYw-7o-jfK" secondAttribute="bottom" constant="76" id="MOL-hF-vLF"/>
