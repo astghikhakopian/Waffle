@@ -11,4 +11,5 @@ struct User {
     var name: String?
     var email: String?
     var photoURL: String?
+    var id: String?
 }

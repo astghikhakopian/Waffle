@@ -23,6 +23,8 @@ final class ChatVIewController: JSQMessagesViewController {
     // let ref = Database.database().reference().child("message")
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
     
+    var friendId: String!
+    
     
     // MARK: - Lifecicle Methods
     
@@ -179,7 +181,7 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let messageRef = ref.childByAutoId()
-        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT"]
+        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
         messageRef.setValue(messageData)
         self.finishSendingMessage()
     }

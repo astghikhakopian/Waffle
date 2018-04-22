@@ -44,6 +44,10 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
         
+        let tap = ClickListener(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
+        tap.userId = users[indexPath.row].id
+        cell.addGestureRecognizer(tap)
+        
         return cell
     }
     
@@ -60,16 +64,26 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 var user = User()
                 user.name = (dictionary["name"] as! String)
                 user.email = (dictionary["email"] as! String)
+                user.id = (dictionary["id"] as! String)
                 user.photoURL = (dictionary["photoUrl"] as! String)
                 self.users.append(user)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    print(self.users)
                 }
             }
         }, withCancel: nil)
-    }    
+    }
+    
+    @objc private func handleTap(gestureRecognizer: ClickListener) {
+        if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") as? ChatVIewController {
+            chatVC.friendId = gestureRecognizer.userId
+            present(chatVC, animated: true)
+        }
+    }
 }
 
+class ClickListener : UITapGestureRecognizer{
+    var userId: String!
+}
 
 
