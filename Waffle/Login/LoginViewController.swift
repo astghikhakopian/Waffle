@@ -81,7 +81,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
         performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
     }
-
+    
     
     // MARK: - Private Methods
     
@@ -116,23 +116,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
-    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
-        var photo: String?
-        if let photoUrl = photoUrl {
-            photo = String(describing: photoUrl)
-        }
-        
-        let newUser = Database.database().reference().child("users").child(id)
-        
-        let friends = [
-            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
-            ["id": "jkjhhbhgb"]
-        ]
-        let messages = "initial empty message"
-        
-        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends, "messages": messages])
-    }
-    
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -145,5 +128,22 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             UIApplication.shared.keyWindow?.rootViewController = viewController
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
+        var photo: String?
+        if let photoUrl = photoUrl {
+            photo = String(describing: photoUrl)
+        }
+        
+        let newUser = Database.database().reference().child("users").child(id)
+        
+        //        let friends = [
+        //            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
+        //            ["id": "jkjhhbhgb"]
+        //        ]
+        //let messages = "initial empty message"
+        
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
     }
 }

@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = "178572659063-b87i1pj6le882g74c88l328h09sl3irs.apps.googleusercontent.com"
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialVC: UIViewController!
         let isloggedIn = (UserDefaults.standard.value(forKey: "isLoggedIn") as? Bool) ?? false
@@ -30,11 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         }
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = initialVC
-        
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        FirebaseApp.configure()
-        GIDSignIn.sharedInstance().clientID = "178572659063-b87i1pj6le882g74c88l328h09sl3irs.apps.googleusercontent.com"
-                
+            
         return true
     }
     

@@ -89,12 +89,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
         let newUser = Database.database().reference().child("users").child(id)
         
-        let friends = [
-            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
-            ["id": "jkjhhbhgb"]
-        ]
-        let messages = "initial empty message"
+//        let friends = [
+//            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
+//            ["id": "jkjhhbhgb"]
+//        ]
+//        let messages = "initial empty message"
         
-        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "friends": friends, "messages": messages])
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
     }
 }

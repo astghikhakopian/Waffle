@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class LoggedInViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
