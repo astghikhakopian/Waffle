@@ -18,12 +18,11 @@ final class ChatVIewController: JSQMessagesViewController {
     
     private lazy var messages = [JSQMessage]()
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
+    var friendId: String!
     
     let photoCache = NSCache<AnyObject, AnyObject>()
     // let ref = Database.database().reference().child("message")
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
-    
-    var friendId: String!
     
     // MARK: - Lifecycle Methods
     
@@ -67,6 +66,9 @@ final class ChatVIewController: JSQMessagesViewController {
     private func observeMessages() {
         ref.observe(DataEventType.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
+                
+                if (dict["receiver"] as? String == self.senderId) && (dict["senderID"] as? String == self.friendId) || (dict["receiver"] as? String == self.friendId) && (dict["senderID"] as? String == self.senderId) {
+                    
                 let mediaType = dict["MediaType"] as! String
                 let senderID = dict["senderID"] as! String
                 let senderName = dict["senderName"] as! String
@@ -124,6 +126,7 @@ final class ChatVIewController: JSQMessagesViewController {
                 }
                 
                 self.collectionView.reloadData()
+                }
             }
         }
     }
@@ -184,6 +187,7 @@ final class ChatVIewController: JSQMessagesViewController {
         let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": self.friendId]
         messageRef.setValue(messageData)
         Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+        self.finishSendingMessage(animated: true)
     }
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
