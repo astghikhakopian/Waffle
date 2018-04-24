@@ -34,7 +34,6 @@ final class ChatVIewController: JSQMessagesViewController {
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
 //            self.showTypingIndicator = true
         }
-        
         observeMessages()
     }
     
@@ -124,7 +123,7 @@ final class ChatVIewController: JSQMessagesViewController {
                 default:
                     break
                     }
-                self.collectionView.reloadData()
+                    self.finishReceivingMessage(animated: true)
                 }
             }
         }
