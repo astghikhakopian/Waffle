@@ -32,7 +32,7 @@ final class ChatVIewController: JSQMessagesViewController {
         if let currentUser = Auth.auth().currentUser {
             self.senderId = currentUser.uid
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
-            print("\(self.friendId)")
+//            self.showTypingIndicator = true
         }
         
         observeMessages()
@@ -123,8 +123,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     
                 default:
                     break
-                }
-                
+                    }
                 self.collectionView.reloadData()
                 }
             }
@@ -154,7 +153,7 @@ final class ChatVIewController: JSQMessagesViewController {
                 
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
+                let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
                 messageRef.setValue(messageData)
             }
             
@@ -172,7 +171,7 @@ final class ChatVIewController: JSQMessagesViewController {
                 
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
+                let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
                 messageRef.setValue(messageData)
             }
             
