@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "584BFFC42F49B84CB56CB814C821EFFC"
-               BuildableName = "Pods-Waffle"
+               BuildableName = "Pods_Waffle.framework"
                BlueprintName = "Pods-Waffle"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "584BFFC42F49B84CB56CB814C821EFFC"
-            BuildableName = "Pods-Waffle"
+            BuildableName = "Pods_Waffle.framework"
             BlueprintName = "Pods-Waffle"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
