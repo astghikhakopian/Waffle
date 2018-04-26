@@ -37,10 +37,20 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             do {
                 let imageData = try Data(contentsOf: theProfileImageUrl as URL)
                 cell.imageVIew.image = UIImage(data: imageData)
+                cell.imageVIew.layer.borderWidth=1.0
+                cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                cell.imageVIew.layer.masksToBounds = false
+                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                cell.imageVIew.clipsToBounds = true
             } catch {
                 print("Unable to load data: \(error)")
             }
         } else {
+            cell.imageVIew.layer.borderWidth=1.0
+            cell.imageVIew.layer.masksToBounds = false
+            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+            cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+            cell.imageVIew.clipsToBounds = true
             cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
         
@@ -74,9 +84,13 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }, withCancel: nil)
     }
     
+    
+    
     @objc private func handleTap(gestureRecognizer: ClickListener) {
         if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") as? ChatVIewController {
+            
             chatVC.friendId = gestureRecognizer.userId
+            
             present(chatVC, animated: true)
         }
     }
