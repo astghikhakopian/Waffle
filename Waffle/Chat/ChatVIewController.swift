@@ -152,7 +152,8 @@ final class ChatVIewController: JSQMessagesViewController {
                 
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
+                let messageData = ["fileURL": fileURL, "receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
+                Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
                 messageRef.setValue(messageData)
             }
             
