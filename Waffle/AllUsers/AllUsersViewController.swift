@@ -10,9 +10,16 @@ import Firebase
 
 class AllUsersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView!
     
     var users: [User] = []
+    
+//    var receiverId: String!
+    
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +28,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         
         fetchUsers()
     }
+    
+    
+    // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -46,6 +56,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let tap = ClickListener(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = users[indexPath.row].id
+//        receiverId = users[indexPath.row].id
         cell.addGestureRecognizer(tap)
         
         return cell
@@ -78,8 +89,16 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") as? ChatVIewController {
             chatVC.friendId = gestureRecognizer.userId
             present(chatVC, animated: true)
+//            performSegue(withIdentifier: "chatVCSegue", sender: nil)
         }
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "chatVCSegue" {
+//            let chatVC = segue.destination as! ChatVIewController
+//            chatVC.friendId = receiverId
+//        }
+//    }
 }
 
 class ClickListener : UITapGestureRecognizer{

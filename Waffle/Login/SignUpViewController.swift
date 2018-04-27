@@ -56,8 +56,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         moveToVC(withIdentifier: "loginVC")
     }
     
-    
-    // MARK: - Private Methods
+    // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -67,6 +66,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    
+    // MARK: - Private Methods
     
     private func showAlert(title: String, message: String ) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -88,13 +90,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             photo = String(describing: photoUrl)
         }
         let newUser = Database.database().reference().child("users").child(id)
-        
-//        let friends = [
-//            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
-//            ["id": "jkjhhbhgb"]
-//        ]
-//        let messages = "initial empty message"
-        
         newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
     }
 }

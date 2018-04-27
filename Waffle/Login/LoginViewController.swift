@@ -13,8 +13,11 @@ import FirebaseDatabase
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
     
     // MARK: - Lifecycle Methods
     
@@ -27,7 +30,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     // MARK: - Outlets
     
-    @IBAction func fbLoginButton(_ sender: Any) {
+    @IBAction func fbLoginButtonAction(_ sender: Any) {
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
@@ -35,7 +38,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
-    @IBAction func googleLoginButton(_ sender: Any) {
+    @IBAction func googleLoginButtonAction(_ sender: Any) {
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().signIn()
@@ -75,6 +78,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         moveToVC(withIdentifier: "SignUpVC")
     }
     
+    
     // MARK: - GIDSignInDelegate
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -83,7 +87,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -92,6 +96,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    
+    // MARK: - Private Methods
     
     private func performLogin(with credential: AuthCredential, error: Error?, accessToken: String?) {
         if let error = error {
@@ -108,14 +115,25 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.showAlert(title: "Login Error", message: error.localizedDescription)
             } else {
                 if let user = user {
-                    self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: user.photoURL, email: user.email)
+                    //ete ka dbum
+                    
+                    let databaseRef = Database.database().reference()
+                    
+                    databaseRef.child("users").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                        
+                        if snapshot.hasChild(user.uid) {
+                            Auth.auth().signIn(with: credential, completion: { (user, error) in })
+                        } else {
+                            self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: user.photoURL, email: user.email)
+                        }
+                    })
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     self.moveToVC(withIdentifier: "loggedInVC")
                 }
             }
         }
     }
-    
+
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -137,12 +155,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
         
         let newUser = Database.database().reference().child("users").child(id)
-        
-        //        let friends = [
-        //            ["id" : "f8rQti0c5jeb7UHXi9aCPYyPmnA2"],
-        //            ["id": "jkjhhbhgb"]
-        //        ]
-        //let messages = "initial empty message"
         
         newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
     }

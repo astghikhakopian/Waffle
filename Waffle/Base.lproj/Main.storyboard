@@ -107,7 +107,7 @@
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="googleLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIm-Y4-VfD"/>
+                                                    <action selector="googleLoginButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIm-Y4-VfD"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ROx-Yo-Sbb">
@@ -118,7 +118,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="fbLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nhh-QW-6dn"/>
+                                                    <action selector="fbLoginButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nhh-QW-6dn"/>
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_logo" translatesAutoresizingMaskIntoConstraints="NO" id="R1U-sn-aeD">
@@ -352,7 +352,7 @@
             </objects>
             <point key="canvasLocation" x="1886" y="2642"/>
         </scene>
-        <!--Find Friends-->
+        <!--All Users View Controller-->
         <scene sceneID="bwl-87-e7U">
             <objects>
                 <viewController id="0OM-xx-1aU" customClass="AllUsersViewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
@@ -361,7 +361,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3r-SR-iqV">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="0OM-xx-1aU" id="3xq-tH-aLT"/>
@@ -378,14 +378,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h2Z-Lp-bo3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Find Friends" id="sxX-vW-mEP"/>
+                    <navigationItem key="navigationItem" id="x4w-Qj-1V4"/>
                     <connections>
                         <outlet property="tableView" destination="N3r-SR-iqV" id="7O0-Un-e3q"/>
+                        <segue destination="4l4-9L-Ycd" kind="show" identifier="chatVCSegue" id="7bL-2A-Z1n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGy-lz-vPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="633" y="1826"/>
+            <point key="canvasLocation" x="633" y="2642"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Cvb-UV-f2e">
@@ -414,7 +415,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="r1K-E8-hEw" kind="relationship" relationship="viewControllers" id="VUw-wU-73w"/>
-                        <segue destination="0OM-xx-1aU" kind="relationship" relationship="viewControllers" id="r5M-w4-mM2"/>
+                        <segue destination="czN-ka-iwS" kind="relationship" relationship="viewControllers" id="r5M-w4-mM2"/>
                         <segue destination="z3V-dq-BcH" kind="relationship" relationship="viewControllers" id="xMa-Vg-jzE"/>
                     </connections>
                 </tabBarController>
@@ -425,7 +426,7 @@
         <!--ChatV Iew Controller-->
         <scene sceneID="GNq-UK-DHn">
             <objects>
-                <viewController storyboardIdentifier="chatVC" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatVC" hidesBottomBarWhenPushed="YES" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2jM-O4-fKi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -435,7 +436,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxu-i5-PPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1886" y="3426"/>
+            <point key="canvasLocation" x="633" y="3419"/>
         </scene>
         <!--Home-->
         <scene sceneID="g3V-vr-hLy">
@@ -454,7 +455,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbc-ZQ-Bbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1885.5999999999999" y="1825.6371814092954"/>
+            <point key="canvasLocation" x="1886" y="1826"/>
+        </scene>
+        <!--Find Friends-->
+        <scene sceneID="q2n-Vm-pih">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czN-ka-iwS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Find Friends" id="sxX-vW-mEP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xlb-LF-N0u">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0OM-xx-1aU" kind="relationship" relationship="rootViewController" id="ROV-ML-gTc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AtR-kT-eFa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="632.79999999999995" y="1825.6371814092954"/>
         </scene>
     </scenes>
     <resources>
