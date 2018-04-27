@@ -16,9 +16,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var users: [User] = []
     
-//    var receiverId: String!
-    
-    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -54,7 +51,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
         
-        let tap = ClickListener(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
+        let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = users[indexPath.row].id
 //        receiverId = users[indexPath.row].id
         cell.addGestureRecognizer(tap)
@@ -85,24 +82,21 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }, withCancel: nil)
     }
     
-    @objc private func handleTap(gestureRecognizer: ClickListener) {
-        if let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC") as? ChatVIewController {
-            chatVC.friendId = gestureRecognizer.userId
-            present(chatVC, animated: true)
-//            performSegue(withIdentifier: "chatVCSegue", sender: nil)
-        }
+    @objc private func handleTap(gestureRecognizer: TapRecognizer) {
+         performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "chatVCSegue" {
-//            let chatVC = segue.destination as! ChatVIewController
-//            chatVC.friendId = receiverId
-//        }
-//    }
+    // MARK: - NavigationController
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatVCSegue" {
+            let chatVC = segue.destination as! ChatVIewController
+            let recogniser = sender as! TapRecognizer
+            chatVC.friendId = recogniser.userId
+        }
+    }
 }
 
-class ClickListener : UITapGestureRecognizer{
+class TapRecognizer : UITapGestureRecognizer{
     var userId: String!
 }
-
-
