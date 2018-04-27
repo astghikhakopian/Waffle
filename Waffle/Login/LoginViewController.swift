@@ -52,6 +52,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 } else {
                     // TODO: - Logged In user becomes current user
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(user?.uid, forKey: "currentUserId")
                     self.moveToVC(withIdentifier: "loggedInVC")
                 }
             }
@@ -128,6 +129,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                         }
                     })
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(user.uid, forKey: "currentUserId")
                     self.moveToVC(withIdentifier: "loggedInVC")
                 }
             }

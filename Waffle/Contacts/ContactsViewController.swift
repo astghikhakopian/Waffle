@@ -1,20 +1,23 @@
 //
-//  AllUsersViewController.swift
+//  ContactsViewController.swift
 //  Waffle
 //
-//  Created by Astghik Hakopian on 4/22/18.
+//  Created by Astghik Hakopian on 4/28/18.
 //
 
 import UIKit
 import Firebase
 
-class AllUsersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
     
-    var users: [User] = []
+    private var contacts: [User] = []
+    private var messagesReceiverIds = Set<String>()
+    private var currentUserId: String!
+    private let refreshControl = UIRefreshControl()
     
     
     // MARK: - Lifecycle methods
@@ -22,25 +25,30 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-        
-        fetchUsers()
+        setupRefreshControl()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadItems()
     }
     
     
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return contacts.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
         
-        cell.nameLabel.text = users[indexPath.row].name
-        cell.emailLabel.text = users[indexPath.row].email
         
-        let imageUrl = URL(string: users[indexPath.row].photoURL)
+        cell.nameLabel.text = contacts[indexPath.row].name
+        cell.emailLabel.text = contacts[indexPath.row].email
+        
+        let imageUrl = URL(string: contacts[indexPath.row].photoURL)
         if let theProfileImageUrl = imageUrl {
             do {
                 let imageData = try Data(contentsOf: theProfileImageUrl as URL)
@@ -53,7 +61,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
-        tap.userId = users[indexPath.row].id
+        tap.userId = contacts[indexPath.row].id
         cell.addGestureRecognizer(tap)
         
         return cell
@@ -66,11 +74,13 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: - Private Methods
     
-    private func fetchUsers() {
+    private func fetchContacts() {
         Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let user = User(json: dictionary)
-                self.users.append(user)
+                if self.messagesReceiverIds.contains(user.id) {
+                    self.contacts.append(user)
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -78,9 +88,40 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }, withCancel: nil)
     }
     
-    @objc private func handleTap(gestureRecognizer: TapRecognizer) {
-         performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
+    private func fetchCurrentUserMessagesIds() {
+        Database.database().reference().child("users").child(currentUserId).child("messages").observe(.childAdded, with: {(snapshot) in
+            if let dictionary = snapshot.value as? [String: Any] {
+                let message = Message(json: dictionary)
+                self.messagesReceiverIds.insert(message.receiverId)
+            }
+        }, withCancel: nil)
     }
+    
+    private func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
+        
+        refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching Data...", attributes: [:])
+    }
+    
+    @objc private func handleTap(gestureRecognizer: TapRecognizer) {
+        performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
+    }
+    
+    @objc private func loadItems() {
+        contacts.removeAll()
+
+        fetchCurrentUserMessagesIds()
+        fetchContacts()
+        
+        refreshControl.endRefreshing()
+    }
+    
     
     // MARK: - NavigationController
     
@@ -93,6 +134,3 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 }
 
-class TapRecognizer : UITapGestureRecognizer{
-    var userId: String!
-}
