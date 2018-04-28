@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC5000D645EEAF961C85907CDC796FE1"
-               BuildableName = "FBSDKLoginKit"
+               BuildableName = "FBSDKLoginKit.framework"
                BlueprintName = "FBSDKLoginKit"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC5000D645EEAF961C85907CDC796FE1"
-            BuildableName = "FBSDKLoginKit"
+            BuildableName = "FBSDKLoginKit.framework"
             BlueprintName = "FBSDKLoginKit"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

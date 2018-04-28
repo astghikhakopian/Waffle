@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		892DB3F020946D620041FE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 892DB3EF20946D610041FE04 /* Assets.xcassets */; };
+		892DB3F220946FB30041FE04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DB3F120946FB30041FE04 /* HomeViewController.swift */; };
 		B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5282722208604C9001DA854 /* ChatVIewController.swift */; };
-		B53FA9122088BAFF00217103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53FA9112088BAFF00217103 /* Assets.xcassets */; };
 		B55B964520880D07002940E4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B964420880D07002940E4 /* ImageCache.swift */; };
 		EF8D2DA5208CA8650068DADC /* AllUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8D2DA4208CA8650068DADC /* AllUsersViewController.swift */; };
 		EF8D2DA8208CACD70068DADC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8D2DA7208CACD70068DADC /* User.swift */; };
@@ -24,7 +25,6 @@
 		EFC7265C2082B67D001A66E5 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */; };
 		EFD512A52093CAF4003D5833 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD512A42093CAF4003D5833 /* ContactsViewController.swift */; };
 		EFD512AB2093D586003D5833 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD512AA2093D586003D5833 /* Message.swift */; };
-		EFED2D76207FE711009897F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D75207FE711009897F5 /* HomeViewController.swift */; };
 		EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */; };
 		EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */; };
 		F6AFFEEF7EB3D365AA397402 /* Pods_Waffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */; };
@@ -50,8 +50,9 @@
 /* Begin PBXFileReference section */
 		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
+		892DB3EF20946D610041FE04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Downloads/Waffle-front/Waffle/Assets.xcassets"; sourceTree = "<group>"; };
+		892DB3F120946FB30041FE04 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5282722208604C9001DA854 /* ChatVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVIewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		B53FA9112088BAFF00217103 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B55B964420880D07002940E4 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.debug.xcconfig"; sourceTree = "<group>"; };
 		EF8D2DA4208CA8650068DADC /* AllUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsersViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EFD512A42093CAF4003D5833 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		EFD512AA2093D586003D5833 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		EFED2D75207FE711009897F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EFED2D78207FE75F009897F5 /* RestAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIConstants.swift; sourceTree = "<group>"; };
 		EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,7 +185,7 @@
 				EFDE0F90208CBD83000A50ED /* Chat */,
 				EFDE0F91208CBDB0000A50ED /* Home */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
-				B53FA9112088BAFF00217103 /* Assets.xcassets */,
+				892DB3EF20946D610041FE04 /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
 				EF9E3854207E97F6000CB9DF /* Info.plist */,
 				EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */,
@@ -231,7 +231,7 @@
 		EFDE0F91208CBDB0000A50ED /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				EFED2D75207FE711009897F5 /* HomeViewController.swift */,
+				892DB3F120946FB30041FE04 /* HomeViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -360,9 +360,9 @@
 			files = (
 				EF9E3853207E97F6000CB9DF /* LaunchScreen.storyboard in Resources */,
 				EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */,
-				B53FA9122088BAFF00217103 /* Assets.xcassets in Resources */,
 				EF8D2DAD208CB0B10068DADC /* UsersTableViewCell.xib in Resources */,
 				EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */,
+				892DB3F020946D620041FE04 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +475,7 @@
 				EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */,
 				EFD512AB2093D586003D5833 /* Message.swift in Sources */,
 				EF8D2DA8208CACD70068DADC /* User.swift in Sources */,
-				EFED2D76207FE711009897F5 /* HomeViewController.swift in Sources */,
+				892DB3F220946FB30041FE04 /* HomeViewController.swift in Sources */,
 				EF8D2DAC208CB0B10068DADC /* UsersTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

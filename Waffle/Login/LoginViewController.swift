@@ -125,7 +125,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                         if snapshot.hasChild(user.uid) {
                             Auth.auth().signIn(with: credential, completion: { (user, error) in })
                         } else {
-                            self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: user.photoURL, email: user.email)
+                             let photoUrlString = (user.photoURL?.absoluteString)! + "?type=large"
+                            self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: URL(string: photoUrlString), email: user.email)
                         }
                     })
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0581AF7BF4A6DA140D280B19ECC7BFF"
-               BuildableName = "JSQMessagesViewController"
+               BuildableName = "JSQMessagesViewController.framework"
                BlueprintName = "JSQMessagesViewController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0581AF7BF4A6DA140D280B19ECC7BFF"
-            BuildableName = "JSQMessagesViewController"
+            BuildableName = "JSQMessagesViewController.framework"
             BlueprintName = "JSQMessagesViewController"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
