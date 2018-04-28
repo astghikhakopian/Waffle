@@ -27,13 +27,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         repeatPasswordField.delegate = self
     }
     
-    
     // MARK: - Actions
     
     @IBAction func signUp() {
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
             if pass == repeatpass {
-                
                 Auth.auth().createUser (withEmail: email, password: pass) { (user, error) in
                     if let error = error {
                         self.showAlert(title: "Sign Up Error", message: error.localizedDescription)

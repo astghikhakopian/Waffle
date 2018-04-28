@@ -27,8 +27,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         passwordField.delegate = self
     }
     
-    
-    // MARK: - Outlets
+    // MARK: - Actions
     
     @IBAction func fbLoginButtonAction(_ sender: Any) {
         let fbLoginManager = FBSDKLoginManager()
@@ -63,7 +62,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         if let email = emailField.text {
             let actionCodeSettings = ActionCodeSettings()
             actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-            
             Auth.auth().sendPasswordReset(withEmail: email, actionCodeSettings: actionCodeSettings) { (error) in
                 if let error = error {
                     self.showAlert(title: "Reset Error", message: error.localizedDescription)
@@ -117,9 +115,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             } else {
                 if let user = user {
                     //ete ka dbum
-                    
                     let databaseRef = Database.database().reference()
-                    
                     databaseRef.child("users").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                         
                         if snapshot.hasChild(user.uid) {
@@ -156,9 +152,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         if let photoUrl = photoUrl {
             photo = String(describing: photoUrl)
         }
-        
         let newUser = Database.database().reference().child("users").child(id)
-        
         newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
     }
 }

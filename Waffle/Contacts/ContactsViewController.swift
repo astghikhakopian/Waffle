@@ -12,8 +12,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Properties
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
+    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     private var contacts: [User] = []
     private var messagesReceiverIds = Set<String>()
     private var currentUserId: String!
@@ -32,6 +34,21 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         loadItems()
+        if (contacts.count == 0) {
+            tableView.separatorStyle = .none
+            spinner.startAnimating()
+            dispatchQueue.async {
+                Thread.sleep(forTimeInterval: 3)
+                OperationQueue.main.addOperation() {
+                    //self.tableView.separatorStyle = .singleLine
+                    self.tableView.isHidden = false
+                    self.spinner.isHidden = true
+                    self.spinner.stopAnimating()
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
     }
     
     
@@ -43,11 +60,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
-        
-        
         cell.nameLabel.text = contacts[indexPath.row].name
         cell.emailLabel.text = contacts[indexPath.row].email
-        
         let imageUrl = URL(string: contacts[indexPath.row].photoURL)
         if let theProfileImageUrl = imageUrl {
             do {
@@ -59,11 +73,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
-        
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = contacts[indexPath.row].id
         cell.addGestureRecognizer(tap)
-        
         return cell
     }
     
@@ -115,13 +127,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc private func loadItems() {
         contacts.removeAll()
-
         fetchCurrentUserMessagesIds()
         fetchContacts()
-        
         refreshControl.endRefreshing()
     }
-    
     
     // MARK: - NavigationController
     

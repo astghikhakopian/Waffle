@@ -19,16 +19,14 @@ final class ChatVIewController: JSQMessagesViewController {
     private lazy var messages = [JSQMessage]()
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
     var friendId: String!
-    
     let photoCache = NSCache<AnyObject, AnyObject>()
-    // let ref = Database.database().reference().child("message")
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
     
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         if let currentUser = Auth.auth().currentUser {
             self.senderId = currentUser.uid
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
@@ -41,6 +39,7 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - Private Methods
     
     private func observeUsers(_ id: String) {
+       
         Database.database().reference().child("user").child(id).observe(DataEventType.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let avatarURL = dict["photoURL"] as! String
@@ -50,6 +49,7 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     private func setupAvatar(_ url: String, _ userID: String) {
+       
         let fileURL = URL(string: url)
         let data = try? Data(contentsOf: fileURL!)
         if let data = data {
@@ -63,6 +63,7 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     private func observeMessages() {
+        
         ref.observe(DataEventType.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 
@@ -72,64 +73,60 @@ final class ChatVIewController: JSQMessagesViewController {
                 let senderID = dict["senderID"] as! String
                 let senderName = dict["senderName"] as! String
                 self.observeUsers(senderID)
-                
                 switch mediaType {
-                    
-                case "TEXT":
-                    let text = dict["text"] as! String
-                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
-                    
-                case "PHOTO":
-                    var photo = JSQPhotoMediaItem(image: nil)
-                    let fileURL = dict["fileURL"] as! String
-                    
-                    if let cachedPhoto = self.photoCache.object(forKey: fileURL as AnyObject) as? JSQPhotoMediaItem {
-                        photo = cachedPhoto
-                        self.collectionView.reloadData()
-                    } else {
-                        DispatchQueue.global().async {
-                            let url = URL(string: fileURL)
-                            let data = try? Data(contentsOf: url!)
-                            DispatchQueue.main.async {
-                                if let data = data {
-                                    let picture = UIImage(data: data)
-                                    photo?.image = picture
-                                    self.collectionView.reloadData()
-                                    self.photoCache.setObject(photo!, forKey: fileURL as AnyObject)
+                    case "TEXT":
+                        let text = dict["text"] as! String
+                        self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
+                    case "PHOTO":
+                        var photo = JSQPhotoMediaItem(image: nil)
+                        let fileURL = dict["fileURL"] as! String
+                        if let cachedPhoto = self.photoCache.object(forKey: fileURL as AnyObject) as? JSQPhotoMediaItem {
+                            photo = cachedPhoto
+                            self.collectionView.reloadData()
+                        } else {
+                            DispatchQueue.global().async {
+                                let url = URL(string: fileURL)
+                                let data = try? Data(contentsOf: url!)
+                                DispatchQueue.main.async {
+                                    if let data = data {
+                                        let picture = UIImage(data: data)
+                                        photo?.image = picture
+                                        self.collectionView.reloadData()
+                                        self.photoCache.setObject(photo!, forKey: fileURL as AnyObject)
+                                    }
                                 }
                             }
+                            self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                            if self.senderId == senderID {
+                                photo?.appliesMediaViewMaskAsOutgoing = true
+                            } else {
+                                photo?.appliesMediaViewMaskAsOutgoing = false
+                            }
                         }
-                        self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                        break
+                    case "VIDEO":
+                        let fileURL = dict["fileURL"] as! String
+                        let videoURL = URL(string: fileURL)
+                        let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
+                        self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
                         if self.senderId == senderID {
-                            photo?.appliesMediaViewMaskAsOutgoing = true
+                            video?.appliesMediaViewMaskAsOutgoing = true
                         } else {
-                            photo?.appliesMediaViewMaskAsOutgoing = false
+                            video?.appliesMediaViewMaskAsOutgoing = false
                         }
-                    }
-                    break
+                        break
                     
-                case "VIDEO":
-                    let fileURL = dict["fileURL"] as! String
-                    let videoURL = URL(string: fileURL)
-                    let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
-                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
-                    if self.senderId == senderID {
-                        video?.appliesMediaViewMaskAsOutgoing = true
-                    } else {
-                        video?.appliesMediaViewMaskAsOutgoing = false
+                    default:
+                        break
+                        }
+                        self.finishReceivingMessage(animated: true)
                     }
-                    break
-                    
-                default:
-                    break
-                    }
-                    self.finishReceivingMessage(animated: true)
                 }
             }
         }
-    }
     
     private func getMedia(_ type: CFString) {
+       
         let mediaPicker = UIImagePickerController()
         mediaPicker.delegate = self
         mediaPicker.mediaTypes = [type as String]
@@ -149,7 +146,6 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
                 let messageData = ["fileURL": fileURL, "receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
@@ -168,7 +164,6 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
                 let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
@@ -182,6 +177,7 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - JSQMessagesViewController DataSource
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        
         let messageRef = ref.childByAutoId()
         let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": self.friendId]
         messageRef.setValue(messageData)
@@ -210,15 +206,18 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         return cell
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        
         return messages[indexPath.item]
     }
     

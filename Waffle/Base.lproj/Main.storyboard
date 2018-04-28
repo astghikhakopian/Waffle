@@ -56,7 +56,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="oim-1q-j2y" firstAttribute="centerX" secondItem="Npa-LG-cGc" secondAttribute="centerX" id="ABA-k8-afO"/>
                                             <constraint firstItem="oim-1q-j2y" firstAttribute="top" secondItem="Npa-LG-cGc" secondAttribute="top" id="ofP-Ch-bQk"/>
@@ -90,12 +89,12 @@
                                                             <action selector="forgotPassword" destination="BYZ-38-t0r" eventType="touchUpInside" id="WEg-xu-K85"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCA-Ts-0tT">
+                                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCA-Ts-0tT">
                                                         <rect key="frame" x="0.0" y="142.5" width="335" height="37.5"/>
-                                                        <color key="backgroundColor" red="0.73681392769999998" green="0.061874534590000002" blue="0.1240537778" alpha="0.56097495720000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                         <state key="normal" title="Sign In">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70202803938356162" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="signIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Cu-vH-tCP"/>
@@ -111,7 +110,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="idF-Wf-Q6w" firstAttribute="top" secondItem="KOC-kl-HFg" secondAttribute="top" id="Hk2-nk-aUI"/>
                                             <constraint firstAttribute="trailing" secondItem="idF-Wf-Q6w" secondAttribute="trailing" id="gCh-Ay-UFb"/>
@@ -195,7 +193,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="0.69945954623287676" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Qhx-c1-rDV" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="5KA-lF-0U3"/>
                             <constraint firstItem="Qhx-c1-rDV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Wc8-FJ-vaL"/>
@@ -287,12 +285,12 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdV-69-cXx">
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdV-69-cXx">
                                                 <rect key="frame" x="0.0" y="200" width="335" height="40"/>
-                                                <color key="backgroundColor" red="0.73681392769999998" green="0.061874534590000002" blue="0.1240537778" alpha="0.56097495720000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                 <state key="normal" title="Sign Up">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70256314212328763" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="signUp" destination="DEw-6d-par" eventType="touchUpInside" id="Dpb-UP-Fs6"/>
@@ -316,7 +314,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="0.70432898116438358" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lJa-C6-Y95" firstAttribute="leading" secondItem="URw-rm-T3k" secondAttribute="leading" constant="20" id="5Vo-ea-38C"/>
                             <constraint firstItem="URw-rm-T3k" firstAttribute="trailing" secondItem="lJa-C6-Y95" secondAttribute="trailing" constant="20" id="7Km-re-ttq"/>
@@ -382,7 +380,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGy-lz-vPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="489" y="2873"/>
+            <point key="canvasLocation" x="540" y="2442"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="Cvb-UV-f2e">
@@ -392,7 +390,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-8j-ArH">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rkb-2Z-plj">
+                                <rect key="frame" x="157" y="289" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="QWq-Zl-CXx"/>
+                                    <constraint firstAttribute="height" constant="60" id="VpB-wM-hag"/>
+                                </constraints>
+                            </activityIndicatorView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-8j-ArH">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -406,20 +411,23 @@
                             <constraint firstItem="a3V-8j-ArH" firstAttribute="top" secondItem="btb-qn-5mU" secondAttribute="top" id="296-OQ-iI9"/>
                             <constraint firstItem="btb-qn-5mU" firstAttribute="trailing" secondItem="a3V-8j-ArH" secondAttribute="trailing" id="UXd-eu-opg"/>
                             <constraint firstItem="btb-qn-5mU" firstAttribute="bottom" secondItem="a3V-8j-ArH" secondAttribute="bottom" id="aNU-nw-4KS"/>
+                            <constraint firstItem="Rkb-2Z-plj" firstAttribute="centerY" secondItem="btb-qn-5mU" secondAttribute="centerY" id="m2k-dc-Z0p"/>
                             <constraint firstItem="a3V-8j-ArH" firstAttribute="leading" secondItem="btb-qn-5mU" secondAttribute="leading" id="nbk-zx-CEy"/>
+                            <constraint firstItem="Rkb-2Z-plj" firstAttribute="centerX" secondItem="btb-qn-5mU" secondAttribute="centerX" id="sPg-Zl-sXY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="btb-qn-5mU"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="hXh-fp-JcI"/>
                     <navigationItem key="navigationItem" id="001-OM-DNg"/>
                     <connections>
+                        <outlet property="spinner" destination="Rkb-2Z-plj" id="7To-Tt-e5e"/>
                         <outlet property="tableView" destination="a3V-8j-ArH" id="nVb-W6-Lgg"/>
                         <segue destination="4l4-9L-Ycd" kind="show" identifier="chatVCSegue" id="reK-0P-cu5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pq3-VT-6Bm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-522" y="2105"/>
+            <point key="canvasLocation" x="-351" y="1670"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="kfe-uO-dwy">
@@ -428,7 +436,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bx2-sN-5hP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="r1K-E8-hEw" kind="relationship" relationship="viewControllers" id="kvD-ge-F7x"/>
@@ -438,7 +445,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRQ-XL-Ycm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="410" y="1320"/>
+            <point key="canvasLocation" x="540" y="890"/>
         </scene>
         <!--ChatV Iew Controller-->
         <scene sceneID="GNq-UK-DHn">
@@ -453,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxu-i5-PPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-482" y="3662"/>
+            <point key="canvasLocation" x="-322" y="3204"/>
         </scene>
         <!--Home-->
         <scene sceneID="g3V-vr-hLy">
@@ -472,7 +479,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbc-ZQ-Bbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1551" y="2126"/>
+            <point key="canvasLocation" x="1319" y="1669"/>
         </scene>
         <!--Find Friends-->
         <scene sceneID="q2n-Vm-pih">
@@ -483,6 +490,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xlb-LF-N0u">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70901113010000005" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -491,7 +499,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AtR-kT-eFa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="490" y="2105"/>
+            <point key="canvasLocation" x="540" y="1694"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="1vM-Vy-FGZ">
@@ -618,7 +626,7 @@
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvL-MQ-UY6">
                                                 <rect key="frame" x="0.0" y="167.5" width="375" height="61"/>
-                                                <color key="backgroundColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70901113010000005" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Log Out">
                                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -723,7 +731,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVf-0G-cqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="2964"/>
+            <point key="canvasLocation" x="1318" y="2421"/>
         </scene>
     </scenes>
     <resources>
@@ -737,7 +745,7 @@
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7bL-2A-Z1n"/>
+        <segue reference="reK-0P-cu5"/>
         <segue reference="dOv-jd-0YM"/>
     </inferredMetricsTieBreakers>
 </document>

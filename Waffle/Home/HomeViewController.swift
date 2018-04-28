@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 
 class HomeViewController: UIViewController {
+    
     // MARK: - Properties
     
     @IBOutlet weak var imageOfUser: UIImageView!
@@ -17,13 +18,16 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var nameStackView: UIStackView!
     
     // MARK: - Actions
+    
     @IBAction func editFunction(_ sender: Any) {
+        
         usernameLabel.isHidden = true
         nameStackView.isHidden = false
         nameStackView.alpha = 1
     }
     
     @IBAction func editEmail(_ sender: Any) {
+        
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
@@ -56,6 +60,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func saveNewUsername(_ sender: Any) {
+        
         if usernameTextField.text == "" {
             nameStackView.isHidden = true
             usernameLabel.isHidden = false
@@ -72,6 +77,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logOut() {
+        
         if (try? Auth.auth().signOut()) != nil {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
                 UIApplication.shared.keyWindow?.rootViewController = viewController
@@ -82,6 +88,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func editPassword(_ sender: Any) {
+        
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
@@ -100,9 +107,11 @@ class HomeViewController: UIViewController {
             }
         })
     }
+    
     // MARK: - Lifecycle Methods
     
     private func showAlert(title: String, message: String) {
+        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(okayAction)
@@ -110,6 +119,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
@@ -128,24 +138,7 @@ class HomeViewController: UIViewController {
                     self.imageOfUser.image = UIImage(named: "defaultProfile")
                 }
                 }
-    })
+            })
         }
-    
-    // MARK: - UIImagePickerControllerDelegate
-    
-    /*func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageOfUser.image = pickedImage
-           
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    */
-   
-   
 }
 
