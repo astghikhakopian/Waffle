@@ -468,9 +468,10 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z3V-dq-BcH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="ckt-r9-mWR"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qC4-jl-W9H">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qC4-jl-W9H">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.86536326142131981" green="0.29484481147045999" blue="0.30683991489763024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -490,7 +491,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xlb-LF-N0u">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70901113010000005" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.86536326139999997" green="0.29484481150000003" blue="0.30683991490000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -522,10 +523,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="228.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kgF-1Y-R2r">
-                                                <rect key="frame" x="0.0" y="0.0" width="252.5" height="162.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="306.5" height="164"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="MeD-w2-TDy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="252.5" height="39.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="306.5" height="39.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSR-hQ-H1V">
                                                                 <rect key="frame" x="0.0" y="0.0" width="172.5" height="39.5"/>
@@ -537,20 +538,23 @@
                                                                     <action selector="editPhoto:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="1al-hO-3FL"/>
                                                                 </connections>
                                                             </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="r8I-e2-NwR">
-                                                                <rect key="frame" x="222.5" y="0.0" width="30" height="39.5"/>
-                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6W-DF-wHl">
+                                                                <rect key="frame" x="222.5" y="0.0" width="84" height="39.5"/>
+                                                                <state key="normal" title="Button" image="camera"/>
+                                                                <connections>
+                                                                    <action selector="editPhoto:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="bDI-8u-e5r"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="zSR-hQ-H1V" firstAttribute="width" secondItem="MeD-w2-TDy" secondAttribute="height" multiplier="53:57" constant="135.75438596491227" id="EuW-cd-vZL"/>
-                                                            <constraint firstItem="r8I-e2-NwR" firstAttribute="height" secondItem="zSR-hQ-H1V" secondAttribute="height" id="cZr-h7-T3n"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="los-8S-fjP">
-                                                        <rect key="frame" x="0.0" y="41.5" width="252.5" height="39"/>
+                                                        <rect key="frame" x="0.0" y="41.5" width="306.5" height="39.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPd-K0-bKs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="39"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="39.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <state key="normal" title="  Change Email">
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -559,20 +563,23 @@
                                                                     <action selector="editEmail:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="rfT-9y-SQ6"/>
                                                                 </connections>
                                                             </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" translatesAutoresizingMaskIntoConstraints="NO" id="9h6-aS-clt">
-                                                                <rect key="frame" x="222.5" y="0.0" width="30" height="39"/>
-                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-IJ-BgB">
+                                                                <rect key="frame" x="222.5" y="0.0" width="84" height="39.5"/>
+                                                                <state key="normal" title="Button" image="pencil"/>
+                                                                <connections>
+                                                                    <action selector="editEmail:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="OSH-Ii-hDe"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="JPd-K0-bKs" firstAttribute="width" secondItem="los-8S-fjP" secondAttribute="height" multiplier="53:57" constant="135.75438596491227" id="1pa-9x-pdd"/>
-                                                            <constraint firstItem="9h6-aS-clt" firstAttribute="height" secondItem="JPd-K0-bKs" secondAttribute="height" id="kP4-5u-Zhz"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="y51-Uh-cnU">
-                                                        <rect key="frame" x="0.0" y="82.5" width="252.5" height="39"/>
+                                                        <rect key="frame" x="0.0" y="83" width="306.5" height="39.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kY2-l8-4vu">
-                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="39"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="39.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <state key="normal" title="  Change Username">
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -581,20 +588,23 @@
                                                                     <action selector="editFunction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="BGr-Dn-gBA"/>
                                                                 </connections>
                                                             </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" translatesAutoresizingMaskIntoConstraints="NO" id="6WI-pk-xbX">
-                                                                <rect key="frame" x="222" y="0.0" width="30.5" height="39"/>
-                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GX-w1-GJC">
+                                                                <rect key="frame" x="222" y="0.0" width="84.5" height="39.5"/>
+                                                                <state key="normal" title="Button" image="pencil"/>
+                                                                <connections>
+                                                                    <action selector="editFunction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="nuT-Y9-kgF"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="kY2-l8-4vu" firstAttribute="width" secondItem="y51-Uh-cnU" secondAttribute="height" multiplier="53:57" constant="135.75438596491227" id="DLq-wF-rqZ"/>
-                                                            <constraint firstItem="6WI-pk-xbX" firstAttribute="height" secondItem="kY2-l8-4vu" secondAttribute="height" id="znD-gQ-jhQ"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Ue6-o3-2H5">
-                                                        <rect key="frame" x="0.0" y="123.5" width="252.5" height="39"/>
+                                                        <rect key="frame" x="0.0" y="124.5" width="306.5" height="39.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="df6-Dc-6UU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="39"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="39.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <state key="normal" title="  Change Password">
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -603,12 +613,15 @@
                                                                     <action selector="editPassword:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="07a-Q6-K1o"/>
                                                                 </connections>
                                                             </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock_orientation" translatesAutoresizingMaskIntoConstraints="NO" id="dEq-Ng-spT">
-                                                                <rect key="frame" x="222" y="0.0" width="30.5" height="39"/>
-                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVG-AP-1Fj">
+                                                                <rect key="frame" x="222.5" y="0.0" width="84" height="39.5"/>
+                                                                <state key="normal" title="Button" image="lock_orientation"/>
+                                                                <connections>
+                                                                    <action selector="editPassword:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="clI-TL-kHi"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="dEq-Ng-spT" firstAttribute="height" secondItem="df6-Dc-6UU" secondAttribute="height" id="Qnj-Kb-d5X"/>
                                                             <constraint firstItem="df6-Dc-6UU" firstAttribute="width" secondItem="Ue6-o3-2H5" secondAttribute="height" multiplier="53:57" constant="135.75438596491227" id="zKt-2A-sAE"/>
                                                         </constraints>
                                                     </stackView>
@@ -625,9 +638,9 @@
                                                 </constraints>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvL-MQ-UY6">
-                                                <rect key="frame" x="0.0" y="167.5" width="375" height="61"/>
-                                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70901113010000005" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <rect key="frame" x="0.0" y="169" width="375" height="59.5"/>
+                                                <color key="backgroundColor" red="0.91144511421319796" green="0.31054572668647551" blue="0.32317958682426268" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                 <state key="normal" title="Log Out">
                                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -655,7 +668,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSG-pn-KMq">
                                         <rect key="frame" x="10" y="0.0" width="365" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                         <color key="textColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -745,7 +758,7 @@
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="reK-0P-cu5"/>
-        <segue reference="dOv-jd-0YM"/>
+        <segue reference="7bL-2A-Z1n"/>
+        <segue reference="QrO-sG-nVR"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -30,7 +30,6 @@ final class ChatVIewController: JSQMessagesViewController {
         if let currentUser = Auth.auth().currentUser {
             self.senderId = currentUser.uid
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
-//            self.showTypingIndicator = true
         }
         observeMessages()
     }
@@ -169,7 +168,6 @@ final class ChatVIewController: JSQMessagesViewController {
                 let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
                 messageRef.setValue(messageData)
             }
-            
         }
     }
     
@@ -195,7 +193,6 @@ final class ChatVIewController: JSQMessagesViewController {
         let videoLibrary = UIAlertAction(title: "Video Library", style: .default) { (alert) in
             self.getMedia(kUTTypeMovie)
         }
-        
         sheet.addAction(photoLibrary)
         sheet.addAction(videoLibrary)
         sheet.addAction(cancel)
@@ -239,7 +236,6 @@ final class ChatVIewController: JSQMessagesViewController {
             return bubbleFactory?.incomingMessagesBubbleImage(with: .gray)
         }
     }
-    
 }
 
 

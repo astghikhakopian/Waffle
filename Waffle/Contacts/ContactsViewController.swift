@@ -128,6 +128,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     @objc private func loadItems() {
         contacts.removeAll()
         fetchCurrentUserMessagesIds()
+    
         fetchContacts()
         refreshControl.endRefreshing()
     }

@@ -137,8 +137,8 @@ class HomeViewController: UIViewController {
                 } else {
                     self.imageOfUser.image = UIImage(named: "defaultProfile")
                 }
-                }
-            })
-        }
+            }
+        })
+    }
 }
 
