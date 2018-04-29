@@ -25,9 +25,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         self.setupRefreshControl()
         
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        loadItems()
         if (users.count == 0) {
             tableView.separatorStyle = .none
             spinner.startAnimating()
@@ -42,6 +39,10 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        loadItems()
+        
         
     }
     

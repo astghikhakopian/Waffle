@@ -29,11 +29,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-        setupRefreshControl()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        loadItems()
         if (contacts.count == 0) {
             tableView.separatorStyle = .none
             spinner.startAnimating()
@@ -49,6 +44,12 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
+        setupRefreshControl()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadItems()
+       
     }
     
     
