@@ -14,10 +14,30 @@ import FirebaseDatabase
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
-    
+    //@IBOutlet weak var logoTop: NSLayoutConstraint!
+    @IBOutlet weak var bottomOfImageView: NSLayoutConstraint!
+    @IBOutlet weak var logoHorizontalCenter: NSLayoutConstraint!
+    @IBOutlet weak var bottomOfLogo: NSLayoutConstraint!
+    @IBOutlet weak var bottomOfWaffle: NSLayoutConstraint!
+    //@IBOutlet weak var logoHeight: NSLayoutConstraint!
+    @IBOutlet weak var containerViewTop: NSLayoutConstraint!
+    @IBOutlet weak var logoVerticalCentre: NSLayoutConstraint!
+    @IBOutlet weak var logoHeight: NSLayoutConstraint!
+    @IBOutlet weak var logoWidth: NSLayoutConstraint!
+    @IBOutlet weak var logoTop: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIStackView!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var labelOfWaffle: UILabel!
+    @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
+    @IBOutlet weak var stackViewTop: NSLayoutConstraint!
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
     
     // MARK: - Lifecycle Methods
     
@@ -26,6 +46,36 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         emailField.delegate = self
         passwordField.delegate = self
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseOut, animations: {
+                self.labelOfWaffle.text = ""
+                self.logoHeight.constant = 150
+                self.logoWidth.constant = 100
+                //self.bottomOfLogo.constant = self.bottomOfImageView.constant
+               // self.logoTop.constant = self.containerViewTop.constant - 110
+                self.logoTop.constant = self.containerViewTop.constant - 40
+                self.logoVerticalCentre.isActive = false
+                self.view.layoutIfNeeded()
+            }, completion: { (_) in
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                UIView.animate(withDuration: 0.2, animations: {
+                    
+                    self.containerView.isHidden = false
+                })
+            })
+        }
+        
+    }
+    deinit {
+        print("LoginViewController deallocated")
+    }
+    
     
     // MARK: - Actions
     
