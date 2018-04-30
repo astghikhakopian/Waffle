@@ -14,12 +14,8 @@ import FirebaseDatabase
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
-    //@IBOutlet weak var logoTop: NSLayoutConstraint!
-    @IBOutlet weak var bottomOfImageView: NSLayoutConstraint!
-    @IBOutlet weak var logoHorizontalCenter: NSLayoutConstraint!
-    @IBOutlet weak var bottomOfLogo: NSLayoutConstraint!
-    @IBOutlet weak var bottomOfWaffle: NSLayoutConstraint!
-    //@IBOutlet weak var logoHeight: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var containerViewTop: NSLayoutConstraint!
     @IBOutlet weak var logoVerticalCentre: NSLayoutConstraint!
     @IBOutlet weak var logoHeight: NSLayoutConstraint!
@@ -31,14 +27,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet weak var labelOfWaffle: UILabel!
     @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
-    @IBOutlet weak var stackViewTop: NSLayoutConstraint!
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
+  
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -55,10 +47,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.labelOfWaffle.text = ""
                 self.logoHeight.constant = 150
                 self.logoWidth.constant = 100
-                //self.bottomOfLogo.constant = self.bottomOfImageView.constant
-               // self.logoTop.constant = self.containerViewTop.constant - 110
                 self.logoTop.constant = self.containerViewTop.constant - 40
-                self.logoVerticalCentre.isActive = false
+                self.logoVerticalCentre?.isActive = false
                 self.view.layoutIfNeeded()
             }, completion: { (_) in
             })
@@ -142,9 +132,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         textField.resignFirstResponder()
         return true
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+   
     
     
     // MARK: - Private Methods
