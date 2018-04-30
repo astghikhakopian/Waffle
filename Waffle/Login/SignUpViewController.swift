@@ -56,6 +56,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

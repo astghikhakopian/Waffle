@@ -39,7 +39,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                     self.tableView.isHidden = false
                     self.spinner.isHidden = true
                     self.spinner.stopAnimating()
-                    self.tableView.reloadData()
+                    self.animateTable()
                 }
             }
         }
@@ -48,8 +48,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        animateTable()
         loadItems()
-       
     }
     
     
@@ -118,6 +119,22 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.messagesReceiverIds.insert(message.receiverId)
             }
         }, withCancel: nil)
+    }
+    
+    private func animateTable() {
+        tableView.reloadData()
+        let cells = tableView.visibleCells
+        let tableViewHeight = tableView.bounds.size.height
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
+        }
+        var delayCounter = 0
+        for cell in cells {
+            UIView.animate(withDuration: 1.75, delay: Double(delayCounter) * 0.05,usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter += 1
+        }
     }
     
     private func setupRefreshControl() {

@@ -27,23 +27,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet weak var labelOfWaffle: UILabel!
     @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-  
+
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailField.delegate = self
-        passwordField.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.6, delay: 0.0, options: .curveEaseOut, animations: {
                 self.labelOfWaffle.text = ""
                 self.logoHeight.constant = 150
                 self.logoWidth.constant = 100
@@ -57,6 +47,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 UIView.animate(withDuration: 0.2, animations: {
                     
                     self.containerView.isHidden = false
+                    self.emailField.delegate = self
+                    self.passwordField.delegate = self
                 })
             })
         }
@@ -64,8 +56,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     deinit {
         print("LoginViewController deallocated")
+        
     }
-    
     
     // MARK: - Actions
     

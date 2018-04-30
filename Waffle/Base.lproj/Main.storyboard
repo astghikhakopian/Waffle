@@ -587,7 +587,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rxD-60-ib5">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rxD-60-ib5">
                                 <rect key="frame" x="0.0" y="64" width="375" height="281.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rxD-60-ib5" secondAttribute="height" multiplier="375:281" id="gEL-3a-Qdi"/>
@@ -793,10 +793,18 @@
                                     <constraint firstAttribute="trailing" secondItem="xWh-HB-8nH" secondAttribute="trailing" id="x3V-ni-YqE"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xP2-1L-WBY">
+                                <rect key="frame" x="157" y="174" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="iRS-h5-aBD"/>
+                                    <constraint firstAttribute="width" constant="60" id="lFW-xo-yhn"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Wwg-i0-2tx" firstAttribute="top" secondItem="rxD-60-ib5" secondAttribute="bottom" id="42w-t4-IGx"/>
+                            <constraint firstItem="xP2-1L-WBY" firstAttribute="centerX" secondItem="rxD-60-ib5" secondAttribute="centerX" id="AM0-By-SCo"/>
                             <constraint firstItem="rxD-60-ib5" firstAttribute="centerX" secondItem="bT3-ad-se0" secondAttribute="centerX" id="UFJ-7Q-E9f"/>
                             <constraint firstItem="bT3-ad-se0" firstAttribute="bottom" secondItem="rxD-60-ib5" secondAttribute="bottom" constant="228.5" id="Vpv-h7-kEQ"/>
                             <constraint firstItem="rxD-60-ib5" firstAttribute="width" secondItem="M23-a7-c4w" secondAttribute="width" id="XnW-7v-ai1"/>
@@ -806,6 +814,7 @@
                             <constraint firstItem="Wwg-i0-2tx" firstAttribute="bottom" secondItem="bT3-ad-se0" secondAttribute="bottom" id="nbf-7P-lDk"/>
                             <constraint firstItem="Wwg-i0-2tx" firstAttribute="top" secondItem="F1h-gy-sz4" secondAttribute="bottom" id="qDe-t6-3Hn"/>
                             <constraint firstItem="Wwg-i0-2tx" firstAttribute="width" secondItem="M23-a7-c4w" secondAttribute="width" id="rJP-Rw-WEB"/>
+                            <constraint firstItem="xP2-1L-WBY" firstAttribute="centerY" secondItem="rxD-60-ib5" secondAttribute="centerY" id="ywg-gQ-tKm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bT3-ad-se0"/>
                     </view>
@@ -815,6 +824,7 @@
                     <connections>
                         <outlet property="imageOfUser" destination="rxD-60-ib5" id="NDF-ik-dTi"/>
                         <outlet property="nameStackView" destination="xWh-HB-8nH" id="nBa-Mi-tbr"/>
+                        <outlet property="spinner" destination="xP2-1L-WBY" id="0NP-Zb-RKC"/>
                         <outlet property="usernameLabel" destination="eSG-pn-KMq" id="VJK-4O-VVr"/>
                         <outlet property="usernameTextField" destination="mTD-or-ILR" id="QYu-CH-5Si"/>
                     </connections>

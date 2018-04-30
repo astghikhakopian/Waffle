@@ -16,7 +16,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var nameStackView: UIStackView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     // MARK: - Actions
     
     @IBAction func editFunction(_ sender: Any) {
@@ -121,24 +123,37 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let id = Auth.auth().currentUser?.uid
-        Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
-            if let dictionary = snapshot.value as? [String: Any] {
-                self.usernameLabel.text = (dictionary["name"] as! String)
-                self.usernameTextField.text = (dictionary["name"] as! String)
-                if (dictionary["photoUrl"] as! String) != "" {
-                    let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
-                    do {
-                        let imageData = try Data(contentsOf: theProfileImageURL as! URL)
-                        self.imageOfUser.image = UIImage(data: imageData)
-                    } catch {
-                        print("Unable to load data: \(error)")
-                    }
-                } else {
-                    self.imageOfUser.image = UIImage(named: "defaultProfile")
+        if (imageOfUser.image == nil) {
+            spinner.startAnimating()
+            dispatchQueue.async {
+                Thread.sleep(forTimeInterval: 1)
+                OperationQueue.main.addOperation() {
+                    let id = Auth.auth().currentUser?.uid
+                    Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+                        if let dictionary = snapshot.value as? [String: Any] {
+                            self.usernameLabel.text = (dictionary["name"] as! String)
+                            self.usernameTextField.text = (dictionary["name"] as! String)
+                            if (dictionary["photoUrl"] as! String) != "" {
+                                let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
+                                do {
+                                    let imageData = try Data(contentsOf: theProfileImageURL as! URL)
+                                    self.imageOfUser.image = UIImage(data: imageData)
+                                } catch {
+                                    print("Unable to load data: \(error)")
+                                }
+                            } else {
+                                self.imageOfUser.image = UIImage(named: "defaultProfile")
+                            }
+                        }
+                    })
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                    self.imageOfUser.isHidden = false
                 }
             }
-        })
+        
+        
     }
+}
 }
 
