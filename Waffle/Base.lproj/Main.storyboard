@@ -423,7 +423,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="NT9-Ex-aAo">
-                                <rect key="frame" x="157" y="311" width="60" height="60"/>
+                                <rect key="frame" x="157" y="328" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="BNF-80-EiX"/>
                                     <constraint firstAttribute="width" constant="60" id="Kgm-Zy-Ikr"/>
@@ -431,7 +431,7 @@
                                 <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3r-SR-iqV">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="520"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="0OM-xx-1aU" id="3xq-tH-aLT"/>
@@ -450,7 +450,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h2Z-Lp-bo3"/>
                     </view>
-                    <navigationItem key="navigationItem" id="x4w-Qj-1V4"/>
+                    <navigationItem key="navigationItem" prompt="All users" id="x4w-Qj-1V4"/>
                     <connections>
                         <outlet property="spinner" destination="NT9-Ex-aAo" id="pRg-Hl-zcI"/>
                         <outlet property="tableView" destination="N3r-SR-iqV" id="7O0-Un-e3q"/>
@@ -470,14 +470,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rkb-2Z-plj">
-                                <rect key="frame" x="157" y="311" width="60" height="60"/>
+                                <rect key="frame" x="157" y="328" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="QWq-Zl-CXx"/>
                                     <constraint firstAttribute="height" constant="60" id="VpB-wM-hag"/>
                                 </constraints>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-8j-ArH">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="520"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="r1K-E8-hEw" id="Xjv-Cw-ayo"/>
@@ -496,7 +496,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="btb-qn-5mU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="001-OM-DNg"/>
+                    <navigationItem key="navigationItem" prompt="Contacts" id="001-OM-DNg"/>
                     <connections>
                         <outlet property="spinner" destination="Rkb-2Z-plj" id="7To-Tt-e5e"/>
                         <outlet property="tableView" destination="a3V-8j-ArH" id="nVb-W6-Lgg"/>
@@ -514,6 +514,8 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bx2-sN-5hP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70229559080000004" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="TV7-CM-Tnd" kind="relationship" relationship="viewControllers" id="kvD-ge-F7x"/>
@@ -538,7 +540,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxu-i5-PPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-351" y="2442"/>
+            <point key="canvasLocation" x="-418" y="2643"/>
         </scene>
         <!--Home-->
         <scene sceneID="g3V-vr-hLy">
@@ -546,7 +548,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z3V-dq-BcH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="ckt-r9-mWR"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qC4-jl-W9H">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="qC4-jl-W9H">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.86536326142131981" green="0.29484481147045999" blue="0.30683991489763024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -564,9 +566,11 @@
         <scene sceneID="q2n-Vm-pih">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czN-ka-iwS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Find Friends" image="add_user_male" id="sxX-vW-mEP"/>
+                    <tabBarItem key="tabBarItem" title="Find Friends" image="add_user_male" id="sxX-vW-mEP">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xlb-LF-N0u">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="xlb-LF-N0u">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.86536326139999997" green="0.29484481150000003" blue="0.30683991490000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -820,7 +824,7 @@
                         <viewLayoutGuide key="safeArea" id="bT3-ad-se0"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="UUN-IO-hsi" colorLabel="IBBuiltInLabel-Red"/>
+                    <navigationItem key="navigationItem" prompt="Settings" id="UUN-IO-hsi" colorLabel="IBBuiltInLabel-Red"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageOfUser" destination="rxD-60-ib5" id="NDF-ik-dTi"/>
@@ -840,10 +844,16 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TV7-CM-Tnd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="hXh-fp-JcI"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8RD-J5-EwM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="8RD-J5-EwM">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.91144511419999996" green="0.31054572670000002" blue="0.32317958679999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -866,7 +876,7 @@
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="reK-0P-cu5"/>
+        <segue reference="7bL-2A-Z1n"/>
         <segue reference="dOv-jd-0YM"/>
     </inferredMetricsTieBreakers>
 </document>

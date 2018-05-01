@@ -26,7 +26,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         addNavViewBarImage()
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
         if (contacts.count == 0) {
@@ -49,9 +49,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        animateTable()
+        //animateTable()
         loadItems()
     }
+    
     
     
     // MARK: - UITableViewDataSource
@@ -98,6 +99,20 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Private Methods
     
+    func addNavViewBarImage() {
+        let navController = navigationController
+        let logo = UIImage(named: "logo.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        let bannerWidth = navController?.navigationBar.frame.size.width
+        let bannerHeight = navController?.navigationBar.frame.size.height
+        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+        
+        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+        imageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = imageView
+    }
     private func fetchContacts() {
         Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
@@ -136,6 +151,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             delayCounter += 1
         }
     }
+    
     
     private func setupRefreshControl() {
         if #available(iOS 10.0, *) {

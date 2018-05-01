@@ -23,7 +23,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupRefreshControl()
-        
+        addNavViewBarImage()
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
         if (users.count == 0) {
             tableView.separatorStyle = .none
@@ -40,9 +40,10 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-        animateTable()
+        //animateTable()
          loadItems()
     }
     
@@ -130,6 +131,20 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    func addNavViewBarImage() {
+        let navController = navigationController
+        let logo = UIImage(named: "logo.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        let bannerWidth = navController?.navigationBar.frame.size.width
+        let bannerHeight = navController?.navigationBar.frame.size.height
+        //let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+        // let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: bannerWidth!, height:bannerHeight!)
+        imageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = imageView
+    }
     private func animateTable() {
         tableView.reloadData()
         let cells = tableView.visibleCells

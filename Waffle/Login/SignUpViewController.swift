@@ -32,7 +32,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTable()
+        animateStack()
     }
     @IBAction func signUp() {
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
@@ -88,21 +88,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func animateTable() {
-        //tableView.reloadData()
-        //let cells = tableView.visibleCells
+    private func animateStack() {
         let stackViewHeight = stackView.bounds.size.height
-        //for cell in cells {
-            stackView.transform = CGAffineTransform(translationX: 0, y: stackViewHeight)
-        //}
+        stackView.transform = CGAffineTransform(translationX: 0, y: stackViewHeight)
         let delayCounter = 0
-        //for cell in cells {
-            UIView.animate(withDuration: 1.75, delay: Double(delayCounter) * 0.05,usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1.75, delay: Double(delayCounter) * 0.05,usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 self.stackView.transform = CGAffineTransform.identity
-            }, completion: nil)
-            //delayCounter += 1
-        }
-   // }
+        }, completion: nil)
+    }
     
     
     private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
