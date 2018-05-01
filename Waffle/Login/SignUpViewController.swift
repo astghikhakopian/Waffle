@@ -12,6 +12,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
 
+    
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -28,7 +30,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animateTable()
+    }
     @IBAction func signUp() {
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
             if pass == repeatpass {
@@ -82,6 +87,23 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    private func animateTable() {
+        //tableView.reloadData()
+        //let cells = tableView.visibleCells
+        let stackViewHeight = stackView.bounds.size.height
+        //for cell in cells {
+            stackView.transform = CGAffineTransform(translationX: 0, y: stackViewHeight)
+        //}
+        let delayCounter = 0
+        //for cell in cells {
+            UIView.animate(withDuration: 1.75, delay: Double(delayCounter) * 0.05,usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.stackView.transform = CGAffineTransform.identity
+            }, completion: nil)
+            //delayCounter += 1
+        }
+   // }
+    
     
     private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
         var photo: String?

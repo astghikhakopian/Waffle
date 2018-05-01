@@ -405,6 +405,7 @@
                         <outlet property="emailField" destination="DLK-Lg-8x6" id="TpE-Ua-Icv"/>
                         <outlet property="passwordField" destination="aAc-R1-Nc4" id="x6J-GY-vKE"/>
                         <outlet property="repeatPasswordField" destination="Og9-Q9-t07" id="Afm-r4-Jdn"/>
+                        <outlet property="stackView" destination="lJa-C6-Y95" id="Zbn-p4-ziH"/>
                         <outlet property="usernameField" destination="Uqj-ip-NLR" id="pPc-l7-bKd"/>
                         <segue destination="K2C-D2-feS" kind="show" id="dOv-jd-0YM"/>
                     </connections>
@@ -866,6 +867,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="reK-0P-cu5"/>
-        <segue reference="QrO-sG-nVR"/>
+        <segue reference="dOv-jd-0YM"/>
     </inferredMetricsTieBreakers>
 </document>
