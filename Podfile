@@ -12,5 +12,6 @@ target 'Waffle' do
     pod 'JSQMessagesViewController'
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
-    
+    pod 'TesseractOCRiOS', '4.0.0'
+
 end

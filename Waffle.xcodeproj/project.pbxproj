@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		892DB3F020946D620041FE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 892DB3EF20946D610041FE04 /* Assets.xcassets */; };
 		892DB3F220946FB30041FE04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DB3F120946FB30041FE04 /* HomeViewController.swift */; };
+		B50264EC209CA07B00DD0B78 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B50264EB209CA07A00DD0B78 /* tessdata */; };
 		B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5282722208604C9001DA854 /* ChatVIewController.swift */; };
+		B52F21F8209C9B3D00B6A975 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B52F21F7209C9B3C00B6A975 /* Assets.xcassets */; };
 		B55B964520880D07002940E4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B964420880D07002940E4 /* ImageCache.swift */; };
 		EF8D2DA5208CA8650068DADC /* AllUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8D2DA4208CA8650068DADC /* AllUsersViewController.swift */; };
 		EF8D2DA8208CACD70068DADC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8D2DA7208CACD70068DADC /* User.swift */; };
@@ -50,9 +51,10 @@
 /* Begin PBXFileReference section */
 		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
-		892DB3EF20946D610041FE04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Downloads/Waffle-front/Waffle/Assets.xcassets"; sourceTree = "<group>"; };
 		892DB3F120946FB30041FE04 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B50264EB209CA07A00DD0B78 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B5282722208604C9001DA854 /* ChatVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVIewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		B52F21F7209C9B3C00B6A975 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B55B964420880D07002940E4 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		DA91EB230B61C1A969846D5D /* Pods-Waffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.debug.xcconfig"; sourceTree = "<group>"; };
 		EF8D2DA4208CA8650068DADC /* AllUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsersViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		EF9E3844207E97F4000CB9DF /* Waffle */ = {
 			isa = PBXGroup;
 			children = (
+				B50264EB209CA07A00DD0B78 /* tessdata */,
 				EF8D2DA6208CACB50068DADC /* Model */,
 				EFED2D77207FE732009897F5 /* Rest */,
 				EFDE0F92208CBDDA000A50ED /* Utility */,
@@ -185,7 +188,7 @@
 				EFDE0F90208CBD83000A50ED /* Chat */,
 				EFDE0F91208CBDB0000A50ED /* Home */,
 				EF9E3849207E97F5000CB9DF /* Main.storyboard */,
-				892DB3EF20946D610041FE04 /* Assets.xcassets */,
+				B52F21F7209C9B3C00B6A975 /* Assets.xcassets */,
 				EF9E3851207E97F6000CB9DF /* LaunchScreen.storyboard */,
 				EF9E3854207E97F6000CB9DF /* Info.plist */,
 				EFED2D7A207FE7DF009897F5 /* GoogleService-Info.plist */,
@@ -362,7 +365,8 @@
 				EFED2D7B207FE7DF009897F5 /* GoogleService-Info.plist in Resources */,
 				EF8D2DAD208CB0B10068DADC /* UsersTableViewCell.xib in Resources */,
 				EF9E384B207E97F5000CB9DF /* Main.storyboard in Resources */,
-				892DB3F020946D620041FE04 /* Assets.xcassets in Resources */,
+				B52F21F8209C9B3D00B6A975 /* Assets.xcassets in Resources */,
+				B50264EC209CA07B00DD0B78 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +421,7 @@
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -431,6 +436,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);

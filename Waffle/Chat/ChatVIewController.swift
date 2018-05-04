@@ -11,8 +11,9 @@ import MobileCoreServices
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
+import TesseractOCR
 
-final class ChatVIewController: JSQMessagesViewController {
+final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
     
     // MARK: - Properties
     
@@ -21,7 +22,7 @@ final class ChatVIewController: JSQMessagesViewController {
     var friendId: String!
     let photoCache = NSCache<AnyObject, AnyObject>()
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
-    
+    var containsText = false
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -35,6 +36,9 @@ final class ChatVIewController: JSQMessagesViewController {
         observeMessages()
     }
     
+    func progressImageRecognition(for tesseract: G8Tesseract!) {
+        print("\(tesseract.progress) %")
+    }
     
     // MARK: - Private Methods
     
@@ -209,6 +213,11 @@ final class ChatVIewController: JSQMessagesViewController {
         let videoLibrary = UIAlertAction(title: "Video Library", style: .default) { (alert) in
             self.getMedia(kUTTypeMovie)
         }
+        let imgToText = UIAlertAction(title: "Image to Text", style: .default) { (alert) in
+            self.containsText = !(self.containsText)
+            self.getMedia(kUTTypeImage)
+        }
+        sheet.addAction(imgToText)
         sheet.addAction(photoLibrary)
         sheet.addAction(videoLibrary)
         sheet.addAction(cancel)
@@ -262,7 +271,17 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let picture = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            sendMedia(picture, nil)
+            if containsText {
+                if let tessercat = G8Tesseract(language: "eng") {
+                    tessercat.delegate = self
+                    tessercat.image = picture.g8_blackAndWhite()
+                    tessercat.recognize()
+                    self.keyboardController.textView.text = tessercat.recognizedText
+                    self.containsText = !(self.containsText)
+                }
+            } else {
+                sendMedia(picture, nil)
+            }
         } else if let videoURL = info[UIImagePickerControllerImageURL] as? URL {
             let video = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
             messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: video))

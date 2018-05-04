@@ -64,8 +64,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBAction func fbLoginButtonAction(_ sender: Any) {
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-            self.performLogin(with: credential, error: error, accessToken: FBSDKAccessToken.current().tokenString)
+            if (error == nil) && (result?.isCancelled)! {
+                    return
+            } else {
+                let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                self.performLogin(with: credential, error: error, accessToken: FBSDKAccessToken.current().tokenString)
+            }
+ 
         }
     }
     
