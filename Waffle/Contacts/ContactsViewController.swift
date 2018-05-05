@@ -26,15 +26,14 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         addNavViewBarImage()
+        //addNavViewBarImage()
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
         if (contacts.count == 0) {
             tableView.separatorStyle = .none
             spinner.startAnimating()
-            dispatchQueue.async {
-                Thread.sleep(forTimeInterval: 3)
-                OperationQueue.main.addOperation() {
+            dispatchQueue.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.async {
                     //self.tableView.separatorStyle = .singleLine
                     self.tableView.isHidden = false
                     self.spinner.isHidden = true
@@ -50,6 +49,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //animateTable()
+        addNavViewBarImage()
         loadItems()
     }
     
@@ -102,8 +102,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func addNavViewBarImage() {
         let navController = navigationController
         let logo = UIImage(named: "logo.png")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
+        let imageView = UIImageView(image: logo)
+        navigationItem.titleView = imageView
+        navigationItem.prompt = ""
         let bannerWidth = navController?.navigationBar.frame.size.width
         let bannerHeight = navController?.navigationBar.frame.size.height
         let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
@@ -113,27 +114,32 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView
     }
+    
     private func fetchContacts() {
-        Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
-            if let dictionary = snapshot.value as? [String: Any] {
-                let user = User(json: dictionary)
-                if self.messagesReceiverIds.contains(user.id) {
-                    self.contacts.append(user)
+        dispatchQueue.async {
+            Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    let user = User(json: dictionary)
+                    if self.messagesReceiverIds.contains(user.id) {
+                        self.contacts.append(user)
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }, withCancel: nil)
+            }, withCancel: nil)
+        }
     }
     
     private func fetchCurrentUserMessagesIds() {
-        Database.database().reference().child("users").child(currentUserId).child("messages").observe(.childAdded, with: {(snapshot) in
-            if let dictionary = snapshot.value as? [String: Any] {
-                let message = Message(json: dictionary)
-                self.messagesReceiverIds.insert(message.receiverId)
-            }
-        }, withCancel: nil)
+        dispatchQueue.async {
+            Database.database().reference().child("users").child(self.currentUserId).child("messages").observe(.childAdded, with: {(snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    let message = Message(json: dictionary)
+                    self.messagesReceiverIds.insert(message.receiverId)
+                }
+            }, withCancel: nil)
+        }
     }
     
     private func animateTable() {

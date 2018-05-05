@@ -4,6 +4,9 @@ platform :ios, '10.0'
 target 'Waffle' do
     use_frameworks!
     
+    # ignore all warnings from all pods
+    inhibit_all_warnings!
+    
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
     pod 'Firebase/Auth'
@@ -12,6 +15,6 @@ target 'Waffle' do
     pod 'JSQMessagesViewController'
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
-    pod 'TesseractOCRiOS', '4.0.0'
+    pod 'TesseractOCRiOS'
 
 end

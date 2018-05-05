@@ -96,7 +96,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleSignIn
   - JSQMessagesViewController
-  - TesseractOCRiOS (= 4.0.0)
+  - TesseractOCRiOS
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -145,6 +145,6 @@ SPEC CHECKSUMS:
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: f055d476beef652f7fb87a3467a89836aa1217ff
+PODFILE CHECKSUM: c33c775c2fc3ab20687f32c272115114608a9135
 
 COCOAPODS: 1.5.0

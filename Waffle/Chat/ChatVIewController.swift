@@ -13,7 +13,7 @@ import FirebaseStorage
 import FirebaseAuth
 import TesseractOCR
 
-final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
+final class ChatVIewController: JSQMessagesViewController {
     
     // MARK: - Properties
     
@@ -23,6 +23,7 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
     let photoCache = NSCache<AnyObject, AnyObject>()
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
     var containsText = false
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -33,11 +34,9 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
             self.senderId = currentUser.uid
             self.senderDisplayName = "\(currentUser.displayName ?? "")"
         }
-        observeMessages()
-    }
-    
-    func progressImageRecognition(for tesseract: G8Tesseract!) {
-        print("\(tesseract.progress) %")
+        self.navigationController?.navigationBar.tintColor = .white
+        self.observeMessages()
+        self.scrollToBottom(animated: true)
     }
     
     // MARK: - Private Methods
@@ -61,7 +60,7 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
             let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
             self.avatars[userID] = userImg
         } else {
-            self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+            self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
         }
         collectionView.reloadData()
     }
@@ -168,8 +167,13 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
                 let messageData = ["fileURL": fileURL, "receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
-                Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
-                messageRef.setValue(messageData)
+              
+                if self.friendId != self.senderId {
+                    messageRef.setValue(messageData)
+                    Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+                } else {
+                    messageRef.setValue(messageData)
+                }
             }
             
         } else if let video = video {
@@ -198,8 +202,12 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
         
         let messageRef = ref.childByAutoId()
         let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": self.friendId]
-        messageRef.setValue(messageData)
-        Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+        if self.friendId != self.senderId {
+            messageRef.setValue(messageData)
+            Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+        } else {
+            messageRef.setValue(messageData)
+        }
         self.finishSendingMessage(animated: true)
     }
     
@@ -266,19 +274,20 @@ final class ChatVIewController: JSQMessagesViewController, G8TesseractDelegate {
 
 // MARK: - ChatVIewController Extension
 
-extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let picture = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if containsText {
-                if let tessercat = G8Tesseract(language: "eng") {
-                    tessercat.delegate = self
-                    tessercat.image = picture.g8_blackAndWhite()
-                    tessercat.recognize()
-                    self.keyboardController.textView.text = tessercat.recognizedText
-                    self.containsText = !(self.containsText)
+                    if let tessercat = G8Tesseract(language: "eng") {
+                        tessercat.delegate = self
+                        tessercat.image = picture.g8_blackAndWhite()
+                        tessercat.recognize()
+                        self.keyboardController.textView.text = tessercat.recognizedText
+                        self.containsText = !(self.containsText)
                 }
+            
             } else {
                 sendMedia(picture, nil)
             }
@@ -288,6 +297,11 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
             sendMedia(nil, videoURL)
         }
         self.dismiss(animated: true, completion: nil)
+        inputToolbar.contentView.rightBarButtonItem.isHighlighted = true
         collectionView.reloadData()
+    }
+    
+    func progressImageRecognition(for tesseract: G8Tesseract!) {
+        print("\(tesseract.progress) %")
     }
 }
