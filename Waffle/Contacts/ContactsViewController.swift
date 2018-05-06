@@ -21,7 +21,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
     
-    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {

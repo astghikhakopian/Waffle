@@ -118,10 +118,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // MARK: - GIDSignInDelegate
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
-        performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
+        
+        if error == nil {
+            let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
+            performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
+        } else {
+            return
+        }
+
     }
     
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+        return
+    }
     
     // MARK: - UITextFieldDelegate
     

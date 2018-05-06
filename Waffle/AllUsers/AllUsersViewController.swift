@@ -116,14 +116,15 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc private func loadItems() {
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.users.removeAll()
             self.fetchUsers()
         }
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+        }
     }
-    
-    
+
     // MARK: - NavigationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

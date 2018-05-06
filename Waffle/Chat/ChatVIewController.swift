@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 import TesseractOCR
+import MessageUI
 
 final class ChatVIewController: JSQMessagesViewController {
     
@@ -19,6 +20,7 @@ final class ChatVIewController: JSQMessagesViewController {
     
     private lazy var messages = [JSQMessage]()
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
+    @IBOutlet weak var mySwitch: UISwitch!
     var friendId: String!
     let photoCache = NSCache<AnyObject, AnyObject>()
     let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
@@ -200,14 +202,22 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
-        let messageRef = ref.childByAutoId()
-        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": self.friendId]
-        if self.friendId != self.senderId {
-            messageRef.setValue(messageData)
-            Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
-        } else {
-            messageRef.setValue(messageData)
+        if MFMessageComposeViewController.canSendText() && mySwitch.isOn {
+            let controller = MFMessageComposeViewController()
+            controller.body = keyboardController.textView.text
+            controller.recipients = ["+37496575571"]
+            controller.messageComposeDelegate = self
+            present(controller, animated: true, completion: nil)
+            print("Tapped")
         }
+            let messageRef = ref.childByAutoId()
+            let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
+            if self.friendId != self.senderId {
+                messageRef.setValue(messageData)
+                Database.database().reference().child("users").child(friendId).child("messages").childByAutoId().setValue(messageData)
+            } else {
+                messageRef.setValue(messageData)
+            }
         self.finishSendingMessage(animated: true)
     }
     
@@ -256,7 +266,7 @@ final class ChatVIewController: JSQMessagesViewController {
         //        TODO:
         //        let message = messages[indexPath.row]
         //        return avatars[message.senderId]
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -272,9 +282,9 @@ final class ChatVIewController: JSQMessagesViewController {
 }
 
 
-// MARK: - ChatVIewController Extension
+// MARK: - PickerCOntrollerDelegate implementation
 
-extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
+extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
@@ -286,6 +296,7 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
                         tessercat.recognize()
                         self.keyboardController.textView.text = tessercat.recognizedText
                         self.containsText = !(self.containsText)
+                        inputToolbar.contentView.rightBarButtonItem.isSpringLoaded = true
                 }
             
             } else {
@@ -300,8 +311,26 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
         inputToolbar.contentView.rightBarButtonItem.isHighlighted = true
         collectionView.reloadData()
     }
+}
+
+//MARK: - MFMessage Delegation
+
+extension ChatVIewController: MFMessageComposeViewControllerDelegate, G8TesseractDelegate {
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        dismiss(animated: true, completion: nil)
+        mySwitch.isOn = false
+    }
     
     func progressImageRecognition(for tesseract: G8Tesseract!) {
         print("\(tesseract.progress) %")
     }
+
 }
+
+
+
+
+
+
+
