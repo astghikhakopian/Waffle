@@ -167,7 +167,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                             Auth.auth().signIn(with: credential, completion: { (user, error) in })
                         } else {
                              let photoUrlString = (user.photoURL?.absoluteString)! + "?type=large"
-                            self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: URL(string: photoUrlString), email: user.email)
+                            self.addUserToDatabase(id: user.uid, dispayName: user.displayName ?? "", photoUrl: URL(string: photoUrlString), email: user.email, phoneNumber: user.phoneNumber)
                         }
                     })
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
@@ -192,12 +192,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
-    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
+    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?, phoneNumber: String?) {
         var photo: String?
         if let photoUrl = photoUrl {
             photo = String(describing: photoUrl)
         }
         let newUser = Database.database().reference().child("users").child(id)
-        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "phone number": phoneNumber ?? ""])
     }
 }
