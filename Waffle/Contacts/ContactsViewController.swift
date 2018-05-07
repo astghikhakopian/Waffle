@@ -103,7 +103,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         let logo = UIImage(named: "logo.png")
         let imageView = UIImageView(image: logo)
         navigationItem.titleView = imageView
-        navigationItem.prompt = ""
         let bannerWidth = navController?.navigationBar.frame.size.width
         let bannerHeight = navController?.navigationBar.frame.size.height
         let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2

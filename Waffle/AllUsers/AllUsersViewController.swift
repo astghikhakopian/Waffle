@@ -28,10 +28,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         if (users.count == 0) {
             tableView.separatorStyle = .none
             spinner.startAnimating()
-            dispatchQueue.async {
-                Thread.sleep(forTimeInterval: 3)
-                OperationQueue.main.addOperation() {
-                    //self.tableView.separatorStyle = .singleLine
+            dispatchQueue.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.async {
+                        //self.tableView.separatorStyle = .singleLine
                     self.tableView.isHidden = false
                     self.spinner.isHidden = true
                     self.spinner.stopAnimating()

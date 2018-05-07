@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     
+    @IBOutlet weak var phoneNumberField: UITextField!
     
     // MARK: - Lifecicle Methods
     
@@ -27,6 +28,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         emailField.delegate = self
         passwordField.delegate = self
         repeatPasswordField.delegate = self
+        phoneNumberField.delegate = self
     }
     
     // MARK: - Actions
@@ -35,14 +37,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         animateStack()
     }
     @IBAction func signUp() {
-        if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text {
+        if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text, let phoneNumber = phoneNumberField.text {
             if pass == repeatpass {
                 Auth.auth().createUser (withEmail: email, password: pass) { (user, error) in
                     if let error = error {
                         self.showAlert(title: "Sign Up Error", message: error.localizedDescription)
                     } else {
                         if let user = user {
-                            self.addUserToDatabase(id: user.uid, dispayName: username, photoUrl: nil, email: email)
+                            self.addUserToDatabase(id: user.uid, dispayName: username, photoUrl: nil, email: email, phoneNumber: phoneNumber)
                             self.moveToVC(withIdentifier: "loggedInVC")
                         }
                     }
@@ -98,12 +100,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?) {
+    private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?, phoneNumber: String?) {
         var photo: String?
         if let photoUrl = photoUrl {
             photo = String(describing: photoUrl)
         }
         let newUser = Database.database().reference().child("users").child(id)
-        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? ""])
+        newUser.setValue(["id": id, "name": dispayName, "photoUrl": photo ?? "", "email": email ?? "", "phone number": phoneNumber ?? "" ])
     }
 }

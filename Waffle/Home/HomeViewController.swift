@@ -18,6 +18,29 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var nameStackView: UIStackView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    
+    @IBAction func editPhoneNumberAction(_ sender: Any) {
+        let id = Auth.auth().currentUser?.uid
+        Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+            if let dictionary = snapshot.value as? [String: Any] {
+                let phoneNumber = (dictionary["phone number"] as! String)
+                let title = "Do you want to change your Phone Number?"
+                let message = "Your current phone number is \(phoneNumber)"
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter new phone number"}
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let okayAction = UIAlertAction(title: "Change", style: .default, handler: {action in
+                    let id = Auth.auth().currentUser?.uid
+                    let currentUser = Database.database().reference().child("users").child(id!)
+                    currentUser.child("phone number").setValue(alertController.textFields![0].text)
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okayAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+    }
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     // MARK: - Actions
     
