@@ -30,7 +30,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             spinner.startAnimating()
             dispatchQueue.asyncAfter(deadline: .now() + 1) {
                 DispatchQueue.main.async {
-                        //self.tableView.separatorStyle = .singleLine
                     self.tableView.isHidden = false
                     self.spinner.isHidden = true
                     self.spinner.stopAnimating()
@@ -42,11 +41,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-        //animateTable()
         DispatchQueue.global().async {
             self.loadItems()
         }
-//         loadItems()
     }
     
     
@@ -58,10 +55,8 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
-        
         cell.nameLabel.text = users[indexPath.row].name
         cell.emailLabel.text = users[indexPath.row].email
-        
         let imageUrl = URL(string: users[indexPath.row].photoURL)
         if let theProfileImageUrl = imageUrl {
             do {

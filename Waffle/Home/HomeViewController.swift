@@ -18,6 +18,15 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var nameStackView: UIStackView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
+   
+    // MARK: - Actions
+    
+    @IBAction func editUsernameAction(_ sender: Any) {
+        usernameLabel.isHidden = true
+        nameStackView.isHidden = false
+        nameStackView.alpha = 1
+    }
     
     @IBAction func editPhoneNumberAction(_ sender: Any) {
         let id = Auth.auth().currentUser?.uid
@@ -41,18 +50,8 @@ class HomeViewController: UIViewController {
             }
         })
     }
-    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
-    // MARK: - Actions
     
-    @IBAction func editFunction(_ sender: Any) {
-        
-        usernameLabel.isHidden = true
-        nameStackView.isHidden = false
-        nameStackView.alpha = 1
-    }
-    
-    @IBAction func editEmail(_ sender: Any) {
-        
+    @IBAction func editEmailAction(_ sender: Any) {
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
@@ -75,7 +74,7 @@ class HomeViewController: UIViewController {
         })
     }
    
-    @IBAction func editPhoto(_ sender: Any) {
+    @IBAction func editPhotoAction(_ sender: Any) {
         /*if imageOfUser.image == nil {
             let imagePicker = UIImagePickerController()
             //imagePicker.delegate = self
@@ -85,7 +84,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func saveNewUsername(_ sender: Any) {
-        
         if usernameTextField.text == "" {
             nameStackView.isHidden = true
             usernameLabel.isHidden = false
@@ -102,7 +100,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logOut() {
-        
         if (try? Auth.auth().signOut()) != nil {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
                 UIApplication.shared.keyWindow?.rootViewController = viewController
@@ -113,7 +110,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func editPassword(_ sender: Any) {
-        
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
@@ -134,14 +130,53 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Lifecycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addNavViewBarImage()
+        if (imageOfUser.image == nil) {
+            spinner.startAnimating()
+            dispatchQueue.asyncAfter(deadline: .now() + 1, execute:  {
+                self.dispatchQueue.async {
+                    let id = Auth.auth().currentUser?.uid
+                    Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+                        if let dictionary = snapshot.value as? [String: Any] {
+                            DispatchQueue.main.async {
+                            self.usernameLabel.text = (dictionary["name"] as! String)
+                            self.usernameTextField.text = (dictionary["name"] as! String)
+                            }
+                            if (dictionary["photoUrl"] as! String) != "" {
+                                let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
+                                do {
+                                    let imageData = try Data(contentsOf: theProfileImageURL as! URL)
+                                    DispatchQueue.main.async {self.imageOfUser.image = UIImage(data: imageData)
+                                }
+                                }catch {
+                                    print("Unable to load data: \(error)")
+                                }
+                            } else {
+                                DispatchQueue.main.async {self.imageOfUser.image = UIImage(named: "defaultProfile")
+                            }
+                        }
+                    }
+                })
+                }
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                    self.imageOfUser.isHidden = false
+                })
+            }
+        }
+    
+    // Mark:- Private Methods
     
     private func showAlert(title: String, message: String) {
-        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(okayAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    // Mark:- NavigationController Methods
     
     func addNavViewBarImage() {
         let navController = navigationController
@@ -150,49 +185,10 @@ class HomeViewController: UIViewController {
         self.navigationItem.titleView = imageView
         let bannerWidth = navController?.navigationBar.frame.size.width
         let bannerHeight = navController?.navigationBar.frame.size.height
-        //let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        // let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-        
         imageView.frame = CGRect(x: 0, y: 0, width: bannerWidth!, height:bannerHeight!)
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView
     }
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        addNavViewBarImage()
-        if (imageOfUser.image == nil) {
-            spinner.startAnimating()
-            dispatchQueue.async {
-                Thread.sleep(forTimeInterval: 1)
-                OperationQueue.main.addOperation() {
-                    let id = Auth.auth().currentUser?.uid
-                    Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
-                        if let dictionary = snapshot.value as? [String: Any] {
-                            self.usernameLabel.text = (dictionary["name"] as! String)
-                            self.usernameTextField.text = (dictionary["name"] as! String)
-                            if (dictionary["photoUrl"] as! String) != "" {
-                                let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
-                                do {
-                                    let imageData = try Data(contentsOf: theProfileImageURL as! URL)
-                                    self.imageOfUser.image = UIImage(data: imageData)
-                                } catch {
-                                    print("Unable to load data: \(error)")
-                                }
-                            } else {
-                                self.imageOfUser.image = UIImage(named: "defaultProfile")
-                            }
-                        }
-                    })
-                    self.spinner.stopAnimating()
-                    self.spinner.isHidden = true
-                    self.imageOfUser.isHidden = false
-                }
-            }
-        
-        
-    }
-}
 }
 

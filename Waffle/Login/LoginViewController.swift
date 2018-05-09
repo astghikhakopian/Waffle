@@ -42,10 +42,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.view.layoutIfNeeded()
             }, completion: { (_) in
             })
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                 UIView.animate(withDuration: 0.2, animations: {
-                    
                     self.containerView.isHidden = false
                     self.emailField.delegate = self
                     self.passwordField.delegate = self
@@ -70,7 +68,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 self.performLogin(with: credential, error: error, accessToken: FBSDKAccessToken.current().tokenString)
             }
- 
         }
     }
     
@@ -118,14 +115,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // MARK: - GIDSignInDelegate
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
         if error == nil {
             let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
             performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
         } else {
             return
         }
-
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
@@ -140,8 +135,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         return true
     }
    
-    
-    
     // MARK: - Private Methods
     
     private func performLogin(with credential: AuthCredential, error: Error?, accessToken: String?) {
@@ -153,7 +146,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             print("Failed to get access token")
             return
         }
-        
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 self.showAlert(title: "Login Error", message: error.localizedDescription)

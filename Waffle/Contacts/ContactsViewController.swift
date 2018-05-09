@@ -25,34 +25,31 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addNavViewBarImage()
+        self.setupRefreshControl()
+        addNavViewBarImage()
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
         if (contacts.count == 0) {
             tableView.separatorStyle = .none
             spinner.startAnimating()
-            dispatchQueue.asyncAfter(deadline: .now() + 3) {
+            dispatchQueue.asyncAfter(deadline: .now() + 1.5) {
                 DispatchQueue.main.async {
-                    //self.tableView.separatorStyle = .singleLine
                     self.tableView.isHidden = false
                     self.spinner.isHidden = true
                     self.spinner.stopAnimating()
                     self.animateTable()
+                    
                 }
             }
         }
-        
-        setupRefreshControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //animateTable()
-        addNavViewBarImage()
-        loadItems()
+        DispatchQueue.global().async {
+            self.loadItems()
+        }
     }
-    
-    
     
     // MARK: - UITableViewDataSource
     
@@ -98,21 +95,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Private Methods
     
-    func addNavViewBarImage() {
-        let navController = navigationController
-        let logo = UIImage(named: "logo.png")
-        let imageView = UIImageView(image: logo)
-        navigationItem.titleView = imageView
-        let bannerWidth = navController?.navigationBar.frame.size.width
-        let bannerHeight = navController?.navigationBar.frame.size.height
-        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-        
-        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
-        imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
-    }
-    
     private func fetchContacts() {
         dispatchQueue.async {
             Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
@@ -156,7 +138,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
     private func setupRefreshControl() {
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
@@ -164,7 +145,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.addSubview(refreshControl)
         }
         refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
-        
         refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching Data...", attributes: [:])
     }
@@ -176,7 +156,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     @objc private func loadItems() {
         contacts.removeAll()
         fetchCurrentUserMessagesIds()
-    
         fetchContacts()
         refreshControl.endRefreshing()
     }
@@ -190,5 +169,21 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             chatVC.friendId = recogniser.userId
         }
     }
+    
+    func addNavViewBarImage() {
+        let navController = navigationController
+        let logo = UIImage(named: "logo.png")
+        let imageView = UIImageView(image: logo)
+        navigationItem.titleView = imageView
+        let bannerWidth = navController?.navigationBar.frame.size.width
+        let bannerHeight = navController?.navigationBar.frame.size.height
+        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+        
+        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+        imageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = imageView
+    }
+    
 }
 

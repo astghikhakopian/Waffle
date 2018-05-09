@@ -12,13 +12,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
 
-    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
-    
     @IBOutlet weak var phoneNumberField: UITextField!
     
     // MARK: - Lifecicle Methods
@@ -31,11 +29,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         phoneNumberField.delegate = self
     }
     
-    // MARK: - Actions
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateStack()
     }
+
+    // MARK: - Actions
     @IBAction func signUp() {
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text, let phoneNumber = phoneNumberField.text {
             if pass == repeatpass {
@@ -62,7 +61,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - UITextFieldDelegate
-    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -98,7 +96,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 self.stackView.transform = CGAffineTransform.identity
         }, completion: nil)
     }
-    
     
     private func addUserToDatabase(id: String, dispayName: String, photoUrl: URL?, email: String?, phoneNumber: String?) {
         var photo: String?

@@ -534,7 +534,7 @@
             </objects>
             <point key="canvasLocation" x="929" y="901"/>
         </scene>
-        <!--Immediate snap-->
+        <!--ChatV Iew Controller-->
         <scene sceneID="GNq-UK-DHn">
             <objects>
                 <viewController storyboardIdentifier="chatVC" hidesBottomBarWhenPushed="YES" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
@@ -545,10 +545,10 @@
                         <viewLayoutGuide key="safeArea" id="EWc-Ol-9i8"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Immediate snap" id="XRO-Pk-YlF">
+                    <navigationItem key="navigationItem" prompt="Immediate snap" id="XRO-Pk-YlF">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="hYO-Ua-XNn">
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BLJ-x4-IC4">
-                                <rect key="frame" x="308" y="6.5" width="51" height="31"/>
+                                <rect key="frame" x="308" y="40.5" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="0.92658883333206177" green="0.95696693658828735" blue="0.97724467515945435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>
@@ -638,14 +638,14 @@
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="editPhoto:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="1al-hO-3FL"/>
+                                                                    <action selector="editPhotoAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="1al-hO-3FL"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6W-DF-wHl">
                                                                 <rect key="frame" x="327" y="0.0" width="48" height="34"/>
                                                                 <state key="normal" title="Button" image="camera"/>
                                                                 <connections>
-                                                                    <action selector="editPhoto:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="bDI-8u-e5r"/>
+                                                                    <action selector="editPhotoAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="bDI-8u-e5r"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -696,14 +696,14 @@
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="editEmail:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="rfT-9y-SQ6"/>
+                                                                    <action selector="editEmailAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="rfT-9y-SQ6"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-IJ-BgB">
                                                                 <rect key="frame" x="326.5" y="0.0" width="48.5" height="34"/>
                                                                 <state key="normal" title="Button" image="pencil"/>
                                                                 <connections>
-                                                                    <action selector="editEmail:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="OSH-Ii-hDe"/>
+                                                                    <action selector="editEmailAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="OSH-Ii-hDe"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -721,14 +721,14 @@
                                                                     <color key="titleColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="editFunction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="BGr-Dn-gBA"/>
+                                                                    <action selector="editUsernameAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="BGr-Dn-gBA"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GX-w1-GJC">
                                                                 <rect key="frame" x="326.5" y="0.0" width="48.5" height="34"/>
                                                                 <state key="normal" title="Button" image="pencil"/>
                                                                 <connections>
-                                                                    <action selector="editFunction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="nuT-Y9-kgF"/>
+                                                                    <action selector="editUsernameAction:" destination="iVb-lb-Rsr" eventType="touchUpInside" id="nuT-Y9-kgF"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -932,6 +932,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="reK-0P-cu5"/>
-        <segue reference="dOv-jd-0YM"/>
+        <segue reference="QrO-sG-nVR"/>
     </inferredMetricsTieBreakers>
 </document>
