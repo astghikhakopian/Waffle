@@ -54,9 +54,9 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - Private Methods
     
     private func observeUsers(_ id: String) {
-       Database.database().reference().child("user").child(id).observe(.value) { (snapshot) in
+       Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
-                let avatarURL = dict["photoURL"] as! String
+                let avatarURL = dict["photoUrl"] as! String
                 self.setupAvatar(avatarURL, id)
             }
         }
@@ -67,10 +67,10 @@ final class ChatVIewController: JSQMessagesViewController {
         let data = try? Data(contentsOf: fileURL!)
         if let data = data {
             let image = UIImage(data: data)
-            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 40)
+            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 50)
             avatars[userID] = userImg
         } else {
-            avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
+            avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 50)
         }
         collectionView.reloadData()
     }
@@ -260,9 +260,9 @@ final class ChatVIewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
         //        TODO:
-        //        let message = messages[indexPath.row]
-        //        return avatars[message.senderId]
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 60)
+                let message = messages[indexPath.row]
+                return avatars[message.senderId]
+//        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 60)
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {

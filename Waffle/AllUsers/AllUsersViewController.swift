@@ -16,7 +16,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     var users: [User] = []
-    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     
     // MARK: - Lifecycle methods
     
@@ -32,8 +31,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.spinner.startAnimating()
                 }
             }
-            dispatchQueue.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                 DispatchQueue.main.async {
+                    
                     self.tableView.isHidden = false
                     self.animateTable()
                 }
@@ -44,10 +44,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
         self.loadItems()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
     }
     
     // MARK: - UITableViewDataSource
