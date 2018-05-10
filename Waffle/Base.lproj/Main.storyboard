@@ -534,7 +534,7 @@
             </objects>
             <point key="canvasLocation" x="929" y="901"/>
         </scene>
-        <!--ChatV Iew Controller-->
+        <!--Immediate Snap-->
         <scene sceneID="GNq-UK-DHn">
             <objects>
                 <viewController storyboardIdentifier="chatVC" hidesBottomBarWhenPushed="YES" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
@@ -545,10 +545,10 @@
                         <viewLayoutGuide key="safeArea" id="EWc-Ol-9i8"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" prompt="Immediate snap" id="XRO-Pk-YlF">
+                    <navigationItem key="navigationItem" title="Immediate Snap" id="XRO-Pk-YlF">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="hYO-Ua-XNn">
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BLJ-x4-IC4">
-                                <rect key="frame" x="308" y="40.5" width="51" height="31"/>
+                                <rect key="frame" x="308" y="6.5" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="0.92658883333206177" green="0.95696693658828735" blue="0.97724467515945435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>

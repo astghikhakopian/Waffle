@@ -31,20 +31,30 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNavViewBarImage()
+//        addNavViewBarImage()
         if let currentUser = Auth.auth().currentUser {
-            self.senderId = currentUser.uid
-            self.senderDisplayName = "\(currentUser.displayName ?? "")"
+            senderId = currentUser.uid
+            senderDisplayName = "\(currentUser.displayName ?? "")"
         }
-        self.navigationController?.navigationBar.tintColor = .white
-        self.observeMessages()
-        self.scrollToBottom(animated: true)
+        navigationController?.navigationBar.tintColor = .white
+        observeMessages()
+        scrollToBottom(animated: true)
+        
+        let leftButton = UIButton(frame: .zero)
+        leftButton.setImage(#imageLiteral(resourceName: "more"), for: .normal)
+        inputToolbar.contentView.leftBarButtonItemWidth = CGFloat(34.0)
+        inputToolbar.contentView.leftBarButtonItem = leftButton
+        
+        let rightButton = UIButton(frame: .zero)
+        rightButton.setImage(#imageLiteral(resourceName: "send"), for: .normal)
+        inputToolbar.contentView.rightBarButtonItemWidth = CGFloat(34.0)
+        inputToolbar.contentView.rightBarButtonItem = rightButton
     }
     
     // MARK: - Private Methods
     
     private func observeUsers(_ id: String) {
-       Database.database().reference().child("user").child(id).observe(DataEventType.value) { (snapshot) in
+       Database.database().reference().child("user").child(id).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let avatarURL = dict["photoURL"] as! String
                 self.setupAvatar(avatarURL, id)
@@ -57,10 +67,10 @@ final class ChatVIewController: JSQMessagesViewController {
         let data = try? Data(contentsOf: fileURL!)
         if let data = data {
             let image = UIImage(data: data)
-            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
-            self.avatars[userID] = userImg
+            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 40)
+            avatars[userID] = userImg
         } else {
-            self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
+            avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
         }
         collectionView.reloadData()
     }
@@ -202,13 +212,13 @@ final class ChatVIewController: JSQMessagesViewController {
         }
             let messageRef = ref.childByAutoId()
             let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
-            if self.friendId != self.senderId {
+            if friendId != senderId {
                 messageRef.setValue(messageData)
                 Database.database().reference().child("users").child(friendId).child("messages").childByAutoId().setValue(messageData)
             } else {
                 messageRef.setValue(messageData)
             }
-        self.finishSendingMessage(animated: true)
+        finishSendingMessage(animated: true)
     }
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
@@ -221,7 +231,7 @@ final class ChatVIewController: JSQMessagesViewController {
             self.getMedia(kUTTypeMovie)
         }
         let imgToText = UIAlertAction(title: "Image to Text", style: .default) { (alert) in
-            self.containsText = !(self.containsText)
+            self.containsText = !self.containsText
             self.getMedia(kUTTypeImage)
         }
         sheet.addAction(imgToText)
@@ -252,13 +262,13 @@ final class ChatVIewController: JSQMessagesViewController {
         //        TODO:
         //        let message = messages[indexPath.row]
         //        return avatars[message.senderId]
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 40)
+        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 60)
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let message = self.messages[indexPath.item]
+        let message = messages[indexPath.item]
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        if message.senderId == self.senderId {
+        if message.senderId == senderId {
             return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5))
         } else {
             return bubbleFactory?.incomingMessagesBubbleImage(with: .gray)
@@ -278,9 +288,9 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
                         tessercat.delegate = self
                         tessercat.image = picture.g8_blackAndWhite()
                         tessercat.recognize()
-                        self.keyboardController.textView.text = tessercat.recognizedText
-                        self.containsText = !(self.containsText)
-                        inputToolbar.contentView.rightBarButtonItem.isSpringLoaded = true
+                        keyboardController.textView.text = tessercat.recognizedText
+                        containsText = !containsText
+                        inputToolbar.contentView.rightBarButtonItem.isEnabled = true
                 }
             } else {
                 sendMedia(picture, nil)
@@ -290,7 +300,7 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
             messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: video))
             sendMedia(nil, videoURL)
         }
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
         inputToolbar.contentView.rightBarButtonItem.isHighlighted = true
         collectionView.reloadData()
     }
