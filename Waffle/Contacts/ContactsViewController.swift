@@ -51,7 +51,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // MARK: - UITableViewDataSource
+    // MARK: - UITableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count

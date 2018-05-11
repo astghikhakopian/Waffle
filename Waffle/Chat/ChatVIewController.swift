@@ -22,11 +22,12 @@ final class ChatVIewController: JSQMessagesViewController {
     
     private lazy var messages = [JSQMessage]()
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
+    private var containsText = false
+    private let photoCache = NSCache<AnyObject, AnyObject>()
+    private let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
+    private var friendNumber = ""
     var friendId: String!
-    let photoCache = NSCache<AnyObject, AnyObject>()
-    let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
-    var containsText = false
-    
+
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -49,9 +50,20 @@ final class ChatVIewController: JSQMessagesViewController {
         rightButton.setImage(#imageLiteral(resourceName: "send"), for: .normal)
         inputToolbar.contentView.rightBarButtonItemWidth = CGFloat(34.0)
         inputToolbar.contentView.rightBarButtonItem = rightButton
+        
+        observeFriendsNumber()
+
     }
-    
+
     // MARK: - Private Methods
+    
+    private func observeFriendsNumber() {
+        Database.database().reference().child("users").child(friendId).observe(.value) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                self.friendNumber = dict["phone number"] as! String
+            }
+        }
+    }
     
     private func observeUsers(_ id: String) {
        Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
@@ -64,30 +76,31 @@ final class ChatVIewController: JSQMessagesViewController {
     
     private func setupAvatar(_ url: String, _ userID: String) {
        let fileURL = URL(string: url)
-        let data = try? Data(contentsOf: fileURL!)
-        if let data = data {
-            let image = UIImage(data: data)
+        if fileURL != nil {
+            let data = try? Data(contentsOf: fileURL!)
+            let image = UIImage(data: data!)
             let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 50)
             avatars[userID] = userImg
         } else {
-            avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 50)
+                avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 50)
         }
         collectionView.reloadData()
     }
     
-    func addNavViewBarImage() {
-        let navController = navigationController
-        let logo = UIImage(named: "logo.png")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
-        let bannerWidth = navController?.navigationBar.frame.size.width
-        let bannerHeight = navController?.navigationBar.frame.size.height
-        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
-        imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
-    }
+    
+//    func addNavViewBarImage() {
+//        let navController = navigationController
+//        let logo = UIImage(named: "logo.png")
+//        let imageView = UIImageView(image:logo)
+//        self.navigationItem.titleView = imageView
+//        let bannerWidth = navController?.navigationBar.frame.size.width
+//        let bannerHeight = navController?.navigationBar.frame.size.height
+//        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+//        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+//        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+//        imageView.contentMode = .scaleAspectFit
+//        navigationItem.titleView = imageView
+//    }
     
     private func observeMessages() {
         ref.observe(DataEventType.childAdded) { (snapshot) in
@@ -108,7 +121,7 @@ final class ChatVIewController: JSQMessagesViewController {
                             photo = cachedPhoto
                             self.collectionView.reloadData()
                         } else {
-                            DispatchQueue.global().async {
+                            DispatchQueue.global(qos: .userInteractive).async {
                                 let url = URL(string: fileURL)
                                 let data = try? Data(contentsOf: url!)
                                 DispatchQueue.main.async {
@@ -205,7 +218,7 @@ final class ChatVIewController: JSQMessagesViewController {
         if MFMessageComposeViewController.canSendText() && mySwitch.isOn {
             let controller = MFMessageComposeViewController()
             controller.body = keyboardController.textView.text
-            controller.recipients = ["+37496575571"]
+            controller.recipients = [friendNumber]
             controller.messageComposeDelegate = self
             present(controller, animated: true, completion: nil)
             print("Tapped")
@@ -258,11 +271,8 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        
-        //        TODO:
-                let message = messages[indexPath.row]
-                return avatars[message.senderId]
-//        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 60)
+        let message = messages[indexPath.row]
+        return avatars[message.senderId]
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -277,7 +287,7 @@ final class ChatVIewController: JSQMessagesViewController {
 }
 
 
-// MARK: - PickerCOntrollerDelegate implementation
+// MARK: - PickerControllerDelegate implementation
 
 extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
