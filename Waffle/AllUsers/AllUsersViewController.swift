@@ -64,7 +64,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.imageVIew.layer.borderWidth=1.0
                 cell.imageVIew.layer.borderColor = UIColor.white.cgColor
                 cell.imageVIew.layer.masksToBounds = false
-                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
                 cell.imageVIew.clipsToBounds = true
             } catch {
                 print("Unable to load data: \(error)")
@@ -72,7 +72,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             cell.imageVIew.layer.borderWidth=1.0
             cell.imageVIew.layer.masksToBounds = false
-            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
             cell.imageVIew.layer.borderColor = UIColor.white.cgColor
             cell.imageVIew.clipsToBounds = true
             cell.imageVIew.image = UIImage(named: "defaultProfile")
@@ -88,7 +88,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
     }
-    
     
     // MARK: - Private Methods
     

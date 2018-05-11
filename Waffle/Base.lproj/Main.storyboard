@@ -522,7 +522,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.70229559080000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.92891609668731689" green="0.21953278779983521" blue="0.19875350594520569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="TV7-CM-Tnd" kind="relationship" relationship="viewControllers" id="kvD-ge-F7x"/>
@@ -927,7 +927,7 @@
         <image name="google-logo" width="384" height="384"/>
         <image name="home" width="30" height="30"/>
         <image name="lock_orientation" width="30" height="30"/>
-        <image name="logo" width="355" height="327"/>
+        <image name="logo" width="177" height="163"/>
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>

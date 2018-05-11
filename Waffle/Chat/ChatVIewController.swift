@@ -13,6 +13,7 @@ import FirebaseStorage
 import FirebaseAuth
 import TesseractOCR
 import MessageUI
+import Reachability
 
 final class ChatVIewController: JSQMessagesViewController {
     
@@ -25,11 +26,11 @@ final class ChatVIewController: JSQMessagesViewController {
     private var containsText = false
     private let photoCache = NSCache<AnyObject, AnyObject>()
     private let ref = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("messages")
-    private var friendNumber = ""
+    private var friendNumber: String = ""
     var friendId: String!
-
-    // MARK: - Lifecycle Methods
     
+    // MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        addNavViewBarImage()
@@ -50,17 +51,44 @@ final class ChatVIewController: JSQMessagesViewController {
         rightButton.setImage(#imageLiteral(resourceName: "send"), for: .normal)
         inputToolbar.contentView.rightBarButtonItemWidth = CGFloat(34.0)
         inputToolbar.contentView.rightBarButtonItem = rightButton
+        inputToolbar.contentView.textView.placeHolder = "Type Message ..."
         
         observeFriendsNumber()
-
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let reachability = Reachability()!
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("could not start reachability notifier")
+        }
+    }
+    
     // MARK: - Private Methods
     
+    @objc private func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+        case .cellular:
+            print("Reachable via Cellular")
+        case .none:
+            
+            print("Network not reachable")
+        }
+    }
+
     private func observeFriendsNumber() {
         Database.database().reference().child("users").child(friendId).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
-                self.friendNumber = dict["phone number"] as! String
+                self.friendNumber = dict["phone number"] as? String ?? ""
             }
         }
     }
@@ -205,7 +233,7 @@ final class ChatVIewController: JSQMessagesViewController {
                 }
                 let messageRef = self.ref.childByAutoId()
                 let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL,"receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
+                let messageData = ["fileURL": fileURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
                 messageRef.setValue(messageData)
             }
         }
@@ -311,7 +339,6 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
             sendMedia(nil, videoURL)
         }
         dismiss(animated: true, completion: nil)
-        inputToolbar.contentView.rightBarButtonItem.isHighlighted = true
         collectionView.reloadData()
     }
 }
