@@ -160,10 +160,12 @@ class HomeViewController: UIViewController {
                     }
                 })
                 }
+                DispatchQueue.main.async {
                     self.spinner.stopAnimating()
                     self.spinner.isHidden = true
                     self.imageOfUser.isHidden = false
-                })
+                }
+              })
             }
         }
     

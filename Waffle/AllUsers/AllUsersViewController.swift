@@ -16,23 +16,25 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     var users: [User] = []
-    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupRefreshControl()
+        setupRefreshControl()
         addNavViewBarImage()
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-        if (users.count == 0) {
+        if users.count == 0 {
             tableView.separatorStyle = .none
-            spinner.startAnimating()
-            dispatchQueue.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.global(qos: .userInteractive).async {
                 DispatchQueue.main.async {
+                    self.spinner.startAnimating()
+                }
+            }
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.async {
+                    
                     self.tableView.isHidden = false
-                    self.spinner.isHidden = true
-                    self.spinner.stopAnimating()
                     self.animateTable()
                 }
             }
@@ -41,11 +43,8 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-        DispatchQueue.global().async {
-            self.loadItems()
-        }
+        self.loadItems()
     }
-    
     
     // MARK: - UITableViewDataSource
     
@@ -65,7 +64,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.imageVIew.layer.borderWidth=1.0
                 cell.imageVIew.layer.borderColor = UIColor.white.cgColor
                 cell.imageVIew.layer.masksToBounds = false
-                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
                 cell.imageVIew.clipsToBounds = true
             } catch {
                 print("Unable to load data: \(error)")
@@ -73,7 +72,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             cell.imageVIew.layer.borderWidth=1.0
             cell.imageVIew.layer.masksToBounds = false
-            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
             cell.imageVIew.layer.borderColor = UIColor.white.cgColor
             cell.imageVIew.clipsToBounds = true
             cell.imageVIew.image = UIImage(named: "defaultProfile")
@@ -90,10 +89,10 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         return 80.0
     }
     
-    
     // MARK: - Private Methods
     
    @objc private func fetchUsers() {
+    DispatchQueue.global(qos: .userInteractive).async {
         Database.database().reference().child("users").observe(.childAdded, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let user = User(json: dictionary)
@@ -103,6 +102,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }, withCancel: nil)
+      }
     }
     
     @objc private func handleTap(gestureRecognizer: TapRecognizer) {
@@ -110,13 +110,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc private func loadItems() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.users.removeAll()
-            self.fetchUsers()
-        }
-        DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
-        }
+        self.users.removeAll()
+        self.fetchUsers()
+        self.refreshControl.endRefreshing()
     }
 
     // MARK: - NavigationController
@@ -157,14 +153,13 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 }, completion: nil)
             delayCounter += 1
         }
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
     
     private func setupRefreshControl() {
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = refreshControl
-        } else {
-            tableView.addSubview(refreshControl)
-        }
+        tableView.refreshControl = refreshControl
+        tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
         
         refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)

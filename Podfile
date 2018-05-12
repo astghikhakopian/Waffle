@@ -16,5 +16,6 @@ target 'Waffle' do
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
     pod 'TesseractOCRiOS'
+    pod 'ReachabilitySwift'
 
 end

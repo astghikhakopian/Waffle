@@ -51,7 +51,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // MARK: - UITableViewDataSource
+    // MARK: - UITableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
@@ -139,11 +139,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func setupRefreshControl() {
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = refreshControl
-        } else {
-            tableView.addSubview(refreshControl)
-        }
+        tableView.refreshControl = refreshControl
+        tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
         refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching Data...", attributes: [:])
@@ -157,7 +154,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         contacts.removeAll()
         fetchCurrentUserMessagesIds()
         fetchContacts()
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+        }
     }
     
     // MARK: - NavigationController

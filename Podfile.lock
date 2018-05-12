@@ -85,6 +85,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
+  - ReachabilitySwift (4.1.0)
   - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
@@ -96,6 +97,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleSignIn
   - JSQMessagesViewController
+  - ReachabilitySwift
   - TesseractOCRiOS
 
 SPEC REPOS:
@@ -120,6 +122,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - ReachabilitySwift
     - TesseractOCRiOS
 
 SPEC CHECKSUMS:
@@ -143,8 +146,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: c33c775c2fc3ab20687f32c272115114608a9135
+PODFILE CHECKSUM: 9e46ab60711a0f0c86e0efadf5f46ce9ae2a86e8
 
 COCOAPODS: 1.5.0
