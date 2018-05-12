@@ -61,27 +61,38 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
         cell.nameLabel.text = contacts[indexPath.row].name
         cell.emailLabel.text = contacts[indexPath.row].email
-        let imageUrl = URL(string: contacts[indexPath.row].photoURL)
-        if let theProfileImageUrl = imageUrl {
-            do {
-                let imageData = try Data(contentsOf: theProfileImageUrl as URL)
-                cell.imageVIew.image = UIImage(data: imageData)
-                cell.imageVIew.layer.borderWidth=1.0
-                cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-                cell.imageVIew.layer.masksToBounds = false
-                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
-                cell.imageVIew.clipsToBounds = true
-            } catch {
-                print("Unable to load data: \(error)")
+        DispatchQueue.global(qos: .userInteractive).async {
+            let imageUrl = URL(string: self.contacts[indexPath.row].photoURL)
+            if let theProfileImageUrl = imageUrl {
+                do {
+                    let imageData = try Data(contentsOf: theProfileImageUrl as URL)
+                    DispatchQueue.main.async {
+                        cell.imageVIew.image = UIImage(data: imageData)
+                        cell.imageVIew.layer.borderWidth=1.0
+                        cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                        cell.imageVIew.layer.masksToBounds = false
+                        cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                        cell.imageVIew.clipsToBounds = true
+                    }
+                    
+                } catch {
+                    print("Unable to load data: \(error)")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.imageVIew.layer.borderWidth=1.0
+                    cell.imageVIew.layer.masksToBounds = false
+                    cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                    cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                    cell.imageVIew.clipsToBounds = true
+                    cell.imageVIew.image = UIImage(named: "defaultProfile")
+
+                }
+                
             }
-        } else {
-            cell.imageVIew.layer.borderWidth=1.0
-            cell.imageVIew.layer.masksToBounds = false
-            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
-            cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-            cell.imageVIew.clipsToBounds = true
-            cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
+        
+        
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = contacts[indexPath.row].id
         cell.addGestureRecognizer(tap)

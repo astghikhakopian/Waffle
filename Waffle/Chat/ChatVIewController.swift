@@ -53,6 +53,10 @@ final class ChatVIewController: JSQMessagesViewController {
         inputToolbar.contentView.rightBarButtonItem = rightButton
         inputToolbar.contentView.textView.placeHolder = "Type Message ..."
         
+        let avatarSize = CGSize(width: 38, height: 38)
+        collectionView?.collectionViewLayout.incomingAvatarViewSize = avatarSize
+        collectionView?.collectionViewLayout.outgoingAvatarViewSize = avatarSize
+        
         observeFriendsNumber()
     }
 
@@ -94,25 +98,29 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     private func observeUsers(_ id: String) {
-       Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
-            if let dict = snapshot.value as? [String: Any] {
-                let avatarURL = dict["photoUrl"] as! String
-                self.setupAvatar(avatarURL, id)
+            Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
+                if let dict = snapshot.value as? [String: Any] {
+                    let avatarURL = dict["photoUrl"] as! String
+                    self.setupAvatar(avatarURL, id)
+                }
             }
         }
-    }
     
     private func setupAvatar(_ url: String, _ userID: String) {
-       let fileURL = URL(string: url)
-        if fileURL != nil {
-            let data = try? Data(contentsOf: fileURL!)
-            let image = UIImage(data: data!)
-            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 50)
-            avatars[userID] = userImg
-        } else {
-                avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 50)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let fileURL = URL(string: url)
+            if fileURL != nil {
+                let data = try? Data(contentsOf: fileURL!)
+                let image = UIImage(data: data!)
+                let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
+                self.avatars[userID] = userImg
+            } else {
+                self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
-        collectionView.reloadData()
     }
     
     
@@ -243,6 +251,7 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - JSQMessagesViewController DataSource
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        
         if MFMessageComposeViewController.canSendText() && mySwitch.isOn {
             let controller = MFMessageComposeViewController()
             controller.body = keyboardController.textView.text
@@ -280,6 +289,7 @@ final class ChatVIewController: JSQMessagesViewController {
         sheet.addAction(videoLibrary)
         sheet.addAction(cancel)
         self.present(sheet, animated: true, completion: nil)
+        
     }
     
     

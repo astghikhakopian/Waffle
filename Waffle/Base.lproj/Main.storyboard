@@ -605,7 +605,7 @@
             </objects>
             <point key="canvasLocation" x="1218" y="1693"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home-->
         <scene sceneID="1vM-Vy-FGZ">
             <objects>
                 <viewController storyboardIdentifier="loggedInVC1" id="iVb-lb-Rsr" customClass="HomeViewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
@@ -878,7 +878,7 @@
                         <viewLayoutGuide key="safeArea" id="bT3-ad-se0"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" prompt="Settings" id="UUN-IO-hsi" colorLabel="IBBuiltInLabel-Red"/>
+                    <navigationItem key="navigationItem" title="Home" id="UUN-IO-hsi" colorLabel="IBBuiltInLabel-Red"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageOfUser" destination="rxD-60-ib5" id="NDF-ik-dTi"/>
@@ -931,7 +931,7 @@
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="reK-0P-cu5"/>
+        <segue reference="7bL-2A-Z1n"/>
         <segue reference="QrO-sG-nVR"/>
     </inferredMetricsTieBreakers>
 </document>

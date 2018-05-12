@@ -132,7 +132,7 @@ class HomeViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNavViewBarImage()
+       // addNavViewBarImage()
         if (imageOfUser.image == nil) {
             spinner.startAnimating()
             dispatchQueue.asyncAfter(deadline: .now() + 1, execute:  {

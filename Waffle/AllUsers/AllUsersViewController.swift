@@ -26,14 +26,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
         if users.count == 0 {
             tableView.separatorStyle = .none
-            DispatchQueue.global(qos: .userInteractive).async {
-                DispatchQueue.main.async {
-                    self.spinner.startAnimating()
-                }
-            }
+            self.spinner.startAnimating()
             DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                 DispatchQueue.main.async {
-                    
                     self.tableView.isHidden = false
                     self.animateTable()
                 }
@@ -56,26 +51,34 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
         cell.nameLabel.text = users[indexPath.row].name
         cell.emailLabel.text = users[indexPath.row].email
-        let imageUrl = URL(string: users[indexPath.row].photoURL)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let imageUrl = URL(string: self.users[indexPath.row].photoURL)
         if let theProfileImageUrl = imageUrl {
             do {
                 let imageData = try Data(contentsOf: theProfileImageUrl as URL)
-                cell.imageVIew.image = UIImage(data: imageData)
-                cell.imageVIew.layer.borderWidth=1.0
-                cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-                cell.imageVIew.layer.masksToBounds = false
-                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
-                cell.imageVIew.clipsToBounds = true
+                DispatchQueue.main.async {
+                    cell.imageVIew.image = UIImage(data: imageData)
+                    cell.imageVIew.layer.borderWidth=1.0
+                    cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                    cell.imageVIew.layer.masksToBounds = false
+                    cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
+                    cell.imageVIew.clipsToBounds = true
+                }
+                
             } catch {
                 print("Unable to load data: \(error)")
             }
         } else {
-            cell.imageVIew.layer.borderWidth=1.0
-            cell.imageVIew.layer.masksToBounds = false
-            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
-            cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-            cell.imageVIew.clipsToBounds = true
-            cell.imageVIew.image = UIImage(named: "defaultProfile")
+            DispatchQueue.main.async {
+                cell.imageVIew.layer.borderWidth=1.0
+                cell.imageVIew.layer.masksToBounds = false
+                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
+                cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                cell.imageVIew.clipsToBounds = true
+                cell.imageVIew.image = UIImage(named: "defaultProfile")
+            }
+            
+            }
         }
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
@@ -110,9 +113,13 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc private func loadItems() {
-        self.users.removeAll()
-        self.fetchUsers()
-        self.refreshControl.endRefreshing()
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.users.removeAll()
+            self.fetchUsers()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
 
     // MARK: - NavigationController
