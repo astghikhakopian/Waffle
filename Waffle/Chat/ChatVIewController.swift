@@ -62,7 +62,6 @@ final class ChatVIewController: JSQMessagesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let reachability = Reachability()!
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
         do {
@@ -93,6 +92,9 @@ final class ChatVIewController: JSQMessagesViewController {
         Database.database().reference().child("users").child(friendId).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.friendNumber = dict["phone number"] as? String ?? ""
+                if self.friendNumber == "" {
+                    self.mySwitch.isEnabled = false
+                }
             }
         }
     }
@@ -205,6 +207,28 @@ final class ChatVIewController: JSQMessagesViewController {
         self.present(mediaPicker, animated: true, completion: nil)
     }
     
+    private func getMediaURL(_ filePath: String, _ mediaType: String) {
+        
+        StorageReference().child(filePath).downloadURL(completion: { (url, error) in
+            if error == nil {
+                if let downloadString = url {
+                    let messageRef = self.ref.childByAutoId()
+                    let downloadURL = downloadString.absoluteString
+                    let messageData = ["fileURL": downloadURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": mediaType]
+                    if self.friendId != self.senderId {
+                        messageRef.setValue(messageData)
+                        Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+                    } else {
+                        messageRef.setValue(messageData)
+                    }
+                }
+            } else {
+                print("Something went wrong!!")
+            }
+        })
+
+    }
+    
     private func sendMedia(_ image: UIImage?, _ video: URL?) {
         if let image = image {
             let filePath = "\(Auth.auth().currentUser!.uid)/\(Date.timeIntervalSinceReferenceDate)"
@@ -240,10 +264,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                let messageRef = self.ref.childByAutoId()
-                let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
-                messageRef.setValue(messageData)
+                self.getMediaURL(filePath, "VIDEO")
             }
         }
     }
@@ -259,7 +280,6 @@ final class ChatVIewController: JSQMessagesViewController {
             controller.recipients = [friendNumber]
             controller.messageComposeDelegate = self
             present(controller, animated: true, completion: nil)
-            print("Tapped")
         }
         let messageRef = ref.childByAutoId()
         let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
