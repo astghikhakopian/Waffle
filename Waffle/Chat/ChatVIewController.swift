@@ -241,17 +241,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                let messageRef = self.ref.childByAutoId()
-                let fileURL = metadata!.downloadURLs![0].absoluteString
-                print(fileURL)
-                let messageData = ["fileURL": fileURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
-                
-                if self.friendId != self.senderId {
-                    messageRef.setValue(messageData)
-                    Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
-                } else {
-                    messageRef.setValue(messageData)
-                }
+                self.getMediaURL(filePath, "PHOTO")
             }
         } else if let video = video {
             let filePath = "\(Auth.auth().currentUser!.uid)/\(Date.timeIntervalSinceReferenceDate)"

@@ -159,8 +159,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.refreshControl = refreshControl
         tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
-        
-        refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
+        refreshControl.tintColor = UIColor(red: 232/255, green: 79/255, blue: 82/255, alpha: 1.0)
         refreshControl.attributedTitle = NSAttributedString(string:"", attributes: [:])
     }
     
