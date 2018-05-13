@@ -9,8 +9,7 @@ import Foundation
 
 class MyImageCache
 {
-    static let sharedCache: NSCache =
-    { () -> NSCache<AnyObject, AnyObject> in
+    static let sharedCache: NSCache = { () -> NSCache<AnyObject, AnyObject> in
         let cache = NSCache<AnyObject, AnyObject>()
         cache.name = "MyImageCache"
         cache.countLimit = 200 // Max 200 images in memory.

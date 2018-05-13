@@ -19,7 +19,50 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
-   
+    
+    
+    // MARK: - Lifecycle Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // addNavViewBarImage()
+        if (imageOfUser.image == nil) {
+            spinner.startAnimating()
+            dispatchQueue.asyncAfter(deadline: .now() + 1, execute:  {
+                self.dispatchQueue.async {
+                    let id = Auth.auth().currentUser?.uid
+                    Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+                        if let dictionary = snapshot.value as? [String: Any] {
+                            DispatchQueue.main.async {
+                                self.usernameLabel.text = (dictionary["name"] as! String)
+                                self.usernameTextField.text = (dictionary["name"] as! String)
+                            }
+                            if (dictionary["photoUrl"] as! String) != "" {
+                                let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
+                                do {
+                                    let imageData = try Data(contentsOf: theProfileImageURL!)
+                                    DispatchQueue.main.async {self.imageOfUser.image = UIImage(data: imageData)
+                                    }
+                                }catch {
+                                    print("Unable to load data: \(error)")
+                                }
+                            } else {
+                                DispatchQueue.main.async {self.imageOfUser.image = UIImage(named: "defaultProfile")
+                                }
+                            }
+                        }
+                    })
+                }
+                DispatchQueue.main.async {
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                    self.imageOfUser.isHidden = false
+                }
+            })
+        }
+    }
+    
+    
     // MARK: - Actions
     
     @IBAction func editUsernameAction(_ sender: Any) {
@@ -73,14 +116,14 @@ class HomeViewController: UIViewController {
             }
         })
     }
-   
+    
     @IBAction func editPhotoAction(_ sender: Any) {
         /*if imageOfUser.image == nil {
-            let imagePicker = UIImagePickerController()
-            //imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }*/
+         let imagePicker = UIImagePickerController()
+         //imagePicker.delegate = self
+         imagePicker.sourceType = .photoLibrary
+         present(imagePicker, animated: true, completion: nil)
+         }*/
     }
     
     @IBAction func saveNewUsername(_ sender: Any) {
@@ -129,47 +172,7 @@ class HomeViewController: UIViewController {
         })
     }
     
-    // MARK: - Lifecycle Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       // addNavViewBarImage()
-        if (imageOfUser.image == nil) {
-            spinner.startAnimating()
-            dispatchQueue.asyncAfter(deadline: .now() + 1, execute:  {
-                self.dispatchQueue.async {
-                    let id = Auth.auth().currentUser?.uid
-                    Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
-                        if let dictionary = snapshot.value as? [String: Any] {
-                            DispatchQueue.main.async {
-                            self.usernameLabel.text = (dictionary["name"] as! String)
-                            self.usernameTextField.text = (dictionary["name"] as! String)
-                            }
-                            if (dictionary["photoUrl"] as! String) != "" {
-                                let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
-                                do {
-                                    let imageData = try Data(contentsOf: theProfileImageURL as! URL)
-                                    DispatchQueue.main.async {self.imageOfUser.image = UIImage(data: imageData)
-                                }
-                                }catch {
-                                    print("Unable to load data: \(error)")
-                                }
-                            } else {
-                                DispatchQueue.main.async {self.imageOfUser.image = UIImage(named: "defaultProfile")
-                            }
-                        }
-                    }
-                })
-                }
-                DispatchQueue.main.async {
-                    self.spinner.stopAnimating()
-                    self.spinner.isHidden = true
-                    self.imageOfUser.isHidden = false
-                }
-              })
-            }
-        }
-    
-    // Mark:- Private Methods
+    // MARK: - Private Methods
     
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -178,9 +181,7 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // Mark:- NavigationController Methods
-    
-    func addNavViewBarImage() {
+    private func addNavViewBarImage() {
         let navController = navigationController
         let logo = UIImage(named: "logo.png")
         let imageView = UIImageView(image:logo)
@@ -191,6 +192,4 @@ class HomeViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView
     }
-    
 }
-

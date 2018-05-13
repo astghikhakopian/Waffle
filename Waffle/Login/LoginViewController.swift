@@ -15,7 +15,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     // MARK: - Properties
     
-    
     @IBOutlet weak var containerViewTop: NSLayoutConstraint!
     @IBOutlet weak var logoVerticalCentre: NSLayoutConstraint!
     @IBOutlet weak var logoHeight: NSLayoutConstraint!
@@ -52,10 +51,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
         
     }
-    deinit {
-        print("LoginViewController deallocated")
-        
-    }
+    
     
     // MARK: - Actions
     
@@ -83,7 +79,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 if let error = error {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                 } else {
-                    // TODO: - Logged In user becomes current user
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     UserDefaults.standard.set(user?.uid, forKey: "currentUserId")
                     self.moveToVC(withIdentifier: "loggedInVC")
@@ -118,15 +113,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         if error == nil {
             let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
             performLogin(with: credential, error: error, accessToken: user.authentication.accessToken)
-        } else {
-            return
-        }
+        } else { return }
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        return
-    }
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) { return }
+    
     
     // MARK: - UITextFieldDelegate
     
@@ -135,6 +126,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         return true
     }
    
+    
     // MARK: - Private Methods
     
     private func performLogin(with credential: AuthCredential, error: Error?, accessToken: String?) {

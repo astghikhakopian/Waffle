@@ -21,6 +21,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
     
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -51,6 +52,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
     // MARK: - UITableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,7 +70,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                     let imageData = try Data(contentsOf: theProfileImageUrl as URL)
                     DispatchQueue.main.async {
                         cell.imageVIew.image = UIImage(data: imageData)
-                        cell.imageVIew.layer.borderWidth=1.0
+                        cell.imageVIew.layer.borderWidth = 1.0
                         cell.imageVIew.layer.borderColor = UIColor.white.cgColor
                         cell.imageVIew.layer.masksToBounds = false
                         cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
@@ -86,12 +88,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                     cell.imageVIew.layer.borderColor = UIColor.white.cgColor
                     cell.imageVIew.clipsToBounds = true
                     cell.imageVIew.image = UIImage(named: "defaultProfile")
-
                 }
-                
             }
         }
-        
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = contacts[indexPath.row].id
@@ -157,30 +156,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching Data...", attributes: [:])
     }
     
-    @objc private func handleTap(gestureRecognizer: TapRecognizer) {
-        performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
-    }
-    
-    @objc private func loadItems() {
-        contacts.removeAll()
-        fetchCurrentUserMessagesIds()
-        fetchContacts()
-        DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
-        }
-    }
-    
-    // MARK: - NavigationController
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "chatVCSegue" {
-            let chatVC = segue.destination as! ChatVIewController
-            let recogniser = sender as! TapRecognizer
-            chatVC.friendId = recogniser.userId
-        }
-    }
-    
-    func addNavViewBarImage() {
+    private func addNavViewBarImage() {
         let navController = navigationController
         let logo = UIImage(named: "logo.png")
         let imageView = UIImageView(image: logo)
@@ -195,5 +171,28 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         navigationItem.titleView = imageView
     }
     
+    @objc private func handleTap(gestureRecognizer: TapRecognizer) {
+        performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
+    }
+    
+    @objc private func loadItems() {
+        contacts.removeAll()
+        fetchCurrentUserMessagesIds()
+        fetchContacts()
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    
+    // MARK: - NavigationController
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatVCSegue" {
+            let chatVC = segue.destination as! ChatVIewController
+            let recogniser = sender as! TapRecognizer
+            chatVC.friendId = recogniser.userId
+        }
+    }
 }
 
