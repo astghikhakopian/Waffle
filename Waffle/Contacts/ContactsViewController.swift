@@ -21,6 +21,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
     
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -51,6 +52,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
     // MARK: - UITableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,27 +63,35 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
         cell.nameLabel.text = contacts[indexPath.row].name
         cell.emailLabel.text = contacts[indexPath.row].email
-        let imageUrl = URL(string: contacts[indexPath.row].photoURL)
-        if let theProfileImageUrl = imageUrl {
-            do {
-                let imageData = try Data(contentsOf: theProfileImageUrl as URL)
-                cell.imageVIew.image = UIImage(data: imageData)
-                cell.imageVIew.layer.borderWidth=1.0
-                cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-                cell.imageVIew.layer.masksToBounds = false
-                cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
-                cell.imageVIew.clipsToBounds = true
-            } catch {
-                print("Unable to load data: \(error)")
+        DispatchQueue.global(qos: .userInteractive).async {
+            let imageUrl = URL(string: self.contacts[indexPath.row].photoURL)
+            if let theProfileImageUrl = imageUrl {
+                do {
+                    let imageData = try Data(contentsOf: theProfileImageUrl as URL)
+                    DispatchQueue.main.async {
+                        cell.imageVIew.image = UIImage(data: imageData)
+                        cell.imageVIew.layer.borderWidth = 1.0
+                        cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                        cell.imageVIew.layer.masksToBounds = false
+                        cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                        cell.imageVIew.clipsToBounds = true
+                    }
+                    
+                } catch {
+                    print("Unable to load data: \(error)")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.imageVIew.layer.borderWidth=1.0
+                    cell.imageVIew.layer.masksToBounds = false
+                    cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
+                    cell.imageVIew.layer.borderColor = UIColor.white.cgColor
+                    cell.imageVIew.clipsToBounds = true
+                    cell.imageVIew.image = UIImage(named: "defaultProfile")
+                }
             }
-        } else {
-            cell.imageVIew.layer.borderWidth=1.0
-            cell.imageVIew.layer.masksToBounds = false
-            cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
-            cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-            cell.imageVIew.clipsToBounds = true
-            cell.imageVIew.image = UIImage(named: "defaultProfile")
         }
+        
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = contacts[indexPath.row].id
         cell.addGestureRecognizer(tap)
@@ -142,8 +152,23 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.refreshControl = refreshControl
         tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(loadItems), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
+        refreshControl.tintColor = UIColor(red: 232/255, green: 79/255, blue: 82/255, alpha: 1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching Data...", attributes: [:])
+    }
+    
+    private func addNavViewBarImage() {
+        let navController = navigationController
+        let logo = UIImage(named: "logo.png")
+        let imageView = UIImageView(image: logo)
+        navigationItem.titleView = imageView
+        let bannerWidth = navController?.navigationBar.frame.size.width
+        let bannerHeight = navController?.navigationBar.frame.size.height
+        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+        
+        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+        imageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = imageView
     }
     
     @objc private func handleTap(gestureRecognizer: TapRecognizer) {
@@ -159,6 +184,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
     // MARK: - NavigationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -168,21 +194,5 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             chatVC.friendId = recogniser.userId
         }
     }
-    
-    func addNavViewBarImage() {
-        let navController = navigationController
-        let logo = UIImage(named: "logo.png")
-        let imageView = UIImageView(image: logo)
-        navigationItem.titleView = imageView
-        let bannerWidth = navController?.navigationBar.frame.size.width
-        let bannerHeight = navController?.navigationBar.frame.size.height
-        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-        
-        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
-        imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
-    }
-    
 }
 

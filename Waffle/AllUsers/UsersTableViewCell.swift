@@ -8,6 +8,8 @@
 import UIKit
 
 class UsersTableViewCell: UITableViewCell {
+    static let id = "UsersTableViewCell"
+    
     @IBOutlet weak var imageVIew: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!

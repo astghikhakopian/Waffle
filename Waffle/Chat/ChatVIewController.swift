@@ -29,11 +29,11 @@ final class ChatVIewController: JSQMessagesViewController {
     private var friendNumber: String = ""
     var friendId: String!
     
+    
     // MARK: - Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        addNavViewBarImage()
         if let currentUser = Auth.auth().currentUser {
             senderId = currentUser.uid
             senderDisplayName = "\(currentUser.displayName ?? "")"
@@ -53,12 +53,15 @@ final class ChatVIewController: JSQMessagesViewController {
         inputToolbar.contentView.rightBarButtonItem = rightButton
         inputToolbar.contentView.textView.placeHolder = "Type Message ..."
         
+        let avatarSize = CGSize(width: 38, height: 38)
+        collectionView?.collectionViewLayout.incomingAvatarViewSize = avatarSize
+        collectionView?.collectionViewLayout.outgoingAvatarViewSize = avatarSize
+        
         observeFriendsNumber()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let reachability = Reachability()!
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
         do {
@@ -84,17 +87,20 @@ final class ChatVIewController: JSQMessagesViewController {
             print("Network not reachable")
         }
     }
-
+    
     private func observeFriendsNumber() {
         Database.database().reference().child("users").child(friendId).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.friendNumber = dict["phone number"] as? String ?? ""
+                if self.friendNumber == "" {
+                    self.mySwitch.isEnabled = false
+                }
             }
         }
     }
     
     private func observeUsers(_ id: String) {
-       Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
+        Database.database().reference().child("users").child(id).observe(.value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let avatarURL = dict["photoUrl"] as! String
                 self.setupAvatar(avatarURL, id)
@@ -103,42 +109,46 @@ final class ChatVIewController: JSQMessagesViewController {
     }
     
     private func setupAvatar(_ url: String, _ userID: String) {
-       let fileURL = URL(string: url)
-        if fileURL != nil {
-            let data = try? Data(contentsOf: fileURL!)
-            let image = UIImage(data: data!)
-            let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 50)
-            avatars[userID] = userImg
-        } else {
-                avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 50)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let fileURL = URL(string: url)
+            if fileURL != nil {
+                let data = try? Data(contentsOf: fileURL!)
+                let image = UIImage(data: data!)
+                let userImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
+                self.avatars[userID] = userImg
+            } else {
+                self.avatars[userID] = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatar"), diameter: 30)
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
-        collectionView.reloadData()
     }
     
     
-//    func addNavViewBarImage() {
-//        let navController = navigationController
-//        let logo = UIImage(named: "logo.png")
-//        let imageView = UIImageView(image:logo)
-//        self.navigationItem.titleView = imageView
-//        let bannerWidth = navController?.navigationBar.frame.size.width
-//        let bannerHeight = navController?.navigationBar.frame.size.height
-//        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-//        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-//        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
-//        imageView.contentMode = .scaleAspectFit
-//        navigationItem.titleView = imageView
-//    }
+    //    func addNavViewBarImage() {
+    //        let navController = navigationController
+    //        let logo = UIImage(named: "logo.png")
+    //        let imageView = UIImageView(image:logo)
+    //        self.navigationItem.titleView = imageView
+    //        let bannerWidth = navController?.navigationBar.frame.size.width
+    //        let bannerHeight = navController?.navigationBar.frame.size.height
+    //        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+    //        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+    //        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+    //        imageView.contentMode = .scaleAspectFit
+    //        navigationItem.titleView = imageView
+    //    }
     
     private func observeMessages() {
         ref.observe(DataEventType.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 if (dict["receiver"] as? String == self.senderId) && (dict["senderID"] as? String == self.friendId) || (dict["receiver"] as? String == self.friendId) && (dict["senderID"] as? String == self.senderId) {
                     let mediaType = dict["MediaType"] as! String
-                let senderID = dict["senderID"] as! String
-                let senderName = dict["senderName"] as! String
-                self.observeUsers(senderID)
-                switch mediaType {
+                    let senderID = dict["senderID"] as! String
+                    let senderName = dict["senderName"] as! String
+                    self.observeUsers(senderID)
+                    switch mediaType {
                     case "TEXT":
                         let text = dict["text"] as! String
                         self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
@@ -180,21 +190,43 @@ final class ChatVIewController: JSQMessagesViewController {
                             video?.appliesMediaViewMaskAsOutgoing = false
                         }
                         break
-                    
+                        
                     default:
                         break
-                        }
-                        self.finishReceivingMessage(animated: true)
                     }
+                    self.finishReceivingMessage(animated: true)
                 }
             }
         }
+    }
     
     private func getMedia(_ type: CFString) {
-       let mediaPicker = UIImagePickerController()
+        let mediaPicker = UIImagePickerController()
         mediaPicker.delegate = self
         mediaPicker.mediaTypes = [type as String]
         self.present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    private func getMediaURL(_ filePath: String, _ mediaType: String) {
+        
+        StorageReference().child(filePath).downloadURL(completion: { (url, error) in
+            if error == nil {
+                if let downloadString = url {
+                    let messageRef = self.ref.childByAutoId()
+                    let downloadURL = downloadString.absoluteString
+                    let messageData = ["fileURL": downloadURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": mediaType]
+                    if self.friendId != self.senderId {
+                        messageRef.setValue(messageData)
+                        Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
+                    } else {
+                        messageRef.setValue(messageData)
+                    }
+                }
+            } else {
+                print("Something went wrong!!")
+            }
+        })
+
     }
     
     private func sendMedia(_ image: UIImage?, _ video: URL?) {
@@ -209,16 +241,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                let messageRef = self.ref.childByAutoId()
-                let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL, "receiver": self.friendId ,"senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "PHOTO"]
-              
-                if self.friendId != self.senderId {
-                    messageRef.setValue(messageData)
-                    Database.database().reference().child("users").child(self.friendId).child("messages").childByAutoId().setValue(messageData)
-                } else {
-                    messageRef.setValue(messageData)
-                }
+                self.getMediaURL(filePath, "PHOTO")
             }
         } else if let video = video {
             let filePath = "\(Auth.auth().currentUser!.uid)/\(Date.timeIntervalSinceReferenceDate)"
@@ -231,10 +254,7 @@ final class ChatVIewController: JSQMessagesViewController {
                     print(error!.localizedDescription)
                     return
                 }
-                let messageRef = self.ref.childByAutoId()
-                let fileURL = metadata!.downloadURLs![0].absoluteString
-                let messageData = ["fileURL": fileURL, "receiver": self.friendId, "senderID": self.senderId, "senderName": self.senderDisplayName, "MediaType": "VIDEO"]
-                messageRef.setValue(messageData)
+                self.getMediaURL(filePath, "VIDEO")
             }
         }
     }
@@ -243,22 +263,22 @@ final class ChatVIewController: JSQMessagesViewController {
     // MARK: - JSQMessagesViewController DataSource
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        
         if MFMessageComposeViewController.canSendText() && mySwitch.isOn {
             let controller = MFMessageComposeViewController()
             controller.body = keyboardController.textView.text
             controller.recipients = [friendNumber]
             controller.messageComposeDelegate = self
             present(controller, animated: true, completion: nil)
-            print("Tapped")
         }
-            let messageRef = ref.childByAutoId()
-            let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
-            if friendId != senderId {
-                messageRef.setValue(messageData)
-                Database.database().reference().child("users").child(friendId).child("messages").childByAutoId().setValue(messageData)
-            } else {
-                messageRef.setValue(messageData)
-            }
+        let messageRef = ref.childByAutoId()
+        let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
+        if friendId != senderId {
+            messageRef.setValue(messageData)
+            Database.database().reference().child("users").child(friendId).child("messages").childByAutoId().setValue(messageData)
+        } else {
+            messageRef.setValue(messageData)
+        }
         finishSendingMessage(animated: true)
     }
     
@@ -280,6 +300,7 @@ final class ChatVIewController: JSQMessagesViewController {
         sheet.addAction(videoLibrary)
         sheet.addAction(cancel)
         self.present(sheet, animated: true, completion: nil)
+        
     }
     
     
@@ -322,13 +343,13 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let picture = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if containsText {
-                    if let tessercat = G8Tesseract(language: "eng") {
-                        tessercat.delegate = self
-                        tessercat.image = picture.g8_blackAndWhite()
-                        tessercat.recognize()
-                        keyboardController.textView.text = tessercat.recognizedText
-                        containsText = !containsText
-                        inputToolbar.contentView.rightBarButtonItem.isEnabled = true
+                if let tessercat = G8Tesseract(language: "eng") {
+                    tessercat.delegate = self
+                    tessercat.image = picture.g8_blackAndWhite()
+                    tessercat.recognize()
+                    keyboardController.textView.text = tessercat.recognizedText
+                    containsText = !containsText
+                    inputToolbar.contentView.rightBarButtonItem.isEnabled = true
                 }
             } else {
                 sendMedia(picture, nil)
@@ -355,12 +376,5 @@ extension ChatVIewController: MFMessageComposeViewControllerDelegate, G8Tesserac
     func progressImageRecognition(for tesseract: G8Tesseract!) {
         print("\(tesseract.progress) %")
     }
-
+    
 }
-
-
-
-
-
-
-

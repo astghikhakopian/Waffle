@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var repeatPasswordField: UITextField!
     @IBOutlet weak var phoneNumberField: UITextField!
     
+    
     // MARK: - Lifecicle Methods
     
     override func viewDidLoad() {
@@ -33,8 +34,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         super.viewDidAppear(animated)
         animateStack()
     }
-
+    
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     // MARK: - Actions
+    
     @IBAction func signUp() {
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text, let phoneNumber = phoneNumberField.text {
             if pass == repeatpass {
@@ -58,17 +73,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func moveToLoginVC() {
         moveToVC(withIdentifier: "loginVC")
-    }
-    
-    // MARK: - UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     
