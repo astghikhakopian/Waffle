@@ -12,10 +12,52 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: - Properties
     
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var viewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sideView: UIView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imageOfUser: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
     private let refreshControl = UIRefreshControl()
     var users: [User] = []
+    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
+    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .began || sender.state == .changed {
+            let translation = sender.translation(in: self.view).x
+            if translation > 0 {
+                if viewConstraint.constant < 20 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.viewConstraint.constant += translation / 10
+                        self.view.layoutIfNeeded()
+                    })
+                }
+            } else {
+                if viewConstraint.constant > -175 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.viewConstraint.constant += translation / 10
+                        self.view.layoutIfNeeded()
+                    })
+                }
+                
+            }
+        } else if sender.state == .ended {
+            if viewConstraint.constant < -100 {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = -175
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+        
+    }
     
     
     // MARK: - Lifecycle methods
@@ -31,7 +73,16 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                 DispatchQueue.main.async {
                     self.tableView.isHidden = false
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
                     self.animateTable()
+                    self.blurView.layer.cornerRadius = 15
+                    self.sideView.layer.shadowColor = UIColor.red.cgColor
+                    self.sideView.layer.shadowOpacity = 0.8
+                    self.sideView.layer.shadowOffset = CGSize(width:5, height:0)
+                    self.viewConstraint.constant = -175
+                    self.settingsReload()
+                    self.sideView.isHidden = false
                 }
             }
         }
@@ -40,6 +91,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.loadItems()
+        
     }
     
     
@@ -123,6 +175,47 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
     }
+    
+    private func settingsReload() {
+        self.dispatchQueue.async {
+            let id = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    DispatchQueue.main.async {
+                        self.usernameLabel.text = (dictionary["name"] as! String)
+                        self.emailLabel.text = (dictionary["email"] as! String)
+                        self.numberLabel.text = (dictionary["phone number"] as! String)
+                    }
+                    if (dictionary["photoUrl"] as! String) != "" {
+                        let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
+                        do {
+                            let imageData = try Data(contentsOf: theProfileImageURL!)
+                            DispatchQueue.main.async {
+                                self.imageOfUser.image = UIImage(data: imageData)
+                                self.imageOfUser.layer.borderWidth = 1.0
+                                self.imageOfUser.layer.borderColor = UIColor.white.cgColor
+                                self.imageOfUser.layer.masksToBounds = false
+                                self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
+                                self.imageOfUser.clipsToBounds = true
+                            }
+                        }catch {
+                            print("Unable to load data: \(error)")
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.imageOfUser.image = UIImage(named: "defaultProfile")
+                            self.imageOfUser.layer.borderWidth = 1.0
+                            self.imageOfUser.layer.borderColor = UIColor.white.cgColor
+                            self.imageOfUser.layer.masksToBounds = false
+                            self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
+                            self.imageOfUser.clipsToBounds = true
+                            
+                        }
+                    }
+                }
+            })
+        }
+    }
 
     // MARK: - NavigationController
     
@@ -163,8 +256,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             }, completion: nil)
             delayCounter += 1
         }
-        spinner.stopAnimating()
-        spinner.isHidden = true
+        
     }
     
     private func setupRefreshControl() {

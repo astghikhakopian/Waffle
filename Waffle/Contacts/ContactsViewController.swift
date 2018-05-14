@@ -12,6 +12,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Properties
     
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var viewConstraint: NSLayoutConstraint!
     @IBOutlet weak var sideView: UIView!
     @IBOutlet weak var blurView: UIVisualEffectView!
@@ -26,8 +28,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
     
-    @IBAction func editButtonAction(_ sender: Any) {
-    }
+    
     @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
             let translation = sender.translation(in: self.view).x
@@ -67,27 +68,26 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        blurView.layer.cornerRadius = 15
-        sideView.layer.shadowColor = UIColor.red.cgColor
-        sideView.layer.shadowOpacity = 0.8
-        sideView.layer.shadowOffset = CGSize(width:5, height:0)
-        viewConstraint.constant = -175
-        settingsReload()
-        
-       self.setupRefreshControl()
+        setupRefreshControl()
         addNavViewBarImage()
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
-        tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-        if (contacts.count == 0) {
+        tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: UsersTableViewCell.id)
+        if contacts.count == 0 {
             tableView.separatorStyle = .none
-            spinner.startAnimating()
-            dispatchQueue.asyncAfter(deadline: .now() + 1.5) {
+            self.spinner.startAnimating()
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                 DispatchQueue.main.async {
                     self.tableView.isHidden = false
-                    self.spinner.isHidden = true
                     self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
                     self.animateTable()
-                    
+                    self.blurView.layer.cornerRadius = 15
+                    self.sideView.layer.shadowColor = UIColor.red.cgColor
+                    self.sideView.layer.shadowOpacity = 0.8
+                    self.sideView.layer.shadowOffset = CGSize(width:5, height:0)
+                    self.viewConstraint.constant = -175
+                    self.settingsReload()
+                    self.sideView.isHidden = false
                 }
             }
         }
@@ -95,9 +95,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.global().async {
-            self.loadItems()
-        }
+        self.loadItems()
     }
     
     
@@ -194,8 +192,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             }, completion: nil)
             delayCounter += 1
         }
+        
     }
-    
     private func setupRefreshControl() {
         tableView.refreshControl = refreshControl
         tableView.addSubview(refreshControl)
@@ -205,19 +203,20 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func addNavViewBarImage() {
-        let navController = navigationController
+        let navController = self.navigationController
         let logo = UIImage(named: "logo.png")
-        let imageView = UIImageView(image: logo)
-        navigationItem.titleView = imageView
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
         let bannerWidth = navController?.navigationBar.frame.size.width
         let bannerHeight = navController?.navigationBar.frame.size.height
-        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
+        //let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
+        // let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
         
-        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
+        imageView.frame = CGRect(x: 0, y: 0, width: bannerWidth!, height:bannerHeight!)
         imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
+        self.navigationItem.titleView = imageView
     }
+    
     
     @objc private func handleTap(gestureRecognizer: TapRecognizer) {
         performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
@@ -230,24 +229,40 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                 if let dictionary = snapshot.value as? [String: Any] {
                     DispatchQueue.main.async {
                         self.usernameLabel.text = (dictionary["name"] as! String)
+                        self.emailLabel.text = (dictionary["email"] as! String)
+                        self.numberLabel.text = (dictionary["phone number"] as! String)
                     }
                     if (dictionary["photoUrl"] as! String) != "" {
                         let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
                         do {
                             let imageData = try Data(contentsOf: theProfileImageURL!)
-                            DispatchQueue.main.async {self.imageOfUser.image = UIImage(data: imageData)
+                            DispatchQueue.main.async {
+                                self.imageOfUser.image = UIImage(data: imageData)
+                                self.imageOfUser.layer.borderWidth = 1.0
+                                self.imageOfUser.layer.borderColor = UIColor.white.cgColor
+                                self.imageOfUser.layer.masksToBounds = false
+                                self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
+                                self.imageOfUser.clipsToBounds = true
                             }
                         }catch {
                             print("Unable to load data: \(error)")
                         }
                     } else {
-                        DispatchQueue.main.async {self.imageOfUser.image = UIImage(named: "defaultProfile")
+                        DispatchQueue.main.async {
+                            self.imageOfUser.image = UIImage(named: "defaultProfile")
+                            self.imageOfUser.layer.borderWidth = 1.0
+                            self.imageOfUser.layer.borderColor = UIColor.white.cgColor
+                            self.imageOfUser.layer.masksToBounds = false
+                            self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
+                            self.imageOfUser.clipsToBounds = true
+                            
                         }
                     }
                 }
             })
         }
     }
+
     @objc private func loadItems() {
         contacts.removeAll()
         fetchCurrentUserMessagesIds()
