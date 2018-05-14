@@ -110,9 +110,15 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc private func loadItems() {
-        self.users.removeAll()
-        self.fetchUsers()
-        self.refreshControl.endRefreshing()
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.users.removeAll()
+            self.fetchUsers()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+            
+        }
+        
     }
 
     // MARK: - NavigationController

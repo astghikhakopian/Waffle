@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7172BC0DE771C8240A4FED1C1DA82EEB"
-               BlueprintName = "Pods-Waffle"
+               BlueprintIdentifier = "681BE6E3D02A43F9BA63777AC435C8FD"
+               BlueprintName = "GTMSessionFetcher"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Pods-Waffle.framework">
+               BuildableName = "GTMSessionFetcher.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
