@@ -12,8 +12,13 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Properties
     
+    @IBOutlet weak var viewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sideView: UIView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imageOfUser: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     private var contacts: [User] = []
@@ -21,12 +26,55 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
     
+    @IBAction func editButtonAction(_ sender: Any) {
+    }
+    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .began || sender.state == .changed {
+            let translation = sender.translation(in: self.view).x
+            if translation > 0 {
+                if viewConstraint.constant < 20 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.viewConstraint.constant += translation / 10
+                        self.view.layoutIfNeeded()
+                        })
+                }
+            } else {
+                if viewConstraint.constant > -175 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.viewConstraint.constant += translation / 10
+                        self.view.layoutIfNeeded()
+                    })
+                }
+               
+            }
+        } else if sender.state == .ended {
+            if viewConstraint.constant < -100 {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = -175
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+        
+    }
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupRefreshControl()
+        blurView.layer.cornerRadius = 15
+        sideView.layer.shadowColor = UIColor.red.cgColor
+        sideView.layer.shadowOpacity = 0.8
+        sideView.layer.shadowOffset = CGSize(width:5, height:0)
+        viewConstraint.constant = -175
+        settingsReload()
+        
+       self.setupRefreshControl()
         addNavViewBarImage()
         currentUserId = UserDefaults.standard.value(forKey: "currentUserId") as! String
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
@@ -175,6 +223,31 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "chatVCSegue", sender: gestureRecognizer)
     }
     
+    private func settingsReload() {
+        self.dispatchQueue.async {
+            let id = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    DispatchQueue.main.async {
+                        self.usernameLabel.text = (dictionary["name"] as! String)
+                    }
+                    if (dictionary["photoUrl"] as! String) != "" {
+                        let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
+                        do {
+                            let imageData = try Data(contentsOf: theProfileImageURL!)
+                            DispatchQueue.main.async {self.imageOfUser.image = UIImage(data: imageData)
+                            }
+                        }catch {
+                            print("Unable to load data: \(error)")
+                        }
+                    } else {
+                        DispatchQueue.main.async {self.imageOfUser.image = UIImage(named: "defaultProfile")
+                        }
+                    }
+                }
+            })
+        }
+    }
     @objc private func loadItems() {
         contacts.removeAll()
         fetchCurrentUserMessagesIds()

@@ -176,14 +176,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: - NavigationController
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "chatVCSegue" {
-            let chatVC = segue.destination as! ChatVIewController
-            let recogniser = sender as! TapRecognizer
-            chatVC.friendId = recogniser.userId
-        }
-    }
 }
 
 class TapRecognizer : UITapGestureRecognizer{
