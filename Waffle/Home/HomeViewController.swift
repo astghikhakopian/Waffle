@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import MobileCoreServices
 
 class HomeViewController: UIViewController {
     
@@ -118,12 +119,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func editPhotoAction(_ sender: Any) {
-        /*if imageOfUser.image == nil {
-         let imagePicker = UIImagePickerController()
-         //imagePicker.delegate = self
-         imagePicker.sourceType = .photoLibrary
-         present(imagePicker, animated: true, completion: nil)
-         }*/
+        getMedia(kUTTypeImage)
     }
     
     @IBAction func saveNewUsername(_ sender: Any) {
@@ -181,6 +177,13 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func getMedia(_ type: CFString) {
+        let mediaPicker = UIImagePickerController()
+        mediaPicker.delegate = self
+        mediaPicker.mediaTypes = [type as String]
+        self.present(mediaPicker, animated: true, completion: nil)
+    }
+
     private func addNavViewBarImage() {
         let navController = navigationController
         let logo = UIImage(named: "logo.png")
@@ -193,3 +196,44 @@ class HomeViewController: UIViewController {
         navigationItem.titleView = imageView
     }
 }
+
+//MARK: - Delegation below
+
+extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageOfUser.image = image
+            let filePath = "\(Auth.auth().currentUser!.uid)/\(Date.timeIntervalSinceReferenceDate)"
+            Storage.storage().reference().child(filePath)
+            let data = UIImageJPEGRepresentation(image, 0.5)
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpg"
+            Storage.storage().reference().child(filePath).putData(data!, metadata: metadata) { (metadata, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    return
+                }
+                StorageReference().child(filePath).downloadURL(completion: { (url, error) in
+                    if error == nil {
+                        if let downloadString = url {
+                            let downloadURL = downloadString.absoluteString
+                        Database.database().reference().child("users").child(Auth.auth().currentUser!.uid).child("photoUrl").setValue(downloadURL)
+                        }
+                    } else {
+                        print("Something went wrong!!")
+                    }
+                })
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+
+
+
+
+
+
