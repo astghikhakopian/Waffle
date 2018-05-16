@@ -24,6 +24,9 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     private let refreshControl = UIRefreshControl()
     var users: [User] = []
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
+    
+    //MARK: - Actions
+    
     @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
             let translation = sender.translation(in: self.view).x
@@ -222,8 +225,8 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "chatVCSegue" {
             let chatVC = segue.destination as! ChatVIewController
-            let recogniser = sender as! TapRecognizer
-            chatVC.friendId = recogniser.userId
+            let recognizer = sender as! TapRecognizer
+            chatVC.friendId = recognizer.userId
         }
     }
     
@@ -270,6 +273,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - NavigationController
 }
 
-class TapRecognizer : UITapGestureRecognizer{
+class TapRecognizer: UITapGestureRecognizer {
     var userId: String!
 }

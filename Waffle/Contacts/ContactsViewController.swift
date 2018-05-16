@@ -244,7 +244,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                                 self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
                                 self.imageOfUser.clipsToBounds = true
                             }
-                        }catch {
+                        } catch {
                             print("Unable to load data: \(error)")
                         }
                     } else {
@@ -272,14 +272,13 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
     // MARK: - NavigationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "chatVCSegue" {
             let chatVC = segue.destination as! ChatVIewController
-            let recogniser = sender as! TapRecognizer
-            chatVC.friendId = recogniser.userId
+            let recognizer = sender as! TapRecognizer
+            chatVC.friendId = recognizer.userId
         }
     }
 }
