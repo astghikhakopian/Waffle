@@ -27,7 +27,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     private var messagesReceiverIds = Set<String>()
     private var currentUserId: String!
     private let refreshControl = UIRefreshControl()
-    
+   
     
     @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
@@ -94,8 +94,12 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.loadItems()
+        dispatchQueue.async {
+            super.viewWillAppear(animated)
+            self.loadItems()
+            self.settingsReload()
+            
+        }
     }
     
     

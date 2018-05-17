@@ -18,9 +18,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var nameStackView: UIStackView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
-    
+    //public var edited = false
     
     // MARK: - Lifecycle Methods
     

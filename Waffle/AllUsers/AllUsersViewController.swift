@@ -92,10 +92,14 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.loadItems()
-        
+        dispatchQueue.async {
+            super.viewWillAppear(animated)
+            self.loadItems()
+            self.settingsReload()
+            
+        }
     }
+    
     
     
     // MARK: - UITableViewDataSource
@@ -201,7 +205,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                                 self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
                                 self.imageOfUser.clipsToBounds = true
                             }
-                        }catch {
+                        } catch {
                             print("Unable to load data: \(error)")
                         }
                     } else {
@@ -219,7 +223,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             })
         }
     }
-
+    
     // MARK: - NavigationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
