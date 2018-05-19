@@ -138,6 +138,18 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logOut() {
+               
+        let alertController = UIAlertController(title: "Do you really want to log out?", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okayAction = UIAlertAction(title:"Yes", style: .default, handler: logOutHandler)
+        alertController.addAction(cancelAction)
+        alertController.addAction(okayAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+            }
+    
+
+    func logOutHandler(alert: UIAlertAction!) {
         if (try? Auth.auth().signOut()) != nil {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
                 UIApplication.shared.keyWindow?.rootViewController = viewController
@@ -146,7 +158,15 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
+   /* func logOutAction() {
+        if (try? Auth.auth().signOut()) != nil {
+            if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
+                UIApplication.shared.keyWindow?.rootViewController = viewController
+                self.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+            }
+        }
+    }*/
     @IBAction func editPassword(_ sender: Any) {
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in

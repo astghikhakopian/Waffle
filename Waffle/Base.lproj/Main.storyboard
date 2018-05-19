@@ -484,7 +484,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNI-ii-Ugb">
                                                             <rect key="frame" x="0.0" y="125.5" width="127.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                             <color key="textColor" red="0.90684486040000001" green="0.072232179499999993" blue="0.14855920340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -855,7 +855,7 @@
             </objects>
             <point key="canvasLocation" x="929" y="901"/>
         </scene>
-        <!--Immediate Snap-->
+        <!--ChatV Iew Controller-->
         <scene sceneID="GNq-UK-DHn">
             <objects>
                 <viewController storyboardIdentifier="chatVC" hidesBottomBarWhenPushed="YES" id="4l4-9L-Ycd" customClass="ChatVIewController" customModule="Waffle" customModuleProvider="target" sceneMemberID="viewController">
@@ -866,12 +866,15 @@
                         <viewLayoutGuide key="safeArea" id="EWc-Ol-9i8"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Immediate Snap" id="XRO-Pk-YlF">
+                    <navigationItem key="navigationItem" id="XRO-Pk-YlF">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="hYO-Ua-XNn">
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BLJ-x4-IC4">
                                 <rect key="frame" x="308" y="6.5" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="0.92658883333206177" green="0.95696693658828735" blue="0.97724467515945435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="switchButtonAction:" destination="4l4-9L-Ycd" eventType="valueChanged" id="7CI-24-Chi"/>
+                                </connections>
                             </switch>
                         </barButtonItem>
                     </navigationItem>
@@ -974,7 +977,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2018-05-17 at 18.13.07" translatesAutoresizingMaskIntoConstraints="NO" id="HSS-9O-B3s">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat" translatesAutoresizingMaskIntoConstraints="NO" id="HSS-9O-B3s">
                                 <rect key="frame" x="20" y="165.5" width="335" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="ruC-Ng-i98"/>
@@ -1033,7 +1036,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-9a-Xxz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imessage" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-9a-Xxz">
                                 <rect key="frame" x="20" y="237.5" width="335" height="306.5"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLP-ok-B1Z">
@@ -1559,20 +1562,21 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Screen Shot 2018-05-17 at 18.13.07" width="278" height="502"/>
         <image name="Settings" width="281" height="497"/>
         <image name="add_user_male" width="30" height="30"/>
         <image name="alert" width="281" height="503"/>
         <image name="camera" width="30" height="30"/>
         <image name="cell_phone" width="30" height="30"/>
+        <image name="chat" width="279" height="501"/>
         <image name="facebook_logo" width="256" height="256"/>
         <image name="google-logo" width="384" height="384"/>
+        <image name="imessage" width="640" height="1136"/>
         <image name="lock_orientation" width="30" height="30"/>
         <image name="logo" width="177" height="163"/>
         <image name="pencil" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7Ex-4y-ClY"/>
+        <segue reference="L0m-Qm-hee"/>
         <segue reference="7bL-2A-Z1n"/>
     </inferredMetricsTieBreakers>
 </document>

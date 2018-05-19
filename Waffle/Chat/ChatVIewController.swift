@@ -21,6 +21,7 @@ final class ChatVIewController: JSQMessagesViewController {
     
     @IBOutlet weak var mySwitch: UISwitch!
     
+    
     private lazy var messages = [JSQMessage]()
     private lazy var avatars = [String: JSQMessagesAvatarImage]()
     private var containsText = false
@@ -29,6 +30,13 @@ final class ChatVIewController: JSQMessagesViewController {
     private var friendNumber: String = ""
     var friendId: String!
     
+    @IBAction func switchButtonAction(_ sender: UISwitch) {
+        if sender.isOn == true {
+            navigationItem.title = "Immediate Snap"
+        } else {
+            navigationItem.title = "Chat"
+        }
+    }
     
     // MARK: - Lifecycle Methods
     
@@ -39,6 +47,11 @@ final class ChatVIewController: JSQMessagesViewController {
             senderDisplayName = "\(currentUser.displayName ?? "")"
         }
         navigationController?.navigationBar.tintColor = .white
+        if mySwitch.isOn {
+            self.navigationItem.title = "Immediate Snap"
+        } else {
+            self.navigationItem.title = "Chat"
+        }
         observeMessages()
         scrollToBottom(animated: true)
         
@@ -265,12 +278,14 @@ final class ChatVIewController: JSQMessagesViewController {
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
         if MFMessageComposeViewController.canSendText() && mySwitch.isOn {
+            
             let controller = MFMessageComposeViewController()
             controller.body = keyboardController.textView.text
             controller.recipients = [friendNumber]
             controller.messageComposeDelegate = self
             present(controller, animated: true, completion: nil)
         }
+        navigationItem.title = "Immediate Snap"
         let messageRef = ref.childByAutoId()
         let messageData = ["text": text, "senderID": senderId, "senderName": senderDisplayName, "MediaType": "TEXT", "receiver": friendId]
         if friendId != senderId {
