@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89009FA920AF3BE8006683E2 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89009FA820AF3BE8006683E2 /* TutorialViewController.swift */; };
+		89009FAB20AF4619006683E2 /* LastTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89009FAA20AF4619006683E2 /* LastTutorialViewController.swift */; };
 		892DB3F220946FB30041FE04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DB3F120946FB30041FE04 /* HomeViewController.swift */; };
 		B50264EC209CA07B00DD0B78 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B50264EB209CA07A00DD0B78 /* tessdata */; };
 		B5282723208604C9001DA854 /* ChatVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5282722208604C9001DA854 /* ChatVIewController.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		426AA82FD9DE8F765FDB20C6 /* Pods_Waffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B433FD0AA2DC46D4BE62E07 /* Pods-Waffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waffle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waffle/Pods-Waffle.release.xcconfig"; sourceTree = "<group>"; };
+		89009FA820AF3BE8006683E2 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		89009FAA20AF4619006683E2 /* LastTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTutorialViewController.swift; sourceTree = "<group>"; };
 		892DB3F120946FB30041FE04 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B50264EB209CA07A00DD0B78 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B5282722208604C9001DA854 /* ChatVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVIewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -129,6 +133,8 @@
 			children = (
 				EF9E3847207E97F5000CB9DF /* LoginViewController.swift */,
 				EFC7265B2082B67D001A66E5 /* SignUpViewController.swift */,
+				89009FA820AF3BE8006683E2 /* TutorialViewController.swift */,
+				89009FAA20AF4619006683E2 /* LastTutorialViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -479,7 +485,9 @@
 				EF8D2DA5208CA8650068DADC /* AllUsersViewController.swift in Sources */,
 				EFD512A52093CAF4003D5833 /* ContactsViewController.swift in Sources */,
 				EF9E384E207E97F5000CB9DF /* Waffle.xcdatamodeld in Sources */,
+				89009FAB20AF4619006683E2 /* LastTutorialViewController.swift in Sources */,
 				EF9E3846207E97F5000CB9DF /* AppDelegate.swift in Sources */,
+				89009FA920AF3BE8006683E2 /* TutorialViewController.swift in Sources */,
 				EFED2D79207FE75F009897F5 /* RestAPIConstants.swift in Sources */,
 				EFD512AB2093D586003D5833 /* Message.swift in Sources */,
 				EF8D2DA8208CACD70068DADC /* User.swift in Sources */,
@@ -664,7 +672,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Waffle/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.Waffle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -683,7 +694,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Waffle/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.Waffle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -698,7 +712,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WaffleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.WaffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -714,7 +732,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WaffleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.WaffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -729,7 +751,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WaffleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.WaffleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -744,7 +770,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WaffleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = example.com.WaffleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

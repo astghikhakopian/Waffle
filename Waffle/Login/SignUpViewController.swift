@@ -18,6 +18,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     @IBOutlet weak var phoneNumberField: UITextField!
+    let delegate = TutorialViewController()
     
     
     // MARK: - Lifecicle Methods
@@ -33,7 +34,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateStack()
+        if delegate.tutorialView != nil {
+            delegate.tutorialView.removeFromSuperview()
+        }
     }
+        
     
     
     // MARK: - UITextFieldDelegate
@@ -51,6 +56,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func signUp() {
+        
         if let username = usernameField.text, let email = emailField.text, let pass = passwordField.text, let repeatpass = repeatPasswordField.text, let phoneNumber = phoneNumberField.text {
             if pass == repeatpass {
                 Auth.auth().createUser (withEmail: email, password: pass) { (user, error) in
@@ -59,7 +65,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         if let user = user {
                             self.addUserToDatabase(id: user.uid, dispayName: username, photoUrl: nil, email: email, phoneNumber: phoneNumber)
-                            self.moveToVC(withIdentifier: "loggedInVC")
+                            self.moveToVC(withIdentifier: "welcomeVC")
                         }
                     }
                 }
