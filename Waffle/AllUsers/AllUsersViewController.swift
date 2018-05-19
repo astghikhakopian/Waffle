@@ -92,10 +92,11 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         dispatchQueue.async {
-            super.viewWillAppear(animated)
             self.loadItems()
-            self.settingsReload()
+           // self.settingsReload()
             
         }
     }

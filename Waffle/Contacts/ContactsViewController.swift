@@ -94,10 +94,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         dispatchQueue.async {
-            super.viewWillAppear(animated)
             self.loadItems()
-            self.settingsReload()
+            //self.settingsReload()
             
         }
     }
