@@ -69,6 +69,7 @@ class HomeViewController: UIViewController {
         usernameLabel.isHidden = true
         nameStackView.isHidden = false
         nameStackView.alpha = 1
+        
     }
     
     @IBAction func editPhoneNumberAction(_ sender: Any) {
@@ -125,6 +126,7 @@ class HomeViewController: UIViewController {
         if usernameTextField.text == "" {
             nameStackView.isHidden = true
             usernameLabel.isHidden = false
+            usernameTextField.resignFirstResponder()
         }
         else {
             let id = Auth.auth().currentUser?.uid
@@ -133,6 +135,7 @@ class HomeViewController: UIViewController {
             usernameLabel.text = usernameTextField.text
             nameStackView.isHidden = true
             usernameLabel.isHidden = false
+            usernameTextField.resignFirstResponder()
             
         }
     }

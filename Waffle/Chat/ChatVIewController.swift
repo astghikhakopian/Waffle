@@ -13,7 +13,6 @@ import FirebaseStorage
 import FirebaseAuth
 import TesseractOCR
 import MessageUI
-import Reachability
 
 final class ChatVIewController: JSQMessagesViewController {
     
@@ -73,33 +72,7 @@ final class ChatVIewController: JSQMessagesViewController {
         observeFriendsNumber()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let reachability = Reachability()!
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("could not start reachability notifier")
-        }
-    }
-    
     // MARK: - Private Methods
-    
-    @objc private func reachabilityChanged(note: Notification) {
-        
-        let reachability = note.object as! Reachability
-        
-        switch reachability.connection {
-        case .wifi:
-            print("Reachable via WiFi")
-        case .cellular:
-            print("Reachable via Cellular")
-        case .none:
-            
-            print("Network not reachable")
-        }
-    }
     
     private func observeFriendsNumber() {
         Database.database().reference().child("users").child(friendId).observe(.value) { (snapshot) in
@@ -137,21 +110,6 @@ final class ChatVIewController: JSQMessagesViewController {
             }
         }
     }
-    
-    
-    //    func addNavViewBarImage() {
-    //        let navController = navigationController
-    //        let logo = UIImage(named: "logo.png")
-    //        let imageView = UIImageView(image:logo)
-    //        self.navigationItem.titleView = imageView
-    //        let bannerWidth = navController?.navigationBar.frame.size.width
-    //        let bannerHeight = navController?.navigationBar.frame.size.height
-    //        let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-    //        let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-    //        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height:bannerHeight!)
-    //        imageView.contentMode = .scaleAspectFit
-    //        navigationItem.titleView = imageView
-    //    }
     
     private func observeMessages() {
         ref.observe(DataEventType.childAdded) { (snapshot) in
@@ -362,8 +320,8 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
                     tessercat.delegate = self
                     tessercat.image = picture.g8_blackAndWhite()
                     tessercat.recognize()
+                    containsText = false
                     keyboardController.textView.text = tessercat.recognizedText
-                    containsText = !containsText
                     inputToolbar.contentView.rightBarButtonItem.isEnabled = true
                 }
             } else {
@@ -375,6 +333,7 @@ extension ChatVIewController: UIImagePickerControllerDelegate, UINavigationContr
             sendMedia(nil, videoURL)
         }
         dismiss(animated: true, completion: nil)
+        containsText = !containsText
         collectionView.reloadData()
     }
 }

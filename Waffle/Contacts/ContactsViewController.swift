@@ -64,6 +64,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
