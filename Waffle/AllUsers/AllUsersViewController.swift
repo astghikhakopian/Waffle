@@ -62,7 +62,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
-    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -93,7 +92,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         dispatchQueue.async {
             self.loadItems()
            // self.settingsReload()
@@ -101,10 +99,8 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
-    
     // MARK: - UITableViewDataSource
-    
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
@@ -127,6 +123,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                         cell.imageVIew.clipsToBounds = true
                     }
                 } catch {
+                    //cell.imageView?.image = nil
                     print("Unable to load data: \(error)")
                 }
             } else {
@@ -140,6 +137,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
+        
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = users[indexPath.row].id
@@ -179,14 +177,25 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             DispatchQueue.main.async {
                 self.refreshControl.endRefreshing()
             }
-            
         }
-        
     }
+    
+    /* func prepareForReuse() {
+     if imageOfUser.image == nil {
+     Database.database().reference().child("users").observe(.value, with: {(snapshot) in
+     if !(self.observationInfo != nil) {
+     self.imageOfUser.image = nil  // 'Loading Failed' image
+     }
+     self.tableView.reloadData()
+     })  // 'Loading Failed' image
+     }
+     }
+     */
     
     private func settingsReload() {
         self.dispatchQueue.async {
             let id = Auth.auth().currentUser?.uid
+    
             Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
                 if let dictionary = snapshot.value as? [String: Any] {
                     DispatchQueue.main.async {
@@ -217,7 +226,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                             self.imageOfUser.layer.masksToBounds = false
                             self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
                             self.imageOfUser.clipsToBounds = true
-                            
                         }
                     }
                 }
@@ -242,9 +250,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.titleView = imageView
         let bannerWidth = navController?.navigationBar.frame.size.width
         let bannerHeight = navController?.navigationBar.frame.size.height
-        //let bannerX = bannerWidth! / 2 - (logo?.size.width)! / 2
-        // let bannerY = bannerHeight! / 2 - (logo?.size.height)! / 2
-        
         imageView.frame = CGRect(x: 0, y: 0, width: bannerWidth!, height:bannerHeight!)
         imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView

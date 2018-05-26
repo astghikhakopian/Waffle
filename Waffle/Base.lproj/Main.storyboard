@@ -1017,7 +1017,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbQ-bp-y26" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5324" y="88"/>
+            <point key="canvasLocation" x="5308" y="88"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ip1-n4-8Gn">
@@ -1083,7 +1083,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send photo or the text of the photo with message!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVf-Po-PkS">
-                                <rect key="frame" x="0.0" y="94" width="375" height="23.5"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="50.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1113,8 +1113,8 @@
                         <color key="backgroundColor" red="0.91144511419999996" green="0.31054572670000002" blue="0.32317958679999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fVf-Po-PkS" firstAttribute="centerX" secondItem="7Yu-x5-ecI" secondAttribute="centerX" id="BaM-Tg-HQq"/>
-                            <constraint firstItem="w5v-IT-xHJ" firstAttribute="top" secondItem="fVf-Po-PkS" secondAttribute="bottom" constant="57" id="MSV-fE-QVh"/>
                             <constraint firstItem="7Yu-x5-ecI" firstAttribute="trailing" secondItem="w5v-IT-xHJ" secondAttribute="trailing" constant="20" id="Rdx-Dd-pY5"/>
+                            <constraint firstItem="w5v-IT-xHJ" firstAttribute="top" secondItem="fVf-Po-PkS" secondAttribute="bottom" constant="30" id="RsS-Qv-tTL"/>
                             <constraint firstItem="w5v-IT-xHJ" firstAttribute="centerY" secondItem="7Yu-x5-ecI" secondAttribute="centerY" id="SDh-fr-4GW"/>
                             <constraint firstItem="fVf-Po-PkS" firstAttribute="width" secondItem="YhH-Gf-JqD" secondAttribute="width" id="ZVo-MY-dKf"/>
                             <constraint firstItem="w5v-IT-xHJ" firstAttribute="leading" secondItem="YhH-Gf-JqD" secondAttribute="leading" constant="20" id="df2-De-5o1"/>
@@ -1138,9 +1138,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View your profile settings by swiping the screen right" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3O-7H-IeX">
-                                <rect key="frame" x="0.0" y="94" width="375" height="23.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View your profile settings by swiping the screen right" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3O-7H-IeX">
+                                <rect key="frame" x="0.0" y="94" width="375" height="60.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1170,12 +1170,12 @@
                         <constraints>
                             <constraint firstItem="6Wh-zz-R4B" firstAttribute="centerY" secondItem="jEB-SU-F76" secondAttribute="centerY" id="0FZ-ph-GYQ"/>
                             <constraint firstItem="E3O-7H-IeX" firstAttribute="centerX" secondItem="jEB-SU-F76" secondAttribute="centerX" id="AjR-HR-pLe"/>
-                            <constraint firstItem="6Wh-zz-R4B" firstAttribute="top" secondItem="E3O-7H-IeX" secondAttribute="bottom" constant="47" id="Cr0-Ht-qeI"/>
                             <constraint firstItem="0bj-lA-UBw" firstAttribute="top" secondItem="6Wh-zz-R4B" secondAttribute="bottom" constant="30" id="PaP-N1-NEn"/>
                             <constraint firstItem="6Wh-zz-R4B" firstAttribute="leading" secondItem="jEB-SU-F76" secondAttribute="leading" constant="20" id="S7m-Ah-j5h"/>
                             <constraint firstItem="E3O-7H-IeX" firstAttribute="top" secondItem="jEB-SU-F76" secondAttribute="top" constant="30" id="fCL-2g-MvB"/>
                             <constraint firstItem="jEB-SU-F76" firstAttribute="trailing" secondItem="6Wh-zz-R4B" secondAttribute="trailing" constant="20" id="fgM-lo-Ghp"/>
                             <constraint firstItem="jEB-SU-F76" firstAttribute="trailing" secondItem="0bj-lA-UBw" secondAttribute="trailing" constant="20" id="krx-sk-xZa"/>
+                            <constraint firstItem="6Wh-zz-R4B" firstAttribute="top" secondItem="E3O-7H-IeX" secondAttribute="bottom" constant="10" id="mP0-Kg-BAd"/>
                             <constraint firstItem="E3O-7H-IeX" firstAttribute="width" secondItem="cKF-lo-MPg" secondAttribute="width" id="udJ-RE-iv2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jEB-SU-F76"/>

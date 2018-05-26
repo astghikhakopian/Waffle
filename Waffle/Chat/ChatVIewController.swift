@@ -261,16 +261,17 @@ final class ChatVIewController: JSQMessagesViewController {
         let photoLibrary = UIAlertAction(title: "Photo Library", style: .default) { (alert) in
             self.getMedia(kUTTypeImage)
         }
-        let videoLibrary = UIAlertAction(title: "Video Library", style: .default) { (alert) in
+       /* let videoLibrary = UIAlertAction(title: "Video Library", style: .default) { (alert) in
             self.getMedia(kUTTypeMovie)
         }
+     */
         let imgToText = UIAlertAction(title: "Image to Text", style: .default) { (alert) in
             self.containsText = !self.containsText
             self.getMedia(kUTTypeImage)
         }
         sheet.addAction(imgToText)
         sheet.addAction(photoLibrary)
-        sheet.addAction(videoLibrary)
+       // sheet.addAction(videoLibrary)
         sheet.addAction(cancel)
         self.present(sheet, animated: true, completion: nil)
         
