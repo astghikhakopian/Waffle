@@ -19,17 +19,16 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var nameStackView: UIStackView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
-    //public var edited = false
     
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // addNavViewBarImage()
         if (imageOfUser.image == nil) {
             spinner.startAnimating()
-            dispatchQueue.asyncAfter(deadline: .now() + 1, execute:  {
-                self.dispatchQueue.async {
+            addNavViewBarImage()
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 1, execute:  {
+                 DispatchQueue.global(qos: .userInteractive).async {
                     let id = Auth.auth().currentUser?.uid
                     Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
                         if let dictionary = snapshot.value as? [String: Any] {
@@ -62,14 +61,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Actions
     
     @IBAction func editUsernameAction(_ sender: Any) {
         usernameLabel.isHidden = true
         nameStackView.isHidden = false
         nameStackView.alpha = 1
-        
     }
     
     @IBAction func editPhoneNumberAction(_ sender: Any) {
@@ -127,8 +124,7 @@ class HomeViewController: UIViewController {
             nameStackView.isHidden = true
             usernameLabel.isHidden = false
             usernameTextField.resignFirstResponder()
-        }
-        else {
+        } else {
             let id = Auth.auth().currentUser?.uid
             let currentUser = Database.database().reference().child("users").child(id!)
             currentUser.child("name").setValue(usernameTextField.text)
@@ -141,14 +137,13 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logOut() {
-               
+        
         let alertController = UIAlertController(title: "Do you really want to log out?", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okayAction = UIAlertAction(title:"Yes", style: .default, handler: logOutHandler)
         alertController.addAction(cancelAction)
         alertController.addAction(okayAction)
         self.present(alertController, animated: true, completion: nil)
-        
             }
     
 
@@ -161,15 +156,7 @@ class HomeViewController: UIViewController {
             }
         }
     }
-   /* func logOutAction() {
-        if (try? Auth.auth().signOut()) != nil {
-            if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") {
-                UIApplication.shared.keyWindow?.rootViewController = viewController
-                self.dismiss(animated: true, completion: nil)
-                UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            }
-        }
-    }*/
+  
     @IBAction func editPassword(_ sender: Any) {
         let id = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
@@ -205,9 +192,9 @@ class HomeViewController: UIViewController {
         mediaPicker.mediaTypes = [type as String]
         self.present(mediaPicker, animated: true, completion: nil)
     }
-
+    
     private func addNavViewBarImage() {
-        let navController = navigationController
+        let navController = self.navigationController
         let logo = UIImage(named: "logo.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
@@ -215,9 +202,10 @@ class HomeViewController: UIViewController {
         let bannerHeight = navController?.navigationBar.frame.size.height
         imageView.frame = CGRect(x: 0, y: 0, width: bannerWidth!, height:bannerHeight!)
         imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
+        self.navigationItem.titleView = imageView
     }
 }
+
 
 //MARK: - Delegation below
 

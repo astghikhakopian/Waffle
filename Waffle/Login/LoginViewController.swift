@@ -49,9 +49,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 })
             })
         }
-        
     }
-    
     
     // MARK: - Actions
     

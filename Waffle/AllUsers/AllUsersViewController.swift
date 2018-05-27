@@ -78,13 +78,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.spinner.stopAnimating()
                     self.spinner.isHidden = true
                     self.animateTable()
-                    self.blurView.layer.cornerRadius = 15
-                    self.sideView.layer.shadowColor = UIColor.red.cgColor
-                    self.sideView.layer.shadowOpacity = 0.8
-                    self.sideView.layer.shadowOffset = CGSize(width:5, height:0)
-                    self.viewConstraint.constant = -175
-                    self.settingsReload()
-                    self.sideView.isHidden = false
                 }
             }
         }
@@ -107,6 +100,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
+        cell.prepareForReuse()
         cell.nameLabel.text = users[indexPath.row].name
         cell.emailLabel.text = users[indexPath.row].email
         DispatchQueue.global(qos: .userInteractive).async {
@@ -180,7 +174,7 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    /* func prepareForReuse() {
+     func prepareForReuse() {
      if imageOfUser.image == nil {
      Database.database().reference().child("users").observe(.value, with: {(snapshot) in
      if !(self.observationInfo != nil) {
@@ -190,48 +184,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
      })  // 'Loading Failed' image
      }
      }
-     */
-    
-    private func settingsReload() {
-        self.dispatchQueue.async {
-            let id = Auth.auth().currentUser?.uid
-    
-            Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: {(snapshot) in
-                if let dictionary = snapshot.value as? [String: Any] {
-                    DispatchQueue.main.async {
-                        self.usernameLabel.text = (dictionary["name"] as! String)
-                        self.emailLabel.text = (dictionary["email"] as! String)
-                        self.numberLabel.text = (dictionary["phone number"] as! String)
-                    }
-                    if (dictionary["photoUrl"] as! String) != "" {
-                        let theProfileImageURL = URL(string:(dictionary["photoUrl"]as! String))
-                        do {
-                            let imageData = try Data(contentsOf: theProfileImageURL!)
-                            DispatchQueue.main.async {
-                                self.imageOfUser.image = UIImage(data: imageData)
-                                self.imageOfUser.layer.borderWidth = 1.0
-                                self.imageOfUser.layer.borderColor = UIColor.white.cgColor
-                                self.imageOfUser.layer.masksToBounds = false
-                                self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
-                                self.imageOfUser.clipsToBounds = true
-                            }
-                        } catch {
-                            print("Unable to load data: \(error)")
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.imageOfUser.image = UIImage(named: "defaultProfile")
-                            self.imageOfUser.layer.borderWidth = 1.0
-                            self.imageOfUser.layer.borderColor = UIColor.white.cgColor
-                            self.imageOfUser.layer.masksToBounds = false
-                            self.imageOfUser.layer.cornerRadius = self.imageOfUser.frame.size.height/2
-                            self.imageOfUser.clipsToBounds = true
-                        }
-                    }
-                }
-            })
-        }
-    }
     
     // MARK: - NavigationController
     
