@@ -98,6 +98,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.tableView.isHidden = false
                 self.spinner.stopAnimating()
                 self.tableView.reloadData()
+                self.animateTable()
             }
         }, withCancel: nil)
     }
