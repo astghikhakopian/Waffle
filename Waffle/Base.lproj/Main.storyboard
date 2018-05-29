@@ -510,9 +510,6 @@
                             <constraint firstItem="a3V-8j-ArH" firstAttribute="top" secondItem="btb-qn-5mU" secondAttribute="top" id="viY-1D-7lC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="btb-qn-5mU"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="iyZ-cT-IMz" appends="YES" id="K12-pL-Cx1"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" prompt="Contacts" id="001-OM-DNg"/>
                     <connections>
@@ -522,11 +519,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pq3-VT-6Bm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="iyZ-cT-IMz">
-                    <connections>
-                        <action selector="panGestureAction:" destination="r1K-E8-hEw" id="eLh-pa-Jkf"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-418.39999999999998" y="2489.5052473763121"/>
         </scene>
@@ -1108,7 +1100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVf-0G-cqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2111" y="2490"/>
+            <point key="canvasLocation" x="2086" y="2490"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0W2-os-2we">
