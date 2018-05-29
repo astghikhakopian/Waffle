@@ -19,8 +19,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private let refreshControl = UIRefreshControl()
     
-    //    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
-    
     
     // MARK: - Lifecycle methods
     
@@ -36,10 +34,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: UsersTableViewCell.id)
         
         loadItems()
-        self.tableView.isHidden = false
-        //                    self.animateTable()
-        
-        
     }
     
     
@@ -95,9 +89,12 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
                 if let dictionary = snapshot.value as? [String: Any] {
                     let user = User(json: dictionary)
                     self.users.append(user)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    
+                    
+                    self.tableView.isHidden = false
+                    self.spinner.stopAnimating()
+                    self.tableView.reloadData()
+                    self.animateTable()
                 }
             }, withCancel: nil)
         }
@@ -154,7 +151,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
             }, completion: nil)
             delayCounter += 1
         }
-        
     }
     
     private func setupRefreshControl() {

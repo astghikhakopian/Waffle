@@ -53,12 +53,16 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.nameLabel.text = contacts[indexPath.row].name
         cell.emailLabel.text = contacts[indexPath.row].email
         
+        cell.imageVIew.image = nil
+        
         DispatchQueue.global(qos: .userInteractive).async {
             let imageUrl = URL(string: self.contacts[indexPath.row].photoURL)
             if let imageUrl = imageUrl {
                 if let imageData = try? Data(contentsOf: imageUrl as URL) {
                     DispatchQueue.main.async {
-                        cell.imageVIew.image = UIImage(data: imageData)
+                        if cell.imageVIew.image == nil {
+                            cell.imageVIew.image = UIImage(data: imageData)
+                        }
                     }
                 }
             } else {
