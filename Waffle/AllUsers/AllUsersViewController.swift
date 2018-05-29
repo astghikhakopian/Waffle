@@ -12,133 +12,72 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: - Properties
     
-    @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var viewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var sideView: UIView!
-    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var imageOfUser: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    private let refreshControl = UIRefreshControl()
+    
     var users: [User] = []
-    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
     
-    //MARK: - Actions
+    private let refreshControl = UIRefreshControl()
     
-    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .began || sender.state == .changed {
-            let translation = sender.translation(in: self.view).x
-            if translation > 0 {
-                if viewConstraint.constant < 20 {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.viewConstraint.constant += translation / 10
-                        self.view.layoutIfNeeded()
-                    })
-                }
-            } else {
-                if viewConstraint.constant > -175 {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.viewConstraint.constant += translation / 10
-                        self.view.layoutIfNeeded()
-                    })
-                }
-                
-            }
-        } else if sender.state == .ended {
-            if viewConstraint.constant < -100 {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.viewConstraint.constant = -175
-                    self.view.layoutIfNeeded()
-                })
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.viewConstraint.constant = 0
-                    self.view.layoutIfNeeded()
-                })
-            }
-        }
-        
-    }
+    //    let dispatchQueue = DispatchQueue(label: "Dispatch Queue", attributes: [], target: nil)
+    
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        spinner.startAnimating()
+        tableView.separatorStyle = .none
+        
         setupRefreshControl()
         addNavViewBarImage()
+        
         tableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: UsersTableViewCell.id)
-        if users.count == 0 {
-            tableView.separatorStyle = .none
-            self.spinner.startAnimating()
-            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-                DispatchQueue.main.async {
-                    self.tableView.isHidden = false
-                    self.spinner.stopAnimating()
-                    self.spinner.isHidden = true
-                    self.animateTable()
-                }
-            }
-        }
+        
+        loadItems()
+        self.tableView.isHidden = false
+        //                    self.animateTable()
+        
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        dispatchQueue.async {
-            self.loadItems()
-           // self.settingsReload()
-            
-        }
-    }
     
     // MARK: - UITableViewDataSource
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell") as! UsersTableViewCell
-        cell.prepareForReuse()
+        
         cell.nameLabel.text = users[indexPath.row].name
         cell.emailLabel.text = users[indexPath.row].email
+        
         DispatchQueue.global(qos: .userInteractive).async {
             let imageUrl = URL(string: self.users[indexPath.row].photoURL)
-            if let theProfileImageUrl = imageUrl {
-                do {
-                    let imageData = try Data(contentsOf: theProfileImageUrl as URL)
+            if let imageUrl = imageUrl {
+                if let imageData = try? Data(contentsOf: imageUrl as URL) {
                     DispatchQueue.main.async {
                         cell.imageVIew.image = UIImage(data: imageData)
-                        cell.imageVIew.layer.borderWidth=1.0
-                        cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-                        cell.imageVIew.layer.masksToBounds = false
-                        cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
-                        cell.imageVIew.clipsToBounds = true
                     }
-                } catch {
-                    //cell.imageView?.image = nil
-                    print("Unable to load data: \(error)")
                 }
             } else {
                 DispatchQueue.main.async {
-                    cell.imageVIew.layer.borderWidth=1.0
-                    cell.imageVIew.layer.masksToBounds = false
-                    cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height / 2
-                    cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-                    cell.imageVIew.clipsToBounds = true
                     cell.imageVIew.image = UIImage(named: "defaultProfile")
                 }
             }
         }
-        
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = users[indexPath.row].id
         cell.addGestureRecognizer(tap)
         
         return cell
+        
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
@@ -174,16 +113,6 @@ class AllUsersViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-     func prepareForReuse() {
-     if imageOfUser.image == nil {
-     Database.database().reference().child("users").observe(.value, with: {(snapshot) in
-     if !(self.observationInfo != nil) {
-     self.imageOfUser.image = nil  // 'Loading Failed' image
-     }
-     self.tableView.reloadData()
-     })  // 'Loading Failed' image
-     }
-     }
     
     // MARK: - NavigationController
     

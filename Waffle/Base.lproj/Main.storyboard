@@ -455,9 +455,6 @@
                             <constraint firstItem="N3r-SR-iqV" firstAttribute="leading" secondItem="h2Z-Lp-bo3" secondAttribute="leading" id="uPB-Wv-ocH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h2Z-Lp-bo3"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="dGI-ux-A75" appends="YES" id="0Qh-aB-S3z"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" prompt="All users" id="x4w-Qj-1V4"/>
                     <connections>
@@ -467,11 +464,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGy-lz-vPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="dGI-ux-A75">
-                    <connections>
-                        <action selector="panGestureAction:" destination="0OM-xx-1aU" id="4Qc-c6-Kyv"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="929" y="2490"/>
         </scene>
@@ -1100,7 +1092,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVf-0G-cqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="2490"/>
+            <point key="canvasLocation" x="2217" y="2490"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0W2-os-2we">
@@ -1184,7 +1176,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsU-Fu-UfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2085.5999999999999" y="1692.5037481259371"/>
+            <point key="canvasLocation" x="2217" y="1693"/>
         </scene>
     </scenes>
     <resources>
