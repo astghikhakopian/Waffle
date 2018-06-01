@@ -455,9 +455,6 @@
                             <constraint firstItem="N3r-SR-iqV" firstAttribute="leading" secondItem="h2Z-Lp-bo3" secondAttribute="leading" id="uPB-Wv-ocH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h2Z-Lp-bo3"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="dGI-ux-A75" appends="YES" id="0Qh-aB-S3z"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" prompt="All users" id="x4w-Qj-1V4"/>
                     <connections>
@@ -467,11 +464,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGy-lz-vPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="dGI-ux-A75">
-                    <connections>
-                        <action selector="panGestureAction:" destination="0OM-xx-1aU" id="4Qc-c6-Kyv"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="929" y="2490"/>
         </scene>

@@ -53,19 +53,24 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.nameLabel.text = contacts[indexPath.row].name
         cell.emailLabel.text = contacts[indexPath.row].email
         
-        let imageUrl = URL(string: self.contacts[indexPath.row].photoURL)
-        if let imageUrl = imageUrl {
-            let imageData = try? Data(contentsOf: imageUrl as URL)
-            cell.imageVIew.image = UIImage(data: imageData!)
-        } else {
-            cell.imageVIew.image = UIImage(named: "defaultProfile")
-        }
+        cell.imageVIew.image = nil
         
-        cell.imageVIew.layer.borderWidth = 1.0
-        cell.imageVIew.layer.borderColor = UIColor.white.cgColor
-        cell.imageVIew.layer.masksToBounds = false
-        cell.imageVIew.layer.cornerRadius = cell.imageVIew.frame.size.height/2
-        cell.imageVIew.clipsToBounds = true
+        DispatchQueue.global(qos: .userInteractive).async {
+            let imageUrl = URL(string: self.contacts[indexPath.row].photoURL)
+            if let imageUrl = imageUrl {
+                if let imageData = try? Data(contentsOf: imageUrl as URL) {
+                    DispatchQueue.main.async {
+                        if cell.imageVIew.image == nil {
+                            cell.imageVIew.image = UIImage(data: imageData)
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.imageVIew.image = UIImage(named: "defaultProfile")
+                }
+            }
+        }
         
         let tap = TapRecognizer(target: self, action: #selector(self.handleTap(gestureRecognizer:)))
         tap.userId = contacts[indexPath.row].id
@@ -85,7 +90,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         contacts.removeAll()
         fetchContacts()
         fetchCurrentUserMessagesIds()
-        self.refreshControl.endRefreshing()
+        refreshControl.endRefreshing()
     }
     
     private func fetchContacts() {
